@@ -9,13 +9,13 @@ import { setUserName } from '../../../utils/storage';
 export default function Main({ navigation }) {
   const [flag, setFlag] = useState(false);
   const [text, onChangeText] = useState('');
-  console.log('flag:', flag);
+  // console.log('flag:', flag);
   const chancheFlag = () => {
     setFlag(!flag);
   };
   const saveName = () => {
     setUserName(text);
-    console.log('xexexe', text);
+    // console.log('xexexe', text);
   };
   return (
     <View style={styles.container}>
@@ -48,8 +48,8 @@ export default function Main({ navigation }) {
           />
           <Button
             onPress={() => {
-              saveName();
               navigation.navigate('Home');
+              saveName();
             }}
             onstyle={styles.button}
             status="success"
