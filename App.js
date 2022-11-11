@@ -21,9 +21,10 @@ const Stack = createNativeStackNavigator();
 function Home() {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="About" component={AboutPage} />
-      <Tab.Screen name="Subjects" component={SubjectPage} />
-      <Tab.Screen name="Person" component={PersonalPage} />
+      <Tab.Screen name="Subjects" component={SubjectPage} options={{ headerShown: false }} />
+      <Tab.Screen name="About" component={AboutPage} options={{ headerShown: false }} />
+
+      <Tab.Screen name="Person" component={PersonalPage} options={{ headerShown: false }} />
     </Tab.Navigator>
   );
 }

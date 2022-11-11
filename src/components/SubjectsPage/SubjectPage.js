@@ -7,7 +7,7 @@ import {
 import { setTopicsThunk } from '../../redux/actions/topicsActions';
 import OneSubject from '../OneSubject/OneSubject';
 
-export default function SubjectPage() {
+export default function SubjectPage({ navigation }) {
   const topics = useSelector((state) => state.topics);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -18,7 +18,13 @@ export default function SubjectPage() {
     <View style={styles.container}>
       <Text style={styles.title}>Предметы</Text>
       <Text style={styles.text}>Выбери предмет для подготовки</Text>
-      {topics && topics.map((el) => <OneSubject subject={el} key={el.title} />)}
+      {topics && topics.map((el) => (
+        <OneSubject
+          navigation={navigation}
+          subject={el}
+          key={el.title}
+        />
+      ))}
     </View>
   );
 }

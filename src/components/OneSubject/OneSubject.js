@@ -8,7 +8,7 @@ import { Text } from '@ui-kitten/components';
 import { useDispatch } from 'react-redux';
 import { setOptionsThunk } from '../../redux/actions/optionsActions';
 
-export default function OneSubject({ subject }) {
+export default function OneSubject({ subject, navigation }) {
   const dispatch = useDispatch();
   const backgroundForRus = require('../../../assets/rus.png');
   const backgroundForSoc = require('../../../assets/soc.png');
@@ -17,11 +17,13 @@ export default function OneSubject({ subject }) {
   if (subject.title === 'Русский язык') backgroundImage = backgroundForRus;
   if (subject.title === 'Обществознание') backgroundImage = backgroundForSoc;
 
+  const fuck = () => navigation.navigate('Options');
   return (
     <TouchableOpacity
       style={styles.oneSubject}
       onPress={() => {
         dispatch(setOptionsThunk(subject.url));
+        fuck();
       }}
     >
       <View style={styles.oneSubject}>

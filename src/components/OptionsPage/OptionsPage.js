@@ -8,7 +8,7 @@ import { setOptionsThunk } from '../../redux/actions/optionsActions';
 import { setCurrentSubject } from '../../redux/actions/subjectActions';
 import OneOption from '../OneOption/OneOption';
 
-export default function SubjectPage() {
+export default function OptionsPage() {
   const currSubject = useSelector((state) => state.currSubject);
   const options = useSelector((state) => state.options);
   const dispatch = useDispatch();
