@@ -5,7 +5,6 @@ import {
 import {
   PieChart,
 } from 'react-native-chart-kit';
-
 import { Text } from '@ui-kitten/components';
 // получить из пропсов или редакса резалт и использовать его
 const result = { goodAnswer: 50, badAnswer: 50 };
