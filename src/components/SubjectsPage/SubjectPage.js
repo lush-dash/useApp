@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'start',
     width: '100%',
-    marginTop: '30%',
+    paddingTop: '30%',
   },
   title: {
     fontWeight: 'bold',
