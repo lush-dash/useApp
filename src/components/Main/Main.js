@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import { Text, Button } from '@ui-kitten/components';
 
-export default function Main() {
+export default function Main({ navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.myText} category="h3">Добро пожаловать в USEApp</Text>
@@ -17,9 +17,15 @@ export default function Main() {
         Привет! Давай начнем учиться!
         Проведи время с пользой.
       </Text>
-      <Button style={styles.button} status="success">
+      <Button
+        style={styles.button}
+        status="success"
+        title="Home"
+        onPress={() => navigation.navigate('Home')}
+      >
         Начать!
       </Button>
+
     </View>
   );
 }
