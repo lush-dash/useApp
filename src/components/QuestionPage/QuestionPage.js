@@ -5,3 +5,5 @@ export default function QuestionPage() {
     <div>QuestionPage</div>
   );
 }
+
+//  const questions = useSelector((state) => state.questions);
