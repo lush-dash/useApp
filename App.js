@@ -1,41 +1,57 @@
-import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
-import {
-  StyleSheet, View,
-} from 'react-native';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
 import { Provider } from 'react-redux';
-// import Main from './src/components/Main/Main';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import AboutPage from './src/components/AboutPage/AboutPage';
+import SubjectPage from './src/components/SubjectsPage/SubjectPage';
+import PersonalPage from './src/components/PersonalPage/PersonalPage';
+import Main from './src/components/Main/Main';
+import OptionsPage from './src/components/OptionsPage/OptionsPage';
+import QuestionPage from './src/components/QuestionPage/QuestionPage';
+import ResultsPage from './src/components/ResultsPage/ResultsPage';
 import store from './src/redux/store';
 
-import MyStack from './src/components/Navigation/MyStack';
+const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
+
+// обертка для табов
+function Home() {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen name="About" component={AboutPage} />
+      <Tab.Screen name="Subjects" component={SubjectPage} />
+      <Tab.Screen name="Person" component={PersonalPage} />
+    </Tab.Navigator>
+  );
+}
 
 function App() {
   return (
     <NavigationContainer>
       <ApplicationProvider {...eva} theme={eva.light}>
-
-        {/* <Main /> */}
-
         <Provider store={store}>
-          {/* <View style={styles.container}> */}
-          <MyStack />
-          {/* </View> */}
+          <Stack.Navigator>
+            <Stack.Screen
+              name="Main"
+              component={Main}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Home"
+              component={Home}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen name="Options" component={OptionsPage} />
+            <Stack.Screen name="Question" component={QuestionPage} />
+            <Stack.Screen name="Result" component={ResultsPage} />
+          </Stack.Navigator>
         </Provider>
       </ApplicationProvider>
     </NavigationContainer>
-
   );
 }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
 
 export default App;
