@@ -4,14 +4,18 @@ import {
 } from 'react-native';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
+import { Provider } from 'react-redux';
 import Main from './src/components/Main/Main';
+import store from './src/redux/store';
 
 export default function App() {
   return (
     <ApplicationProvider {...eva} theme={eva.light}>
-      <View style={styles.container}>
-        <Main />
-      </View>
+      <Provider store={store}>
+        <View style={styles.container}>
+          <Main />
+        </View>
+      </Provider>
     </ApplicationProvider>
   );
 }
