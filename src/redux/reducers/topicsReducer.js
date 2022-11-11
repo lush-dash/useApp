@@ -1,6 +1,6 @@
 import { SET_TOPICS } from '../types';
 
-export default function electronicsReducer(state = [], action) {
+export default function topicsReducer(state = [], action) {
   const { type, payload } = action;
 
   switch (type) {

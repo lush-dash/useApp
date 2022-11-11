@@ -14,3 +14,8 @@ export default function SubjectPage() {
     <Text>{topics[0]?.title}</Text>
   );
 }
+
+// по клику на предмет:
+// onClick={()=>{
+//   dispatch(setOptionsThunk(topicUrl))
+// }}
