@@ -1,3 +1,4 @@
+import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import {
   StyleSheet, View,
@@ -5,26 +6,36 @@ import {
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
 import { Provider } from 'react-redux';
-import Main from './src/components/Main/Main';
+// import Main from './src/components/Main/Main';
 import store from './src/redux/store';
 
-export default function App() {
+import MyStack from './src/components/Navigation/MyStack';
+
+function App() {
   return (
-    <ApplicationProvider {...eva} theme={eva.light}>
-      <Provider store={store}>
-        <View style={styles.container}>
-          <Main />
-        </View>
-      </Provider>
-    </ApplicationProvider>
+    <NavigationContainer>
+      <ApplicationProvider {...eva} theme={eva.light}>
+
+        {/* <Main /> */}
+
+        <Provider store={store}>
+          {/* <View style={styles.container}> */}
+          <MyStack />
+          {/* </View> */}
+        </Provider>
+      </ApplicationProvider>
+    </NavigationContainer>
+
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#fff',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+// });
+
+export default App;

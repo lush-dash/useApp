@@ -6,7 +6,7 @@ import {
 import { Text, Button } from '@ui-kitten/components';
 import { setUserName } from '../../../utils/storage';
 
-export default function Main() {
+export default function Main({ navigation }) {
   const [flag, setFlag] = useState(false);
   const [text, onChangeText] = useState('');
   console.log('flag:', flag);
@@ -46,7 +46,15 @@ export default function Main() {
             defaultValue={text}
             placeholder="name"
           />
-          <Button onPress={() => saveName()} onstyle={styles.button} status="success">
+          <Button
+            onPress={() => {
+              saveName();
+              navigation.navigate('Home');
+            }}
+            onstyle={styles.button}
+            status="success"
+            title="Home"
+          >
             Сохранить
           </Button>
         </>
