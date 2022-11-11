@@ -10,7 +10,7 @@ export default function Main() {
     <View style={styles.container}>
       <Text style={styles.myText} category="h3">Добро пожаловать в USEApp</Text>
       <Image
-        source={require('../../image/mainIcon.jpg')}
+        source={require('../../../assets/mainIcon.jpg')}
         style={{ width: 200, height: 200 }}
       />
       <Text style={styles.myText} category="h3">
