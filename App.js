@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import {
@@ -15,13 +14,13 @@ import MyStack from './src/components/Navigation/MyStack';
 function App() {
   return (
     <ApplicationProvider {...eva} theme={eva.light}>
-          <NavigationContainer>
-      <MyStack />
-      <Provider store={store}>
-        <View style={styles.container}>
-          <Main />
-        </View>
-      </Provider>
+      <NavigationContainer>
+        <MyStack />
+        <Provider store={store}>
+          <View style={styles.container}>
+            <Main />
+          </View>
+        </Provider>
       </NavigationContainer>
     </ApplicationProvider>
   );
