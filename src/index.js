@@ -1,6 +1,7 @@
 const axios = require('axios');
 const jsdom = require('jsdom');
 
+// перенесено в redux
 axios('https://useapp.ams3.digitaloceanspaces.com/allTopic.json')
   .then((res) => {
     const topic = res.data;
@@ -13,6 +14,7 @@ const options = {
     'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36',
   },
 };
+
 axios('https://rus-ege.sdamgia.ru/test?id=31926141', options)
   .then((res) => {
     const dom = new JSDOM(res.data);
