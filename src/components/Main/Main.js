@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import {
   Image,
-  StyleSheet, TextInput, View, Text, Button,
+  StyleSheet, View, Text,
 } from 'react-native';
 // import { Text, Button } from '@ui-kitten/components';
 // import { Button } from '@ui-kitten/components';
@@ -15,7 +15,6 @@ import { setUserName } from '../../../utils/storage';
 export default function Main({ navigation }) {
   const [fontsLoaded] = useFonts({
     MontserratMedium: require('../../../assets/fonts/Montserrat-Medium.ttf'),
-    MontserratSemiBold: require('../../../assets/fonts/Montserrat-SemiBold.ttf'),
   });
   const [flag, setFlag] = useState(false);
   const [text, onChangeText] = useState('');
@@ -121,7 +120,7 @@ const styles = StyleSheet.create({
     width: '70%',
     fontFamily: 'MontserratMedium',
     borderRadius: '30',
-    borderWidth: 3,
+    borderWidth: 1,
     borderColor: '#353739',
     marginBottom: '7%',
     textAlign: 'center',
