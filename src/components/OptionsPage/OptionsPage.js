@@ -45,7 +45,7 @@ export default function OptionsPage() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#f4f6fa',
     alignItems: 'center',
     justifyContent: 'start',
     width: '100%',
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#f4f6fa',
     alignItems: 'center',
     justifyContent: 'start',
     width: '100%',
@@ -63,19 +63,18 @@ const styles = StyleSheet.create({
     borderTopRightRadius: '30',
   },
   title: {
-    fontWeight: 'bold',
-    fontSize: '35',
     alignSelf: 'flex-start',
     marginLeft: '10%',
     marginBottom: '5%',
     fontFamily: 'MontserratBold',
+    fontSize: '35',
     color: '#353739',
   },
   text: {
-    fontSize: '20',
     alignSelf: 'flex-start',
     marginLeft: '10%',
     marginBottom: '10%',
+    fontSize: '20',
     fontFamily: 'MontserratMedium',
     color: '#353739',
   },

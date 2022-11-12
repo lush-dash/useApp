@@ -23,8 +23,8 @@ function Home() {
     <Tab.Navigator>
       <Tab.Screen name="Subjects" component={SubjectPage} options={{ headerShown: false }} />
       <Tab.Screen name="About" component={AboutPage} options={{ headerShown: false }} />
-
-      <Tab.Screen name="Person" component={PersonalPage} options={{ headerShown: false }} />
+      {/* <Tab.Screen name="Person" component={PersonalPage} options={{ headerShown: false }} /> */}
+      <Tab.Screen name="Person" component={ResultsPage} options={{ headerShown: false }} />
     </Tab.Navigator>
   );
 }
