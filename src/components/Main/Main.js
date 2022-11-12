@@ -97,10 +97,10 @@ export default function Main({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f4f6fa',
+    backgroundColor: 'white',
   },
   innerContainer: {
-    backgroundColor: '#f4f6fa',
+    backgroundColor: 'white',
     alignItems: 'center',
     jusifySelf: 'start',
   },
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   buttonText: {
-    color: '#f4f6fa',
+    color: 'white',
     fontFamily: 'MontserratMedium',
     fontSize: 25,
   },

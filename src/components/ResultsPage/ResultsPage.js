@@ -80,7 +80,7 @@ const chartConfig = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f4f6fa',
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: '15%',
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     flex: 1,
-    backgroundColor: '#f4f6fa',
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
