@@ -45,7 +45,7 @@ export default function SubjectPage({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f4f6fa',
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'start',
     width: '100%',
