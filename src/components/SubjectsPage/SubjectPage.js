@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
     marginBottom: '5%',
     marginTop: '15%',
     fontFamily: 'MontserratBold',
+    color: '#353739',
   },
   text: {
     fontSize: '20',
@@ -68,6 +69,7 @@ const styles = StyleSheet.create({
     marginLeft: '10%',
     marginBottom: '10%',
     fontFamily: 'MontserratMedium',
+    color: '#353739',
   },
   scroll: {
     width: '100%',

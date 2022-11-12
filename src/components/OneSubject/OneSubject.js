@@ -69,5 +69,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: '25',
     fontFamily: 'MontserratMedium',
+    color: '#353739',
   },
 });

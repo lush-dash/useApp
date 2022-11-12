@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
     marginLeft: '10%',
     fontWeight: 'bold',
     fontFamily: 'MontserratSemiBold',
+    color: '#353739',
   },
   container: {
     width: '90%',
