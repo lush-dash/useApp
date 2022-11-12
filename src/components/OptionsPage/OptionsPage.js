@@ -4,11 +4,18 @@ import { Text } from '@ui-kitten/components';
 import {
   StyleSheet, View,
 } from 'react-native';
+import { useFonts } from 'expo-font';
 import OneOption from '../OneOption/OneOption';
 
 export default function OptionsPage() {
   const currSubject = useSelector((state) => state.currSubject);
   const options = useSelector((state) => state.options);
+  const [fontsLoaded] = useFonts({
+    MontserratMedium: require('../../../assets/fonts/Montserrat-Medium.ttf'),
+    MontserratBold: require('../../../assets/fonts/Montserrat-Bold.ttf'),
+  });
+
+  if (!fontsLoaded) return null;
 
   return (
     <View style={{
@@ -46,11 +53,13 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     marginLeft: '10%',
     marginBottom: '5%',
+    fontFamily: 'MontserratBold',
   },
   text: {
     fontSize: '20',
     alignSelf: 'flex-start',
     marginLeft: '10%',
     marginBottom: '10%',
+    fontFamily: 'MontserratMedium',
   },
 });

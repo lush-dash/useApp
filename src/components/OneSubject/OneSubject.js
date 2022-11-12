@@ -6,10 +6,15 @@ import {
 } from 'react-native';
 import { Text } from '@ui-kitten/components';
 import { useDispatch } from 'react-redux';
+import { useFonts } from 'expo-font';
 import { setOptionsThunk } from '../../redux/actions/optionsActions';
 import { setCurrentSubject } from '../../redux/actions/subjectActions';
 
 export default function OneSubject({ subject, navigation }) {
+  const [fontsLoaded] = useFonts({
+    MontserratMedium: require('../../../assets/fonts/Montserrat-Medium.ttf'),
+  });
+
   const dispatch = useDispatch();
   const backgroundForRus = require('../../../assets/rus.png');
   const backgroundForSoc = require('../../../assets/soc.png');
@@ -19,6 +24,9 @@ export default function OneSubject({ subject, navigation }) {
   if (subject.title === 'Обществознание') backgroundImage = backgroundForSoc;
 
   const fuck = () => navigation.navigate('Options');
+
+  if (!fontsLoaded) return null;
+
   return (
     <TouchableOpacity
       style={styles.oneSubject}
@@ -58,5 +66,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: '25',
+    fontFamily: 'MontserratMedium',
   },
 });
