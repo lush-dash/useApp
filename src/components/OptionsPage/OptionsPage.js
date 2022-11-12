@@ -5,6 +5,7 @@ import {
   StyleSheet, View,
 } from 'react-native';
 import { useFonts } from 'expo-font';
+import { ScrollView } from 'react-native-gesture-handler';
 import OneOption from '../OneOption/OneOption';
 
 export default function OptionsPage() {
@@ -18,26 +19,39 @@ export default function OptionsPage() {
   if (!fontsLoaded) return null;
 
   return (
-    <View style={{
-      flex: 1,
-      backgroundColor: currSubject?.color,
-      alignItems: 'center',
-      justifyContent: 'start',
-      width: '100%',
-      paddingTop: '40%',
-    }}
-    >
+    <View style={styles.container}>
+      <ScrollView style={styles.scroll}>
+        <View style={{
+          flex: 1,
+          backgroundColor: currSubject?.color,
+          alignItems: 'center',
+          justifyContent: 'start',
+          width: '100%',
+          paddingTop: '30%',
+        }}
+        >
+          <View style={styles.innerContainer}>
+            <Text style={styles.title}>{currSubject?.title}</Text>
+            <Text style={styles.text}>Выбери вариант</Text>
+            {options && options.map((el) => <OneOption option={el} key={el.title} />)}
+          </View>
 
-      <View style={styles.innerContainer}>
-        <Text style={styles.title}>{currSubject?.title}</Text>
-        <Text style={styles.text}>Выбери вариант</Text>
-        {options && options.map((el) => <OneOption option={el} key={el.title} />)}
-      </View>
+        </View>
+      </ScrollView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'start',
+    width: '100%',
+    margin: 0,
+    padding: 0,
+  },
   innerContainer: {
     flex: 1,
     backgroundColor: 'white',
@@ -45,7 +59,8 @@ const styles = StyleSheet.create({
     justifyContent: 'start',
     width: '100%',
     paddingTop: '20%',
-    borderRadius: '30',
+    borderTopLeftRadius: '30',
+    borderTopRightRadius: '30',
   },
   title: {
     fontWeight: 'bold',
@@ -61,5 +76,8 @@ const styles = StyleSheet.create({
     marginLeft: '10%',
     marginBottom: '10%',
     fontFamily: 'MontserratMedium',
+  },
+  scroll: {
+    width: '100%',
   },
 });
