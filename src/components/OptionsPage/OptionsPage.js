@@ -20,6 +20,7 @@ export default function OptionsPage() {
       paddingTop: '40%',
     }}
     >
+
       <View style={styles.innerContainer}>
         <Text style={styles.title}>{currSubject?.title}</Text>
         <Text style={styles.text}>Выбери вариант</Text>
