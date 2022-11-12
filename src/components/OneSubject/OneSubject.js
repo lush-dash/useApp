@@ -7,6 +7,7 @@ import {
 import { Text } from '@ui-kitten/components';
 import { useDispatch } from 'react-redux';
 import { setOptionsThunk } from '../../redux/actions/optionsActions';
+import { setCurrentSubject } from '../../redux/actions/subjectActions';
 
 export default function OneSubject({ subject, navigation }) {
   const dispatch = useDispatch();
@@ -23,6 +24,7 @@ export default function OneSubject({ subject, navigation }) {
       style={styles.oneSubject}
       onPress={() => {
         dispatch(setOptionsThunk(subject.url));
+        dispatch(setCurrentSubject(subject.title));
         fuck();
       }}
     >

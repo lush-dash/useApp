@@ -10,7 +10,7 @@ export default function AboutPage() {
       <View>
         <Text style={styles.myH2} category="h2">О Приложении</Text>
         <Image
-          source={require('../../../assets/mainIcon.jpg')}
+          source={require('../../../assets/paper-plane.png')}
           style={{ width: 200, height: 200 }}
         />
         <Text style={styles.aboutPageText} category="p1">

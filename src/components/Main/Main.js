@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 import React, { useState } from 'react';
 import {
   Image,
@@ -21,7 +22,7 @@ export default function Main({ navigation }) {
     <View style={styles.container}>
       <Text style={styles.myText} category="h3">Добро пожаловать в USEApp</Text>
       <Image
-        source={require('../../../assets/mainIcon.jpg')}
+        source={require('../../../assets/paper-plane.png')}
         style={{ width: 200, height: 200 }}
       />
       {!flag && (
