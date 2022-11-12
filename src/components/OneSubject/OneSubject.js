@@ -16,6 +16,7 @@ export default function OneSubject({ subject, navigation }) {
   });
 
   const dispatch = useDispatch();
+
   const backgroundForRus = require('../../../assets/rus.png');
   const backgroundForSoc = require('../../../assets/soc.png');
 
@@ -52,10 +53,11 @@ export default function OneSubject({ subject, navigation }) {
 
 const styles = StyleSheet.create({
   oneSubject: {
-    width: '90%',
-    height: 110,
+    width: '92%',
+    height: 116,
     borderRadius: 30,
     margin: 10,
+    alignSelf: 'center',
   },
   image: {
     flex: 1,
