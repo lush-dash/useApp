@@ -5,9 +5,9 @@ export default function currSubjectReducer(state = {}, action) {
 
   switch (type) {
     case SET_RUS:
-      return { title: payload, color: '#fbc99c'};
+      return { title: payload, color: '#fbc99c' };
     case SET_SOC:
-      return { title: payload, color: '#b0d0f5'};
+      return { title: payload, color: '#b0d0f5' };
     default:
       return state;
   }

@@ -4,11 +4,18 @@ import { Text } from '@ui-kitten/components';
 import {
   StyleSheet, TouchableOpacity, View,
 } from 'react-native';
+import { useFonts } from 'expo-font';
 import { setQuestionsThunk } from '../../redux/actions/questionsActions';
 
 export default function OneOption({ option }) {
   const currSubject = useSelector((state) => state.currSubject);
   const dispatch = useDispatch();
+  const [fontsLoaded] = useFonts({
+    MontserratMedium: require('../../../assets/fonts/Montserrat-Medium.ttf'),
+    MontserratSemiBold: require('../../../assets/fonts/Montserrat-SemiBold.ttf'),
+  });
+
+  if (!fontsLoaded) return null;
 
   return (
     <TouchableOpacity
@@ -41,6 +48,7 @@ const styles = StyleSheet.create({
     fontSize: '25',
     marginLeft: '10%',
     fontWeight: 'bold',
+    fontFamily: 'MontserratSemiBold',
   },
   container: {
     width: '90%',

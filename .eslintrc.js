@@ -27,5 +27,6 @@ module.exports = {
     'no-console': 0,
     'treact/prop-types': 0,
     'react/prop-types': 0,
+    'global-require': 0,
   },
 };
