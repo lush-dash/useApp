@@ -13,6 +13,6 @@ export default configureStore({
     questions: questionsReducer,
     currSubject: currSubjectReducer,
     answersCounter: answersCounterReducer,
-    currentQuestion: currentQuestionReducer,
+    currentQuestion: currentQuestionReducer, // нужен ли?
   },
 });
