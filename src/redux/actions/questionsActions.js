@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import { SET_QUESTIONS } from '../types';
 
 export const setQuestions = (payload) => ({ type: SET_QUESTIONS, payload });

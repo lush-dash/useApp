@@ -7,8 +7,9 @@ import {
 import { useFonts } from 'expo-font';
 import { setQuestionsThunk } from '../../redux/actions/questionsActions';
 
-export default function OneOption({ option }) {
+export default function OneOption({ option, navigation }) {
   const currSubject = useSelector((state) => state.currSubject);
+
   const dispatch = useDispatch();
   const [fontsLoaded] = useFonts({
     MontserratMedium: require('../../../assets/fonts/Montserrat-Medium.ttf'),
@@ -21,6 +22,7 @@ export default function OneOption({ option }) {
     <TouchableOpacity
       onPress={() => {
         dispatch(setQuestionsThunk(option.url));
+        navigation.navigate('Question');
       }}
       style={styles.container}
     >

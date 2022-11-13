@@ -42,22 +42,6 @@ export default function Main({ navigation }) {
       />
       <View style={styles.innerContainer}>
         <Text style={styles.myText}>Добро пожаловать в USEApp</Text>
-        <Image
-          source={require('../../../assets/paper-plane-grey.png')}
-          style={styles.image}
-        />
-        {!flag && (
-        <>
-          <Text style={styles.myText}>
-            Проведи время с пользой
-          </Text>
-          <TouchableOpacity onPress={() => { chancheFlag(); }}>
-            <View style={styles.button}>
-              <Text style={styles.buttonText}>Начать</Text>
-            </View>
-          </TouchableOpacity>
-        </>
-        )}
         {flag && (
         <>
           <Text style={styles.myText}>
@@ -79,6 +63,22 @@ export default function Main({ navigation }) {
             </View>
           </TouchableOpacity>
 
+        </>
+        )}
+        <Image
+          source={require('../../../assets/paper-plane-grey.png')}
+          style={styles.image}
+        />
+        {!flag && (
+        <>
+          <Text style={styles.myText}>
+            Проведи время с пользой
+          </Text>
+          <TouchableOpacity onPress={() => { chancheFlag(); }}>
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>Начать</Text>
+            </View>
+          </TouchableOpacity>
         </>
         )}
       </View>
