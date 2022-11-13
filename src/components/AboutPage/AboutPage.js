@@ -1,7 +1,7 @@
 import { useFonts } from 'expo-font';
 import React from 'react';
 import {
-  View, StyleSheet, ScrollView, Linking, Text,
+  View, StyleSheet, ScrollView, Linking, Text, Dimensions,
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -17,29 +17,32 @@ export default function AboutPage() {
     <View style={styles.container}>
       <ScrollView>
         <View style={styles.innerContainer}>
-          <Text style={styles.myH2}>О приложении</Text>
-          <Text style={styles.aboutPageTextMain}>
-            USEApp (Unified State Exam App) -
-            это приложение для подготовки к Единому Государственному Экзамену.
-          </Text>
-          <Text style={styles.contactTextHeader}>Как это работает?</Text>
-          <View style={styles.listItem}>
-            <MaterialCommunityIcons name="numeric-1-circle-outline" color="#353739" size="30" />
-            <Text style={styles.aboutPageText}>
-              Выбери интересующий предмет.
+          <View>
+            <Text style={styles.myH2}>О приложении</Text>
+            <Text style={styles.aboutPageTextMain}>
+              USEApp (Unified State Exam App) - это приложение для подготовки к Единому Государственному Экзамену.
             </Text>
           </View>
-          <View style={styles.listItem}>
-            <MaterialCommunityIcons name="numeric-2-circle-outline" color="#353739" size="30" />
-            <Text style={styles.aboutPageText}>
-              Занимайся в любом месте и в удобном формате.
-            </Text>
-          </View>
-          <View style={styles.listItem}>
-            <MaterialCommunityIcons name="numeric-3-circle-outline" color="#353739" size="30" />
-            <Text style={styles.aboutPageText}>
-              Получай информацию о своих результатах и отслеживай прогресс в личном кабинете.
-            </Text>
+          <View>
+            <Text style={styles.contactTextHeader}>Как это работает?</Text>
+            <View style={styles.listItem}>
+              <MaterialCommunityIcons name="numeric-1-circle-outline" color="#353739" size="30" />
+              <Text style={styles.aboutPageText}>
+                Выбери интересующий предмет.
+              </Text>
+            </View>
+            <View style={styles.listItem}>
+              <MaterialCommunityIcons name="numeric-2-circle-outline" color="#353739" size="30" />
+              <Text style={styles.aboutPageText}>
+                Занимайся в любом месте и в удобном формате.
+              </Text>
+            </View>
+            <View style={styles.listItem}>
+              <MaterialCommunityIcons name="numeric-3-circle-outline" color="#353739" size="30" />
+              <Text style={styles.aboutPageText}>
+                Получай информацию о своих результатах и отслеживай прогресс в личном кабинете.
+              </Text>
+            </View>
           </View>
           <View style={styles.contactTextContainer}>
             <Text style={styles.contactTextHeader}>Наши контакты:</Text>
@@ -85,6 +88,8 @@ const styles = StyleSheet.create({
   innerContainer: {
     display: 'flex',
     alignItems: 'start',
+    height: (Dimensions.get('screen').height - 150),
+    justifyContent: 'space-between',
   },
   myH2: {
     margin: '5%',
@@ -115,21 +120,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
-  contactText: {
-    fontSize: '18',
-    color: 'blue',
-    fontFamily: 'MontserratMedium',
-  },
   contactTextHeader: {
     marginLeft: '5%',
     marginBottom: '5%',
-    marginTop: '10%',
     fontSize: '18',
     fontWeight: 'bold',
     fontFamily: 'MontserratBold',
   },
   contactTextContainer: {
-    marginTop: '15%',
+    marginTop: '5%',
   },
   contactsContainer: {
     marginLeft: '5%',
