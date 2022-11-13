@@ -56,6 +56,10 @@ export default function Main({ navigation }) {
       />
       <View style={styles.innerContainer}>
         <Text style={styles.myText}>Добро пожаловать в USEApp</Text>
+        <Image
+          source={require('../../../assets/paper-plane-grey.png')}
+          style={styles.image}
+        />
         {user === null ? (
           <>
             {flag && (
@@ -81,10 +85,7 @@ export default function Main({ navigation }) {
 
             </>
             )}
-            <Image
-              source={require('../../../assets/paper-plane-grey.png')}
-              style={styles.image}
-            />
+
 
             {!flag && (
             <>
