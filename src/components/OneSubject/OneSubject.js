@@ -24,8 +24,6 @@ export default function OneSubject({ subject, navigation }) {
   if (subject.title === 'Русский язык') backgroundImage = backgroundForRus;
   if (subject.title === 'Обществознание') backgroundImage = backgroundForSoc;
 
-  const fuck = () => navigation.navigate('Options');
-
   if (!fontsLoaded) return null;
 
   return (
@@ -34,7 +32,7 @@ export default function OneSubject({ subject, navigation }) {
       onPress={() => {
         dispatch(setOptionsThunk(subject.url));
         dispatch(setCurrentSubject(subject.title));
-        fuck();
+        navigation.navigate('Options');
       }}
     >
       <View style={styles.oneSubject}>
