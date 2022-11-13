@@ -7,6 +7,7 @@ import { Input } from '@ui-kitten/components';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { addBadAnswer, addGoodAnswer } from '../../redux/actions/answersCounterActions';
 import { setCurrentQuestion } from '../../redux/actions/currentQuestionActions';
+import Timer from '../Timer/Timer';
 
 export default function QuestionPage({ navigation }) {
   const questions = useSelector((state) => state.questions);
@@ -16,6 +17,9 @@ export default function QuestionPage({ navigation }) {
   const [index, setIndex] = useState(0);
   const [answer, setAnswer] = useState('');
   const [trueAnswer, setTrueAnswer] = useState(true);
+
+  // Доработать таймер - сейчас при первой иницииации таймер равен 0
+  const timerValue = questions.length * 30;
 
   const clickHandler = () => {
     if (answer.toLowerCase() !== questions[index]?.a.toLowerCase()) {
@@ -41,11 +45,16 @@ export default function QuestionPage({ navigation }) {
   return (
     <KeyboardAwareScrollView>
       <View style={styles.container}>
+
         <Text style={styles.myH2}>
           Вопрос
           {' '}
           {index + 1}
         </Text>
+        <Timer
+          navigation={navigation}
+          timerValue={timerValue}
+        />
         <Text style={styles.text}>{questions[index]?.q}</Text>
         {!trueAnswer ? (
           <>
