@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
@@ -5,6 +6,9 @@ import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AboutPage from './src/components/AboutPage/AboutPage';
 import SubjectPage from './src/components/SubjectsPage/SubjectPage';
 import PersonalPage from './src/components/PersonalPage/PersonalPage';
@@ -20,11 +24,47 @@ const Stack = createNativeStackNavigator();
 // обертка для табов
 function Home() {
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="Subjects" component={SubjectPage} options={{ headerShown: false }} />
-      <Tab.Screen name="About" component={AboutPage} options={{ headerShown: false }} />
-
-      <Tab.Screen name="Person" component={PersonalPage} options={{ headerShown: false }} />
+    <Tab.Navigator screenOptions={{
+      tabBarActiveTintColor: '#353739',
+      tabBarInactiveTintColor: '#D3D3D3',
+      tabBarStyle: {
+        borderTopWidth: 0,
+      },
+    }}
+    >
+      <Tab.Screen
+        name="Subjects"
+        component={SubjectPage}
+        options={{
+          headerShown: false,
+          tabBarShowLabel: false,
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="my-library-books" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="About"
+        component={AboutPage}
+        options={{
+          headerShown: false,
+          tabBarShowLabel: false,
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="paper-plane" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Person"
+        component={PersonalPage}
+        options={{
+          headerShown: false,
+          tabBarShowLabel: false,
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="account" color={color} size={size} />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 }

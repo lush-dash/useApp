@@ -6,10 +6,17 @@ import {
 } from 'react-native';
 import { Text } from '@ui-kitten/components';
 import { useDispatch } from 'react-redux';
+import { useFonts } from 'expo-font';
 import { setOptionsThunk } from '../../redux/actions/optionsActions';
+import { setCurrentSubject } from '../../redux/actions/subjectActions';
 
 export default function OneSubject({ subject, navigation }) {
+  const [fontsLoaded] = useFonts({
+    MontserratMedium: require('../../../assets/fonts/Montserrat-Medium.ttf'),
+  });
+
   const dispatch = useDispatch();
+
   const backgroundForRus = require('../../../assets/rus.png');
   const backgroundForSoc = require('../../../assets/soc.png');
 
@@ -17,13 +24,15 @@ export default function OneSubject({ subject, navigation }) {
   if (subject.title === 'Русский язык') backgroundImage = backgroundForRus;
   if (subject.title === 'Обществознание') backgroundImage = backgroundForSoc;
 
-  const fuck = () => navigation.navigate('Options');
+  if (!fontsLoaded) return null;
+
   return (
     <TouchableOpacity
       style={styles.oneSubject}
       onPress={() => {
         dispatch(setOptionsThunk(subject.url));
-        fuck();
+        dispatch(setCurrentSubject(subject.title));
+        navigation.navigate('Options');
       }}
     >
       <View style={styles.oneSubject}>
@@ -42,10 +51,11 @@ export default function OneSubject({ subject, navigation }) {
 
 const styles = StyleSheet.create({
   oneSubject: {
-    width: '90%',
-    height: 110,
+    width: '92%',
+    height: 116,
     borderRadius: 30,
     margin: 10,
+    alignSelf: 'center',
   },
   image: {
     flex: 1,
@@ -56,5 +66,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: '25',
+    fontFamily: 'MontserratMedium',
+    color: '#353739',
   },
 });
