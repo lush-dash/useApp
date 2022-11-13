@@ -1,5 +1,5 @@
 /* eslint-disable global-require */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Image,
   StyleSheet, View, Text, Dimensions,
@@ -11,23 +11,39 @@ import Svg, { Path } from 'react-native-svg';
 import { useFonts } from 'expo-font';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Input } from '@ui-kitten/components';
-import { setUserName } from '../../../utils/storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Main({ navigation }) {
   const [fontsLoaded] = useFonts({
     MontserratMedium: require('../../../assets/fonts/Montserrat-Medium.ttf'),
   });
   const [flag, setFlag] = useState(false);
-  const [text, onChangeText] = useState('');
-  // console.log('flag:', flag);
+  const [text, setText] = useState('');
+  const [user, setUser] = useState(null);
   const chancheFlag = () => {
     setFlag(!flag);
   };
-  const saveName = () => {
-    setUserName(text);
-    // console.log('xexexe', text);
+
+  const saveName = async () => {
+    try {
+      AsyncStorage.setItem('usernameData', text);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
+  const getName = async () => {
+    try {
+      const name = await AsyncStorage.getItem('usernameData');
+      setUser(name);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getName();
+  }, []);
+  console.log(user);
   if (!fontsLoaded) return null;
 
   return (
@@ -43,44 +59,70 @@ export default function Main({ navigation }) {
       </View>
       <View style={styles.innerContainer}>
         <Text style={styles.myText}>Добро пожаловать в USEApp</Text>
-        <Image
-          source={require('../../../assets/paper-plane-grey.png')}
-          style={styles.image}
-        />
-        {!flag && (
+        {user === null ? (
           <>
-            <Text style={styles.myText}>
-              Проведи время с пользой
-            </Text>
-            <TouchableOpacity onPress={() => { chancheFlag(); }}>
-              <View style={styles.button}>
-                <Text style={styles.buttonText}>Начать</Text>
-              </View>
-            </TouchableOpacity>
-          </>
-        )}
-        {flag && (
-          <>
-            <Text style={styles.myText}>
-              Введи имя:
-            </Text>
-            <Input
-              onChangeText={onChangeText}
-              style={styles.input}
-              defaultValue={text}
+            {flag && (
+            <>
+              <Text style={styles.myText}>
+                Введи имя:
+              </Text>
+              <Input
+                onChangeText={(value) => setText(value)}
+                style={styles.input}
+                defaultValue={text}
+              />
+
+              <TouchableOpacity onPress={() => {
+                navigation.navigate('Home');
+                saveName();
+              }}
+              >
+                <View style={styles.button}>
+                  <Text style={styles.buttonText}>Далее</Text>
+                </View>
+              </TouchableOpacity>
+
+            </>
+            )}
+            <Image
+              source={require('../../../assets/paper-plane-grey.png')}
+              style={styles.image}
             />
 
+            {!flag && (
+            <>
+              <Text style={styles.myText}>
+                Проведи время с пользой
+              </Text>
+              <TouchableOpacity onPress={() => chancheFlag()}>
+                <View style={styles.button}>
+                  <Text style={styles.buttonText}>Начать</Text>
+                </View>
+              </TouchableOpacity>
+            </>
+            )}
+          </>
+
+        ) : (
+
+          <>
+            <Text style={styles.myText}>
+              C возвращением,
+              {' '}
+              {user}
+            </Text>
             <TouchableOpacity onPress={() => {
               navigation.navigate('Home');
-              saveName();
             }}
             >
+
               <View style={styles.button}>
-                <Text style={styles.buttonText}>Далее</Text>
+                <Text style={styles.buttonText}>Продлжить</Text>
               </View>
             </TouchableOpacity>
 
           </>
+
         )}
       </View>
       <View style={styles.boxBottom}>

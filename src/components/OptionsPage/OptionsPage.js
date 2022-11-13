@@ -8,7 +8,7 @@ import { useFonts } from 'expo-font';
 import { ScrollView } from 'react-native-gesture-handler';
 import OneOption from '../OneOption/OneOption';
 
-export default function OptionsPage() {
+export default function OptionsPage({ navigation }) {
   const currSubject = useSelector((state) => state.currSubject);
   const options = useSelector((state) => state.options);
   const [fontsLoaded] = useFonts({
@@ -33,9 +33,14 @@ export default function OptionsPage() {
           <View style={styles.innerContainer}>
             <Text style={styles.title}>{currSubject?.title}</Text>
             <Text style={styles.text}>Выбери вариант</Text>
-            {options && options.map((el) => <OneOption option={el} key={el.title} />)}
+            {options && options.map((el) => (
+              <OneOption
+                navigation={navigation}
+                option={el}
+                key={el.title}
+              />
+            ))}
           </View>
-
         </View>
       </ScrollView>
     </View>

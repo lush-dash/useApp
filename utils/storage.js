@@ -33,13 +33,13 @@ export const StorageErrorTypes = {
 //   }
 // };
 
-export const setUserName = (value) => storage.save({
-  key: 'userName',
-  data: value,
-});
+// export const setUserName = (value) => storage.save({
+//   key: 'userName',
+//   data: value,
+// });
 
-export const getUserName = () => storage.load({
-  key: 'userName',
-});
+// export const getUserName = () => storage.load({
+//   key: 'userName',
+// });
 
 export default storage;
