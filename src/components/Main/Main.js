@@ -1,55 +1,58 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Image,
   StyleSheet, TextInput, View,
 } from 'react-native';
 import { Text, Button } from '@ui-kitten/components';
-import { setUserName } from '../../../utils/storage';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserName, setUserName } from '../../../utils/storage';
+import { getUserThunk } from '../../redux/actions/userActions';
 
 export default function Main({ navigation }) {
   const [flag, setFlag] = useState(false);
   const [text, onChangeText] = useState('');
-  // console.log('flag:', flag);
+  const [user, setUser] = useState(null);
+  // const user = useSelector((store) => store.user);
+  // const dispatch = useDispatch(); // console.log('flag:', flag);
   const chancheFlag = () => {
     setFlag(!flag);
   };
-  const saveName = () => {
-    setUserName(text);
-    // console.log('xexexe', text);
+  const saveName = async () => {
+    try {
+      console.log(text, ' sometext');
+      await setUserName(text);
+    } catch (err) {
+      console.error(err);
+    }
+    console.log('xexexe', text);
   };
+  useEffect(() => {
+    // const somth = dispatch(getUserThunk(getUserName()));
+    // getUserName();
+    // console.log(somth, 'somth');
+    // setUser(getUserName());
+    setUser(getUserName())
+    
+  }, []);
+  console.log(user, 'userinMain');
   return (
     <View style={styles.container}>
+
       <Text style={styles.myText} category="h3">Добро пожаловать в USEApp</Text>
       <Image
         source={require('../../image/mainIcon.jpg')}
         style={{ width: 200, height: 200 }}
       />
-      {!flag && (
+
+      {user !== null ? (
         <>
           <Text style={styles.myText} category="h3">
-            Привет! Давай начнем учиться!
-            Проведи время с пользой.
+            C возвращением,
+            {user}
           </Text>
-          <Button onPress={() => chancheFlag()} onstyle={styles.button} status="success">
-            Начать!
-          </Button>
-        </>
-      )}
-      {flag && (
-        <>
-          <Text style={styles.myText} category="h3">
-            Введите имя:
-          </Text>
-          <TextInput
-            onChangeText={onChangeText}
-            style={styles.input}
-            defaultValue={text}
-            placeholder="name"
-          />
           <Button
             onPress={() => {
               navigation.navigate('Home');
-              saveName();
             }}
             onstyle={styles.button}
             status="success"
@@ -58,7 +61,47 @@ export default function Main({ navigation }) {
             Сохранить
           </Button>
         </>
+
+      ) : (
+        <>
+          {!flag && (
+          <>
+            <Text style={styles.myText} category="h3">
+              Привет! Давай начнем учиться!
+              Проведи время с пользой.
+            </Text>
+            <Button onPress={() => chancheFlag()} onstyle={styles.button} status="success">
+              Начать!
+            </Button>
+          </>
+          )}
+          {flag && (
+          <>
+            <Text style={styles.myText} category="h3">
+              Введите имя:
+            </Text>
+            <TextInput
+              onChangeText={onChangeText}
+              style={styles.input}
+              defaultValue={text}
+              placeholder="name"
+            />
+            <Button
+              onPress={() => {
+                saveName();
+                navigation.navigate('Home');
+              }}
+              onstyle={styles.button}
+              status="success"
+              title="Home"
+            >
+              Сохранить
+            </Button>
+          </>
+          )}
+        </>
       )}
+
     </View>
   );
 }

@@ -12,34 +12,48 @@ const storage = new Storage({
 
 });
 
-export const StorageErrorTypes = {
-  Expired: 'ExpiredError',
-  NotFound: 'NotFoundError',
+export const setUserName = async (value) => {
+  try {
+    const jsonValue = JSON.stringify(value);
+    console.log(jsonValue, 'setUserJsonValue');
+    await AsyncStorage.setItem('@userName', jsonValue);
+  } catch (err) {
+    console.error(err);
+  }
 };
 
-// export const setData = async (value) => {
+// export const getUserName = async () => {
 //   try {
-//     await AsyncStorage.setItem('someData', value);
+//     const jsonValue = await AsyncStorage.getItem('@userName');
+//     console.log(jsonValue, 'jsonvalueGEtUSer');
+//     return jsonValue;
 //   } catch (err) {
 //     console.error(err);
 //   }
+//   console.log('im good');
 // };
 
-// export const getData = async () => {
-//   try {
-//     const value = await AsyncStorage.getItem(value);
-//   } catch (err) {
-//     console.error(err);
-//   }
-// };
-
-export const setUserName = (value) => storage.save({
-  key: 'userName',
-  data: value,
-});
+// export const setUserName = (value) => storage.save({
+//   key: 'userName',
+//   data: value,
+// });
 
 export const getUserName = () => storage.load({
   key: 'userName',
-});
+
+}).then((ret) => console.log(ret));
+
+// export const getAllKeys = async () => {
+//   let keys = [];
+//   try {
+//     keys = await AsyncStorage.getAllKeys();
+//   } catch (e) {
+//     // read key error
+//   }
+
+//   console.log(keys);
+//   // example console.log result:
+//   // ['@MyApp_user', '@MyApp_key']
+// };
 
 export default storage;
