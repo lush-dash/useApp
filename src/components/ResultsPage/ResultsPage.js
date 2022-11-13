@@ -8,11 +8,10 @@ import {
 import { useFonts } from 'expo-font';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
-// получить из пропсов или редакса резалт и использовать его
-const result = { goodAnswer: 40, badAnswer: 60 };
 
 export default function ResultsPage() {
   const currSubject = useSelector((state) => state.currSubject);
+  const result = useSelector((state) => state.answersCounter);
   const [fontsLoaded] = useFonts({
     MontserratBold: require('../../../assets/fonts/Montserrat-Bold.ttf'),
     MontserratMedium: require('../../../assets/fonts/Montserrat-Medium.ttf'),

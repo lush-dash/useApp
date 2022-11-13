@@ -121,7 +121,6 @@ export default function Main({ navigation }) {
           </>
 
         )}
-
       </View>
       <WavyBackground
         height={300}
@@ -144,11 +143,10 @@ const styles = StyleSheet.create({
   innerContainer: {
     backgroundColor: 'white',
     alignItems: 'center',
-    jusifySelf: 'start',
   },
   myText: {
     textAlign: 'center',
-    fontSize: '32',
+    fontSize: '30%',
     marginBottom: '5%',
     fontFamily: 'MontserratMedium',
     color: '#353739',
@@ -178,6 +176,6 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontFamily: 'MontserratMedium',
-    fontSize: 25,
+    fontSize: '25%',
   },
 });
