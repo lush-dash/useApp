@@ -27,7 +27,7 @@ export default function OptionsPage() {
           alignItems: 'center',
           justifyContent: 'start',
           width: '100%',
-          paddingTop: '30%',
+          paddingTop: '20%',
         }}
         >
           <View style={styles.innerContainer}>

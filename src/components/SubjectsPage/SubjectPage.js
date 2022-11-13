@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     marginLeft: '10%',
     marginBottom: '5%',
-    marginTop: '15%',
+    marginTop: '10%',
     fontFamily: 'MontserratBold',
     color: '#353739',
   },
