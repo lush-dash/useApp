@@ -4,9 +4,6 @@ import {
   Image,
   StyleSheet, View, Text, Dimensions,
 } from 'react-native';
-// import { Text, Button } from '@ui-kitten/components';
-// import { Button } from '@ui-kitten/components';
-// import WavyBackground from 'react-native-wavy-background';
 import Svg, { Path } from 'react-native-svg';
 import { useFonts } from 'expo-font';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -118,7 +115,7 @@ export default function Main({ navigation }) {
             >
 
               <View style={styles.button}>
-                <Text style={styles.buttonText}>Продлжить</Text>
+                <Text style={styles.buttonText}>Продолжить</Text>
               </View>
             </TouchableOpacity>
 
