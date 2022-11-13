@@ -32,7 +32,8 @@ export default function Main({ navigation }) {
   return (
     <View style={styles.container}>
       <WavyBackground
-        height={300}
+        marginBottom={0}
+        height={200}
         width={1100}
         amplitude={20}
         frequency={1}
@@ -82,7 +83,7 @@ export default function Main({ navigation }) {
         )}
       </View>
       <WavyBackground
-        height={400}
+        height={300}
         width={1100}
         amplitude={25}
         frequency={1}
@@ -102,11 +103,10 @@ const styles = StyleSheet.create({
   innerContainer: {
     backgroundColor: 'white',
     alignItems: 'center',
-    jusifySelf: 'start',
   },
   myText: {
     textAlign: 'center',
-    fontSize: '32',
+    fontSize: '30%',
     marginBottom: '5%',
     fontFamily: 'MontserratMedium',
     color: '#353739',
@@ -136,6 +136,6 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontFamily: 'MontserratMedium',
-    fontSize: 25,
+    fontSize: '25%',
   },
 });
