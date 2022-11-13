@@ -40,7 +40,7 @@ export default function Main({ navigation }) {
   useEffect(() => {
     getName();
   }, []);
-  console.log(user);
+  // console.log(user);
   if (!fontsLoaded) return null;
 
   return (

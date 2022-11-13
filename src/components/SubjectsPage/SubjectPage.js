@@ -54,10 +54,9 @@ const styles = StyleSheet.create({
     paddingTop: '15%',
   },
   title: {
-    fontWeight: 'bold',
-    fontSize: '35',
     alignSelf: 'flex-start',
     marginLeft: '10%',
+    fontSize: '35',
     marginBottom: '5%',
     marginTop: '10%',
     fontFamily: 'MontserratBold',
