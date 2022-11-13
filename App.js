@@ -45,9 +45,9 @@ function App() {
               component={Home}
               options={{ headerShown: false }}
             />
-            <Stack.Screen name="Options" component={OptionsPage} />
-            <Stack.Screen name="Question" component={QuestionPage} />
-            <Stack.Screen name="Result" component={ResultsPage} />
+            <Stack.Screen name="Options" component={OptionsPage} options={{ headerShown: false }} />
+            <Stack.Screen name="Question" component={QuestionPage} options={{ headerShown: false }} />
+            <Stack.Screen name="Result" component={ResultsPage} options={{ headerShown: false }} />
           </Stack.Navigator>
         </Provider>
       </ApplicationProvider>
