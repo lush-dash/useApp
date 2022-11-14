@@ -18,7 +18,6 @@ export default function OptionsPage({ navigation }) {
   });
 
   if (!fontsLoaded) return null;
-
   return (
     <View style={{
       flex: 1,

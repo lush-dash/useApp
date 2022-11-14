@@ -14,9 +14,7 @@ export default function OneSubject({ subject, navigation }) {
   const [fontsLoaded] = useFonts({
     MontserratMedium: require('../../../assets/fonts/Montserrat-Medium.ttf'),
   });
-
   const dispatch = useDispatch();
-
   const backgroundForRus = require('../../../assets/rus.png');
   const backgroundForSoc = require('../../../assets/soc.png');
 

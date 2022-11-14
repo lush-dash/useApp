@@ -8,13 +8,13 @@ import {
 import { useFonts } from 'expo-font';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
+import { setGoodAnswer } from '../../../utils/storage';
 
 export default function ResultsPage({ navigation }) {
   const currSubject = useSelector((state) => state.currSubject);
   const result = useSelector((state) => state.answersCounter);
   const currentOption = useSelector((state) => state.currentOption);
   const timer = useSelector((state) => state.timer);
-
   const [fontsLoaded] = useFonts({
     MontserratBold: require('../../../assets/fonts/Montserrat-Bold.ttf'),
     MontserratMedium: require('../../../assets/fonts/Montserrat-Medium.ttf'),
@@ -64,6 +64,7 @@ export default function ResultsPage({ navigation }) {
         </View>
         <View style={styles.buttonContainer}>
           <TouchableOpacity onPress={() => {
+            setGoodAnswer(currentOption, result);
             navigation.navigate('Subjects');
           }}
           >

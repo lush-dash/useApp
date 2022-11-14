@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
+import { getAllKeys, removeAnswer } from '../../../utils/storage';
 import { getUserThunk, removeUserThunk, setUserThunk } from '../../redux/actions/userActions';
 
 export default function PersonalPage({ navigation }) {
@@ -92,6 +93,7 @@ export default function PersonalPage({ navigation }) {
         <View>
           <TouchableOpacity onPress={() => {
             try {
+              getAllKeys().then((res) => res.map((key) => removeAnswer(key)));
               dispatch(removeUserThunk());
               setText('');
               navigation.navigate('Main');
