@@ -94,11 +94,11 @@ function App() {
             <Stack.Screen
               name="Home"
               component={Home}
-              options={{ headerShown: false }}
+              options={{ headerShown: false, gestureEnabled: false }}
             />
-            <Stack.Screen name="Options" component={OptionsPage} options={{ title: '', headerBackTitle: 'к предметам', headerTintColor: '#353739' }} />
-            <Stack.Screen name="Question" component={QuestionPage} options={{ title: '', headerBackTitle: 'к вариантам', headerTintColor: '#353739' }} />
-            <Stack.Screen name="Result" component={ResultsPage} options={{ headerShown: false }} />
+            <Stack.Screen name="Options" component={OptionsPage} options={{ title: '', headerBackTitle: 'К выбору предмета', headerTintColor: '#353739' }} />
+            <Stack.Screen name="Question" component={QuestionPage} options={{ title: '', headerBackTitle: 'Прекратить тест', headerTintColor: '#353739' }} />
+            <Stack.Screen name="Result" component={ResultsPage} options={{ headerShown: false, gestureEnabled: false }} />
           </Stack.Navigator>
         </Provider>
       </ApplicationProvider>
