@@ -59,7 +59,7 @@ export default function Main({ navigation }) {
 
               <TouchableOpacity onPress={() => {
                 navigation.navigate('Home');
-
+                setText('');
                 dispatch(setUserThunk(text));
               }}
               >
@@ -76,7 +76,10 @@ export default function Main({ navigation }) {
               <Text style={styles.myText}>
                 Проведи время с пользой
               </Text>
-              <TouchableOpacity onPress={() => changeUserLogin()}>
+              <TouchableOpacity onPress={() => {
+                changeUserLogin();
+              }}
+              >
                 <View style={styles.button}>
                   <Text style={styles.buttonText}>Начать</Text>
                 </View>
