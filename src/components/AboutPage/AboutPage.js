@@ -20,7 +20,7 @@ export default function AboutPage() {
           <View>
             <Text style={styles.myH2}>О приложении</Text>
             <Text style={styles.aboutPageTextMain}>
-              USEApp (Unified State Exam App) - это приложение для подготовки к заданиям тестовой части Единомого Государственного Экзамена.
+              USEApp (Unified State Exam App) - это приложение для подготовки к заданиям тестовой части Единого Государственного Экзамена.
             </Text>
           </View>
           <View>
@@ -40,7 +40,8 @@ export default function AboutPage() {
             <View style={styles.listItem}>
               <MaterialCommunityIcons name="numeric-3-circle-outline" color="#353739" size="30" />
               <Text style={styles.aboutPageText}>
-                Получай информацию о своих результатах и отслеживай прогресс в личном кабинете.
+                Получай информацию о своих результатах.
+                {/* и отслеживай прогресс в личном кабинете. */}
               </Text>
             </View>
           </View>

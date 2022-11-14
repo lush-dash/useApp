@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'start',
     width: '100%',
-    paddingTop: '15%',
+    paddingTop: '10%',
     borderTopLeftRadius: '30',
     borderTopRightRadius: '30',
     elevation: 1,
@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
       width: 1,
     },
     minHeight: (Dimensions.get('screen').height - 150),
+    paddingBottom: '10%',
   },
   title: {
     alignSelf: 'flex-start',
@@ -96,7 +97,7 @@ const styles = StyleSheet.create({
   text: {
     alignSelf: 'flex-start',
     marginLeft: '10%',
-    marginBottom: '10%',
+    marginBottom: '5%',
     fontSize: '20',
     fontFamily: 'MontserratMedium',
     color: '#353739',
