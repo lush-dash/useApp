@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Text } from '@ui-kitten/components';
 import {
+  ActivityIndicator,
   StyleSheet, View,
 } from 'react-native';
 import { useFonts } from 'expo-font';
@@ -21,11 +22,23 @@ export default function SubjectPage({ navigation }) {
     dispatch(setTopicsThunk());
   }, []);
 
-  if (!fontsLoaded) return null;
+  if (!fontsLoaded || !topics.length) {
+    return (
+      <View style={{
+        justifyContent: 'center',
+        height: '100%',
+      }}
+      >
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.scroll}>
+      <ScrollView
+        style={styles.scroll}
+      >
         <Text style={styles.title}>Предметы</Text>
         <Text style={styles.text}>Выбери предмет</Text>
         <View style={styles.innerContainer}>

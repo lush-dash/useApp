@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Text } from '@ui-kitten/components';
 import {
+  ActivityIndicator,
   Dimensions,
   StyleSheet, View,
 } from 'react-native';
@@ -17,7 +18,17 @@ export default function OptionsPage({ navigation }) {
     MontserratBold: require('../../../assets/fonts/Montserrat-Bold.ttf'),
   });
 
-  if (!fontsLoaded) return null;
+  if (!fontsLoaded || !options.length) {
+    return (
+      <View style={{
+        justifyContent: 'center',
+        height: '100%',
+      }}
+      >
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
 
   return (
     <View style={{
