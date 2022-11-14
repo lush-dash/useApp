@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-useless-fragment */
 import React, { useState } from 'react';
 import {
   StyleSheet, Text, TouchableOpacity, View,
@@ -5,21 +6,24 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import { Input } from '@ui-kitten/components';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useFonts } from 'expo-font';
 import { addBadAnswer, addGoodAnswer } from '../../redux/actions/answersCounterActions';
 import { setCurrentQuestion } from '../../redux/actions/currentQuestionActions';
 import Timer from '../Timer/Timer';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default function QuestionPage({ navigation }) {
   const questions = useSelector((state) => state.questions);
   const dispatch = useDispatch();
-  // const currentQuestion = useSelector((state) => state.currentQuestion);
-
   const [index, setIndex] = useState(0);
   const [answer, setAnswer] = useState('');
   const [trueAnswer, setTrueAnswer] = useState(true);
+  const [fontsLoaded] = useFonts({
+    MontserratMedium: require('../../../assets/fonts/Montserrat-Medium.ttf'),
+    MontserratSemiBold: require('../../../assets/fonts/Montserrat-SemiBold.ttf'),
+  });
 
-  // Доработать таймер - сейчас при первой иницииации таймер равен 0
-  const timerValue = questions.length * 30;
+  const timerValue = questions.length * 60;
 
   const clickHandler = () => {
     if (answer.toLowerCase() !== questions[index]?.a.toLowerCase()) {
@@ -42,52 +46,58 @@ export default function QuestionPage({ navigation }) {
     dispatch(setCurrentQuestion(questions[index]));
   };
 
-  return (
-    <KeyboardAwareScrollView>
-      <View style={styles.container}>
+  if (!fontsLoaded) return null;
 
-        <Text style={styles.myH2}>
-          Вопрос
-          {' '}
-          {index + 1}
-        </Text>
-        <Timer
-          navigation={navigation}
-          timerValue={timerValue}
-        />
-        <Text style={styles.text}>{questions[index]?.q}</Text>
-        {!trueAnswer ? (
-          <>
-            <Text>Правильный ответ:</Text>
-            <Text>{questions[index]?.a}</Text>
-            <TouchableOpacity onPress={nextHandler}>
-              <View style={styles.button}>
-                <Text style={styles.buttonText}>
-                  Следующий вопрос
-                </Text>
-              </View>
-            </TouchableOpacity>
-          </>
-        ) : (
-          <>
-            <Input
-              style={styles.input}
-              placeholder="Введите ответ"
-              onChangeText={setAnswer}
-              defaultValue={answer}
-              onSubmitEditing={clickHandler}
+  return (
+    <View style={styles.container}>
+      <KeyboardAwareScrollView>
+        <View style={styles.innerContainer}>
+          <Text style={styles.myH2}>
+            Вопрос №
+            {' '}
+            {index + 1}
+          </Text>
+          {questions.length ? (
+            <Timer
+              navigation={navigation}
+              timerValue={timerValue}
             />
-            <TouchableOpacity onPress={clickHandler}>
-              <View style={styles.button}>
-                <Text style={styles.buttonText}>
-                  Ответить
-                </Text>
+          ) : <></>}
+          <Text style={styles.text}>{questions[index]?.q.split('\n').join('\n\n')}</Text>
+          {!trueAnswer ? (
+            <>
+              <View style={styles.answerBubble}>
+                <Text style={styles.answerText}>{`Правильный ответ: ${questions[index]?.a}`}</Text>
               </View>
-            </TouchableOpacity>
-          </>
-        )}
-      </View>
-    </KeyboardAwareScrollView>
+              <TouchableOpacity onPress={nextHandler}>
+                <View style={styles.button}>
+                  <Text style={styles.buttonText}>
+                    Следующий вопрос
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            </>
+          ) : (
+            <>
+              <Input
+                style={styles.input}
+                placeholder="Введите ответ"
+                onChangeText={setAnswer}
+                defaultValue={answer}
+                onSubmitEditing={clickHandler}
+              />
+              <TouchableOpacity onPress={clickHandler}>
+                <View style={styles.button}>
+                  <Text style={styles.buttonText}>
+                    Ответить
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            </>
+          )}
+        </View>
+      </KeyboardAwareScrollView>
+    </View>
   );
 }
 
@@ -97,40 +107,62 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: '5%',
+    paddingTop: '12%',
+  },
+  innerContainer: {
+    alignItems: 'center',
   },
   text: {
-    fontSize: '16',
     margin: '5%',
     fontWeight: 'bold',
     color: '#353739',
-    textAlign: 'justify',
+    textAlign: 'left',
+    fontSize: '15',
+    fontFamily: 'MontserratMedium',
   },
   input: {
-    width: '70%',
+    minWidth: '70%',
     borderRadius: '30',
     borderWidth: 1,
     borderColor: '#353739',
-    margin: '7%',
-    textAlign: 'center',
+    margin: '5%',
+    fontFamily: 'MontserratMedium',
   },
   myH2: {
     textAlign: 'center',
-    fontSize: '36',
     margin: '5%',
     marginTop: '5%',
+    fontSize: 35,
+    fontFamily: 'MontserratBold',
+    color: '#353739',
   },
   button: {
     backgroundColor: '#353739',
-    width: 200,
-    height: 36,
+    minWidth: 250,
+    minHeight: 50,
     borderRadius: '30',
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: '10%',
   },
+  answerBubble: {
+    borderWidth: 1,
+    minWidth: 250,
+    minHeight: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: '30',
+    marginBottom: '5%',
+    padding: 5,
+  },
+  answerText: {
+    fontSize: 18,
+    fontFamily: 'MontserratMedium',
+    color: '#353739',
+  },
   buttonText: {
     color: 'white',
-    fontSize: 20,
+    fontFamily: 'MontserratMedium',
+    fontSize: 18,
   },
 });

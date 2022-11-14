@@ -26,6 +26,7 @@ export default function Main({ navigation }) {
   useEffect(() => {
     dispatch(getUserThunk());
   }, []);
+  // console.log(user);
   if (!fontsLoaded) return null;
 
   return (
