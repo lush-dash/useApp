@@ -13,6 +13,7 @@ import Timer from '../Timer/Timer';
 
 export default function QuestionPage({ navigation }) {
   const questions = useSelector((state) => state.questions);
+  const currSubject = useSelector((state) => state.currSubject);
   const dispatch = useDispatch();
   const [index, setIndex] = useState(0);
   const [stopTimer, setStopTimer] = useState(false);
@@ -58,11 +59,27 @@ export default function QuestionPage({ navigation }) {
     <View style={styles.container}>
       <KeyboardAwareScrollView>
         <View style={styles.innerContainer}>
-          <Text style={styles.myH2}>
+          <View style={{
+            marginTop: '5%',
+            height: '3%',
+            backgroundColor: currSubject?.color,
+            borderRadius: '30',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minWidth: 350,
+            minHeight: 35,
+          }}
+          >
+            <Text style={styles.textProgress}>
+              {`Вопрос ${index + 1} из ${questions?.length}`}
+              {' '}
+            </Text>
+          </View>
+          {/* <Text style={styles.myH2}>
             Вопрос №
             {' '}
             {index + 1}
-          </Text>
+          </Text> */}
           {questions.length ? (
             <Timer
               navigation={navigation}
@@ -77,7 +94,16 @@ export default function QuestionPage({ navigation }) {
                 <Text style={styles.answerText}>{`Правильный ответ: ${questions[index]?.a}`}</Text>
               </View>
               <TouchableOpacity onPress={nextHandler}>
-                <View style={styles.button}>
+                <View style={{
+                  backgroundColor: currSubject?.color,
+                  minWidth: 250,
+                  minHeight: 50,
+                  borderRadius: '30',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginBottom: '10%',
+                }}
+                >
                   <Text style={styles.buttonText}>
                     Следующий вопрос
                   </Text>
@@ -94,7 +120,16 @@ export default function QuestionPage({ navigation }) {
                 onSubmitEditing={clickHandler}
               />
               <TouchableOpacity onPress={clickHandler}>
-                <View style={styles.button}>
+                <View style={{
+                  backgroundColor: currSubject?.color,
+                  minWidth: 250,
+                  minHeight: 50,
+                  borderRadius: '30',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginBottom: '10%',
+                }}
+                >
                   <Text style={styles.buttonText}>
                     Ответить
                   </Text>
@@ -119,6 +154,11 @@ const styles = StyleSheet.create({
   innerContainer: {
     alignItems: 'center',
   },
+  textProgress: {
+    fontSize: '15',
+    fontFamily: 'MontserratMedium',
+    color: '#353739',
+  },
   text: {
     margin: '5%',
     fontWeight: 'bold',
@@ -134,6 +174,7 @@ const styles = StyleSheet.create({
     borderColor: '#353739',
     margin: '5%',
     fontFamily: 'MontserratMedium',
+    backgroundColor: '#fff',
   },
   myH2: {
     textAlign: 'center',
@@ -142,15 +183,6 @@ const styles = StyleSheet.create({
     fontSize: 35,
     fontFamily: 'MontserratBold',
     color: '#353739',
-  },
-  button: {
-    backgroundColor: '#353739',
-    minWidth: 250,
-    minHeight: 50,
-    borderRadius: '30',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: '10%',
   },
   answerBubble: {
     borderWidth: 1,
@@ -168,7 +200,7 @@ const styles = StyleSheet.create({
     color: '#353739',
   },
   buttonText: {
-    color: 'white',
+    color: '#353739',
     fontFamily: 'MontserratMedium',
     fontSize: 18,
   },
