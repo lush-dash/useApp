@@ -17,6 +17,7 @@ import Main from './src/components/Main/Main';
 import OptionsPage from './src/components/OptionsPage/OptionsPage';
 import QuestionPage from './src/components/QuestionPage/QuestionPage';
 import ResultsPage from './src/components/ResultsPage/ResultsPage';
+import PaschalGame from './src/components/PaschalGame/PaschalGame';
 import store from './src/redux/store';
 
 const Tab = createBottomTabNavigator();
@@ -127,6 +128,11 @@ function App() {
               }}
             />
             <Stack.Screen name="Result" component={ResultsPage} options={{ headerShown: false, gestureEnabled: false }} />
+            <Stack.Screen
+              name="PaschalGame"
+              component={PaschalGame}
+              options={{ headerShown: false }}
+            />
           </Stack.Navigator>
         </Provider>
       </ApplicationProvider>
