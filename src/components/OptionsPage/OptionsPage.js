@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Text } from '@ui-kitten/components';
 import {
+  Dimensions,
   StyleSheet, View,
 } from 'react-native';
 import { useFonts } from 'expo-font';
@@ -19,7 +20,16 @@ export default function OptionsPage({ navigation }) {
   if (!fontsLoaded) return null;
 
   return (
-    <View style={styles.container}>
+    <View style={{
+      flex: 1,
+      backgroundColor: currSubject?.color,
+      alignItems: 'center',
+      justifyContent: 'start',
+      width: '100%',
+      margin: 0,
+      padding: 0,
+    }}
+    >
       <ScrollView style={styles.scroll}>
         <View style={{
           flex: 1,
@@ -63,9 +73,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'start',
     width: '100%',
-    paddingTop: '20%',
+    paddingTop: '15%',
     borderTopLeftRadius: '30',
     borderTopRightRadius: '30',
+    elevation: 1,
+    shadowOpacity: 0.4,
+    shadowRadius: 4,
+    shadowOffset: {
+      height: -1,
+      width: 1,
+    },
+    height: (Dimensions.get('screen').height),
   },
   title: {
     alignSelf: 'flex-start',

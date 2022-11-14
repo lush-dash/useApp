@@ -26,18 +26,19 @@ export default function OneOption({ option, navigation }) {
       }}
       style={styles.container}
     >
-      <View style={{
-        width: '90%',
-        height: 110,
-        borderRadius: 30,
-        margin: 10,
-        borderWidth: 3,
-        borderColor: currSubject?.color,
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-      }}
+      <View
+        style={{
+          width: '90%',
+          height: 110,
+          borderRadius: 30,
+          margin: 10,
+          borderWidth: 3,
+          borderColor: currSubject?.color,
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
       >
         <Text style={styles.text}>{option.title}</Text>
       </View>

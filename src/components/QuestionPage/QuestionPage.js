@@ -10,6 +10,7 @@ import { useFonts } from 'expo-font';
 import { addBadAnswer, addGoodAnswer } from '../../redux/actions/answersCounterActions';
 import { setCurrentQuestion } from '../../redux/actions/currentQuestionActions';
 import Timer from '../Timer/Timer';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default function QuestionPage({ navigation }) {
   const questions = useSelector((state) => state.questions);
@@ -106,7 +107,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: '15%',
+    paddingTop: '12%',
   },
   innerContainer: {
     alignItems: 'center',
@@ -138,7 +139,7 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: '#353739',
     minWidth: 250,
-    minHeight: 40,
+    minHeight: 50,
     borderRadius: '30',
     alignItems: 'center',
     justifyContent: 'center',
@@ -147,7 +148,7 @@ const styles = StyleSheet.create({
   answerBubble: {
     borderWidth: 1,
     minWidth: 250,
-    minHeight: 38,
+    minHeight: 50,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: '30',

@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     width: '100%',
     margin: 0,
     padding: 0,
-    paddingTop: '15%',
+    paddingTop: '12%',
   },
   title: {
     alignSelf: 'flex-start',
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     fontSize: '20',
     alignSelf: 'flex-start',
     marginLeft: '10%',
-    marginBottom: '10%',
+    marginBottom: '5%',
     fontFamily: 'MontserratMedium',
     color: '#353739',
   },
