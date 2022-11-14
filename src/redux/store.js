@@ -5,6 +5,7 @@ import questionsReducer from './reducers/questionsReducer';
 import currSubjectReducer from './reducers/subjectReducer';
 import answersCounterReducer from './reducers/answersCounterReducer';
 import currentQuestionReducer from './reducers/currentQuestionReducer';
+import userReducer from './reducers/userReducer';
 import currentOptionReducer from './reducers/currentOptionReducer';
 import timerReducer from './reducers/timerReducer';
 
@@ -18,5 +19,6 @@ export default configureStore({
     currentQuestion: currentQuestionReducer, // нужен ли?
     currentOption: currentOptionReducer,
     timer: timerReducer,
+    user: userReducer,
   },
 });

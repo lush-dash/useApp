@@ -10,6 +10,7 @@ import { useFonts } from 'expo-font';
 import { addBadAnswer, addGoodAnswer } from '../../redux/actions/answersCounterActions';
 import { setCurrentQuestion } from '../../redux/actions/currentQuestionActions';
 import Timer from '../Timer/Timer';
+import { setStart } from '../../redux/actions/timerActions';
 
 export default function QuestionPage({ navigation }) {
   const questions = useSelector((state) => state.questions);
@@ -86,7 +87,7 @@ export default function QuestionPage({ navigation }) {
               timerValue={timerValue}
               stopTimer={stopTimer}
             />
-          ) : <></>}
+          ) : null }
           <Text style={styles.text}>{questions[index]?.q.split('\n').join('\n\n')}</Text>
           {!trueAnswer ? (
             <>

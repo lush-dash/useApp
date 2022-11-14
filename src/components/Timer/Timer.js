@@ -16,16 +16,10 @@ export default function Timer({ navigation, timerValue, stopTimer }) {
     MontserratSemiBold: require('../../../assets/fonts/Montserrat-SemiBold.ttf'),
   });
 
-  dispatch(setStart(timerValue));
-  dispatch(setEnd(time));
-
   React.useEffect(() => {
+    dispatch(setStart(timerValue));
+    dispatch(setEnd(time));
     const timerId = setInterval(() => {
-      if (stopTimer) {
-        return () => {
-          clearInterval(timerId);
-        };
-      }
       timerRef.current -= 1;
       if (timerRef.current < 0) {
         clearInterval(timerId);
@@ -34,6 +28,11 @@ export default function Timer({ navigation, timerValue, stopTimer }) {
         setTime(timerRef.current);
       }
     }, 1000);
+    if (stopTimer) {
+      return () => {
+        clearInterval(timerId);
+      };
+    }
     return () => {
       clearInterval(timerId);
     };
@@ -56,15 +55,15 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 30,
     alignSelf: 'flex-end',
-    marginTop: '5%',
+    marginTop: '10%',
     marginRight: '5%',
     alignItems: 'center',
-    minHeight: 33,
+    minHeight: 48,
     minWidth: '50%',
     justifyContent: 'center',
   },
   text: {
-    fontSize: '15',
+    fontSize: '18',
     color: '#353739',
     fontFamily: 'MontserratMedium',
   },
