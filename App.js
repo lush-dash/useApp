@@ -97,7 +97,7 @@ function App() {
               options={{ headerShown: false }}
             />
             <Stack.Screen name="Options" component={OptionsPage} options={{ title: '', headerBackTitle: 'к предметам', headerTintColor: '#353739' }} />
-            <Stack.Screen name="Question" component={QuestionPage} options={{ title: '', headerBackTitle: 'к вариантам', headerTintColor: '#353739' }} />
+            <Stack.Screen name="Question" component={QuestionPage} options={{ title: '', headerBackTitle: 'Завершить', headerTintColor: '#353739' }} />
             <Stack.Screen name="Result" component={ResultsPage} options={{ headerShown: false }} />
           </Stack.Navigator>
         </Provider>

@@ -10,7 +10,6 @@ import { useFonts } from 'expo-font';
 import { addBadAnswer, addGoodAnswer } from '../../redux/actions/answersCounterActions';
 import { setCurrentQuestion } from '../../redux/actions/currentQuestionActions';
 import Timer from '../Timer/Timer';
-import { setStart } from '../../redux/actions/timerActions';
 
 export default function QuestionPage({ navigation }) {
   const questions = useSelector((state) => state.questions);
@@ -150,7 +149,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: '12%',
   },
   innerContainer: {
     alignItems: 'center',
