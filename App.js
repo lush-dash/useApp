@@ -29,6 +29,17 @@ function Home() {
       tabBarInactiveTintColor: '#D3D3D3',
       tabBarStyle: {
         borderTopWidth: 0,
+        backgroundColor: 'white',
+        position: 'absolute',
+        borderTopLeftRadius: '30',
+        borderTopRightRadius: '30',
+        shadowColor: '#000000',
+        shadowOpacity: 0.4,
+        shadowRadius: 4,
+        shadowOffset: {
+          height: 1,
+          width: 1,
+        },
       },
     }}
     >

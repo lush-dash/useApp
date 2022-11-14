@@ -6,6 +6,8 @@ import {
 } from 'react-native';
 import { useFonts } from 'expo-font';
 import { setQuestionsThunk } from '../../redux/actions/questionsActions';
+import { setCurrentOption } from '../../redux/actions/currentOptionActions';
+import { clearTimer } from '../../redux/actions/timerActions';
 
 export default function OneOption({ option, navigation }) {
   const currSubject = useSelector((state) => state.currSubject);
@@ -22,22 +24,25 @@ export default function OneOption({ option, navigation }) {
     <TouchableOpacity
       onPress={() => {
         dispatch(setQuestionsThunk(option.url));
+        dispatch(setCurrentOption(option));
+        dispatch(clearTimer());
         navigation.navigate('Question');
       }}
       style={styles.container}
     >
-      <View style={{
-        width: '90%',
-        height: 110,
-        borderRadius: 30,
-        margin: 10,
-        borderWidth: 3,
-        borderColor: currSubject?.color,
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-      }}
+      <View
+        style={{
+          width: '90%',
+          height: 110,
+          borderRadius: 30,
+          margin: 10,
+          borderWidth: 3,
+          borderColor: currSubject?.color,
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
       >
         <Text style={styles.text}>{option.title}</Text>
       </View>

@@ -20,7 +20,7 @@ export default function AboutPage() {
           <View>
             <Text style={styles.myH2}>О приложении</Text>
             <Text style={styles.aboutPageTextMain}>
-              USEApp (Unified State Exam App) - это приложение для подготовки к Единому Государственному Экзамену.
+              USEApp (Unified State Exam App) - это приложение для подготовки к заданиям тестовой части Единомого Государственного Экзамена.
             </Text>
           </View>
           <View>
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'start',
-    paddingTop: '15%',
+    paddingTop: '12%',
   },
   innerContainer: {
     display: 'flex',
@@ -92,7 +92,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   myH2: {
-    margin: '5%',
+    marginTop: '5%',
+    marginLeft: '5%',
+    marginRight: '5%',
     fontSize: '36',
     fontFamily: 'MontserratBold',
     color: '#353739',

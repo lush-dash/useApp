@@ -86,7 +86,6 @@ export default function Main({ navigation }) {
             </>
             )}
 
-
             {!flag && (
             <>
               <Text style={styles.myText}>
@@ -179,6 +178,7 @@ const styles = StyleSheet.create({
     borderColor: '#353739',
     marginBottom: '7%',
     textAlign: 'center',
+    backgroundColor: '#fff',
   },
   button: {
     backgroundColor: '#353739',
