@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Input } from '@ui-kitten/components';
 import { useFonts } from 'expo-font';
 import React, { useEffect, useState } from 'react';
@@ -6,43 +5,28 @@ import {
   Text, View, StyleSheet, Image, Dimensions,
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserThunk, removeUserThunk, setUserThunk } from '../../redux/actions/userActions';
 
 export default function PersonalPage({ navigation }) {
   const [fontsLoaded] = useFonts({
     MontserratMedium: require('../../../assets/fonts/Montserrat-Medium.ttf'),
   });
-  const [user, setUser] = useState(null);
+  const user = useSelector((store) => store.user);
+  const dispatch = useDispatch();
   const [text, setText] = useState('');
-  const [flag, setFlag] = useState(false);
-  const chancheFlag = () => {
-    setFlag(!flag);
+  const [showInputForChangeName, setShowInputForChangeName] = useState(false);
+  const showInput = () => {
+    setShowInputForChangeName(!showInputForChangeName);
   };
-  const getName = async () => {
+
+  useEffect(() => {
     try {
-      const name = await AsyncStorage.getItem('usernameData');
-      setUser(name);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const saveName = async () => {
-    try {
-      AsyncStorage.setItem('usernameData', text);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const deleteName = async () => {
-    try {
-      AsyncStorage.removeItem('usernameData');
-      setUser('');
+      dispatch(getUserThunk());
     } catch (error) {
       console.error(error);
     }
-  };
-  useEffect(() => {
-    getName();
-  }, []);
+  });
 
   if (!fontsLoaded) return null;
 
@@ -61,7 +45,7 @@ export default function PersonalPage({ navigation }) {
             <Text style={styles.buttonText}>Изменить имя</Text>
           </View>
         </TouchableOpacity> */}
-        {flag ? (
+        {showInputForChangeName ? (
           <View>
             <Input
               style={styles.input}
@@ -70,10 +54,14 @@ export default function PersonalPage({ navigation }) {
             />
 
             <TouchableOpacity onPress={() => {
-              deleteName();
-              saveName();
-              setFlag();
-              getName();
+              try {
+                dispatch(removeUserThunk());
+                dispatch(setUserThunk(text));
+                showInputForChangeName();
+                dispatch(getUserThunk());
+              } catch (error) {
+                console.error(error);
+              }
             }}
             >
               <View style={styles.button}>
@@ -82,7 +70,7 @@ export default function PersonalPage({ navigation }) {
             </TouchableOpacity>
           </View>
         ) : (
-          <TouchableOpacity onPress={() => chancheFlag()}>
+          <TouchableOpacity onPress={() => showInput()}>
             <View style={styles.button}>
               <Text style={styles.buttonText}>Изменить имя</Text>
             </View>
@@ -103,10 +91,13 @@ export default function PersonalPage({ navigation }) {
 
         <View>
           <TouchableOpacity onPress={() => {
-            deleteName();
-            getName();
-            setText('');
-            navigation.navigate('Main');
+            try {
+              dispatch(removeUserThunk());
+              setText('');
+              navigation.navigate('Main');
+            } catch (error) {
+              console.error(error);
+            }
           }}
           >
             <View style={styles.button}>

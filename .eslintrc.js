@@ -28,5 +28,6 @@ module.exports = {
     'treact/prop-types': 0,
     'react/prop-types': 0,
     'global-require': 0,
+    'dot-notation': 0,
   },
 };

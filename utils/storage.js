@@ -17,29 +17,32 @@ export const StorageErrorTypes = {
   NotFound: 'NotFoundError',
 };
 
-// export const setData = async (value) => {
-//   try {
-//     await AsyncStorage.setItem('someData', value);
-//   } catch (err) {
-//     console.error(err);
-//   }
-// };
+export const saveName = async (text) => {
+  try {
+    console.log(text, 'savename text');
+    AsyncStorage.setItem('usernameData', text);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-// export const getData = async () => {
-//   try {
-//     const value = await AsyncStorage.getItem(value);
-//   } catch (err) {
-//     console.error(err);
-//   }
-// };
+// eslint-disable-next-line consistent-return
+export const getName = async () => {
+  try {
+    const name = await AsyncStorage.getItem('usernameData');
+    console.log(name, 'name in storage');
+    return name;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-// export const setUserName = (value) => storage.save({
-//   key: 'userName',
-//   data: value,
-// });
-
-// export const getUserName = () => storage.load({
-//   key: 'userName',
-// });
+export const removeName = async () => {
+  try {
+    await AsyncStorage.removeItem('usernameData');
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export default storage;
