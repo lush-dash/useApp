@@ -5,6 +5,7 @@ import questionsReducer from './reducers/questionsReducer';
 import currSubjectReducer from './reducers/subjectReducer';
 import answersCounterReducer from './reducers/answersCounterReducer';
 import currentQuestionReducer from './reducers/currentQuestionReducer';
+import userReducer from './reducers/userReducer';
 
 export default configureStore({
   reducer: {
@@ -14,5 +15,6 @@ export default configureStore({
     currSubject: currSubjectReducer,
     answersCounter: answersCounterReducer,
     currentQuestion: currentQuestionReducer,
+    user: userReducer,
   },
 });
