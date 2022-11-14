@@ -57,7 +57,7 @@ export default function PersonalPage({ navigation }) {
               try {
                 dispatch(removeUserThunk());
                 dispatch(setUserThunk(text));
-                showInputForChangeName();
+                setShowInputForChangeName();
                 dispatch(getUserThunk());
               } catch (error) {
                 console.error(error);
