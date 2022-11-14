@@ -6,6 +6,8 @@ import {
 } from 'react-native';
 import { useFonts } from 'expo-font';
 import { setQuestionsThunk } from '../../redux/actions/questionsActions';
+import { setCurrentOption } from '../../redux/actions/currentOptionActions';
+import { clearTimer } from '../../redux/actions/timerActions';
 
 export default function OneOption({ option, navigation }) {
   const currSubject = useSelector((state) => state.currSubject);
@@ -22,6 +24,8 @@ export default function OneOption({ option, navigation }) {
     <TouchableOpacity
       onPress={() => {
         dispatch(setQuestionsThunk(option.url));
+        dispatch(setCurrentOption(option));
+        dispatch(clearTimer());
         navigation.navigate('Question');
       }}
       style={styles.container}
