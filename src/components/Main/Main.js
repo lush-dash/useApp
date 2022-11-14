@@ -8,41 +8,25 @@ import Svg, { Path } from 'react-native-svg';
 import { useFonts } from 'expo-font';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Input } from '@ui-kitten/components';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserThunk, setUserThunk } from '../../redux/actions/userActions';
 
 export default function Main({ navigation }) {
   const [fontsLoaded] = useFonts({
     MontserratMedium: require('../../../assets/fonts/Montserrat-Medium.ttf'),
   });
-  const [flag, setFlag] = useState(false);
+  const [showUserLogin, setshowUserLogin] = useState(false);
   const [text, setText] = useState('');
-  const [user, setUser] = useState(null);
-  const chancheFlag = () => {
-    setFlag(!flag);
+  const user = useSelector((store) => store.user);
+  const dispatch = useDispatch();
+  const changeUserLogin = () => {
+    setshowUserLogin(!showUserLogin);
   };
 
-  const saveName = async () => {
-    try {
-      AsyncStorage.setItem('usernameData', text);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getName = async () => {
-    try {
-      const name = await AsyncStorage.getItem('usernameData');
-      setUser(name);
-    } catch (error) {
-      console.log(error);
-    }
-  };
   useEffect(() => {
-    getName();
+    dispatch(getUserThunk());
   }, []);
-  // console.log(user);
   if (!fontsLoaded) return null;
-
   return (
     <View style={styles.container}>
       <View style={styles.box}>
@@ -60,9 +44,9 @@ export default function Main({ navigation }) {
           source={require('../../../assets/paper-plane-grey.png')}
           style={styles.image}
         />
-        {user === null ? (
+        {(user === null || user === '') ? (
           <>
-            {flag && (
+            {showUserLogin && (
             <>
               <Text style={styles.myText}>
                 Введи имя:
@@ -75,7 +59,8 @@ export default function Main({ navigation }) {
 
               <TouchableOpacity onPress={() => {
                 navigation.navigate('Home');
-                saveName();
+
+                dispatch(setUserThunk(text));
               }}
               >
                 <View style={styles.button}>
@@ -86,12 +71,12 @@ export default function Main({ navigation }) {
             </>
             )}
 
-            {!flag && (
+            {!showUserLogin && (
             <>
               <Text style={styles.myText}>
                 Проведи время с пользой
               </Text>
-              <TouchableOpacity onPress={() => chancheFlag()}>
+              <TouchableOpacity onPress={() => changeUserLogin()}>
                 <View style={styles.button}>
                   <Text style={styles.buttonText}>Начать</Text>
                 </View>
