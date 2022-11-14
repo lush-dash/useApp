@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
       height: -1,
       width: 1,
     },
-    minHeight: (Dimensions.get('screen').height - 100),
+    minHeight: (Dimensions.get('screen').height - 150),
   },
   title: {
     alignSelf: 'flex-start',
