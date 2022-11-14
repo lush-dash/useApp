@@ -19,6 +19,7 @@ export const StorageErrorTypes = {
 
 export const saveName = async (text) => {
   try {
+    console.log(text, 'savename text');
     AsyncStorage.setItem('usernameData', text);
   } catch (error) {
     console.log(error);
@@ -30,10 +31,18 @@ export const getName = async () => {
   try {
     const name = await AsyncStorage.getItem('usernameData');
     console.log(name, 'name in storage');
-
     return name;
   } catch (error) {
     console.log(error);
   }
 };
+
+export const removeName = async () => {
+  try {
+    await AsyncStorage.removeItem('usernameData');
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export default storage;

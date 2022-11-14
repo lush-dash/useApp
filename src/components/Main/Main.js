@@ -28,7 +28,6 @@ export default function Main({ navigation }) {
   }, []);
   // console.log(user);
   if (!fontsLoaded) return null;
-
   return (
     <View style={styles.container}>
       <View style={styles.box}>
@@ -46,7 +45,7 @@ export default function Main({ navigation }) {
           source={require('../../../assets/paper-plane-grey.png')}
           style={styles.image}
         />
-        {user === '' ? (
+        {(user === null || user === '') ? (
           <>
             {showUserLogin && (
             <>
@@ -61,6 +60,7 @@ export default function Main({ navigation }) {
 
               <TouchableOpacity onPress={() => {
                 navigation.navigate('Home');
+
                 dispatch(setUserThunk(text));
               }}
               >
