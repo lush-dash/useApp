@@ -2,7 +2,7 @@ import { Input } from '@ui-kitten/components';
 import { useFonts } from 'expo-font';
 import React, { useEffect, useState } from 'react';
 import {
-  Text, View, StyleSheet, Image, Dimensions,
+  Text, View, StyleSheet, Image, Dimensions, Alert, Modal,
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,6 +17,9 @@ export default function PersonalPage({ navigation }) {
   const dispatch = useDispatch();
   const [text, setText] = useState('');
   const [showInputForChangeName, setShowInputForChangeName] = useState(false);
+  // Pashal
+  const [startGame, setStartGame] = useState(5);
+  const [modalVisible, setModalVisible] = useState(false);
   const showInput = () => {
     setShowInputForChangeName(!showInputForChangeName);
   };
@@ -29,17 +32,49 @@ export default function PersonalPage({ navigation }) {
     }
   });
 
+  const gameHandler = () => {
+    if (startGame === 1) {
+      setStartGame(5);
+      navigation.navigate('PaschalGame');
+    }
+    setModalVisible(!modalVisible);
+    setStartGame(startGame - 1);
+    setTimeout(() => { setModalVisible(false); }, 100);
+  };
+
   if (!fontsLoaded) return null;
 
   return (
     <View style={styles.container}>
+
+      {/* Modal */}
+      <Modal
+        animationType="fade"
+        transparent
+        visible={modalVisible}
+      >
+
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>
+              Start pashal game via
+              {' '}
+              {startGame}
+            </Text>
+          </View>
+        </View>
+      </Modal>
+      {/* Modal */}
+
       <View style={styles.innerContainer}>
         <View>
-          <Text style={styles.userName}>
-            Привет,
-            {' '}
-            {user || 'друг'}
-          </Text>
+          <TouchableOpacity onPress={() => gameHandler()}>
+            <Text style={styles.userName}>
+              Привет,
+              {' '}
+              {user || 'друг'}
+            </Text>
+          </TouchableOpacity>
         </View>
         {/* <TouchableOpacity onPress={() => chancheFlag()}>
           <View style={styles.button}>
@@ -154,5 +189,29 @@ const styles = StyleSheet.create({
   image: {
     width: 150,
     height: 150,
+  },
+  modalView: {
+    // height: 30,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    alignItems: 'center',
+    padding: 15,
+    // shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  modalText: {
+    textAlign: 'center',
+    color: 'black',
+  },
+  centeredView: {
+    flex: 0.45,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
