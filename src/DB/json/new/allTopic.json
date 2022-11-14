@@ -1,0 +1,21 @@
+[{
+  "id":1,
+  "title": "Русский язык",
+  "url": "https://useapp.ams3.digitaloceanspaces.com/topicRusLang.json"
+},
+{
+  "id":2,
+  "title": "Обществознание",
+  "url": "https://useapp.ams3.digitaloceanspaces.com/topicSocialScience.json"
+},
+{
+  "id":3,
+  "title": "История",
+  "url": "https://useapp.ams3.digitaloceanspaces.com/topicHistory.json"
+},
+{
+  "id":4,
+  "title": "Эльбрус",
+  "url": "https://useapp.ams3.digitaloceanspaces.com/topicElbrus.json"
+}
+]

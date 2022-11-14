@@ -1,0 +1,25 @@
+[{
+  "id":1,
+  "subjectId": 3,
+  "title": "Вариант №1",
+  "url": "https://useapp.ams3.digitaloceanspaces.com/topicHistoryV1.json"
+},
+{
+  "id":2,
+  "subjectId": 3,
+  "title": "Вариант №2",
+  "url": "https://useapp.ams3.digitaloceanspaces.com/topicHistoryV1.json"
+},
+{
+  "id":3,
+  "subjectId": 3,
+  "title": "Вариант №3",
+  "url": "https://useapp.ams3.digitaloceanspaces.com/topicHistoryV1.json"
+},
+{
+  "id":4,
+  "subjectId": 3,
+  "title": "Вариант №4",
+  "url": "https://useapp.ams3.digitaloceanspaces.com/topicHistoryV1.json"
+}
+]
