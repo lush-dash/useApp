@@ -86,7 +86,6 @@ export default function Main({ navigation }) {
             </>
             )}
 
-
             {!flag && (
             <>
               <Text style={styles.myText}>

@@ -3,7 +3,7 @@ import { Input } from '@ui-kitten/components';
 import { useFonts } from 'expo-font';
 import React, { useEffect, useState } from 'react';
 import {
-  Text, View, StyleSheet, Image,
+  Text, View, StyleSheet, Image, Dimensions,
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -48,64 +48,72 @@ export default function PersonalPage({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <View>
-        <Text style={styles.userName}>
-          Привет,
-          {' '}
-          {user}
-          .
-        </Text>
-      </View>
-      <TouchableOpacity onPress={() => chancheFlag()}>
-        <View style={styles.button}>
-          <Text style={styles.buttonText}>Изменить имя</Text>
-        </View>
-      </TouchableOpacity>
-      {flag && (
+      <View style={styles.innerContainer}>
         <View>
-          <Input
-            onChangeText={(value) => setText(value)}
-            defaultValue={user}
-          />
+          <Text style={styles.userName}>
+            Привет,
+            {' '}
+            {user || 'друг'}
+          </Text>
+        </View>
+        {/* <TouchableOpacity onPress={() => chancheFlag()}>
+          <View style={styles.button}>
+            <Text style={styles.buttonText}>Изменить имя</Text>
+          </View>
+        </TouchableOpacity> */}
+        {flag ? (
+          <View>
+            <Input
+              style={styles.input}
+              onChangeText={(value) => setText(value)}
+              defaultValue={user}
+            />
 
-          <TouchableOpacity onPress={() => {
-            deleteName();
-            saveName();
-            setFlag();
-            getName();
-          }}
-          >
+            <TouchableOpacity onPress={() => {
+              deleteName();
+              saveName();
+              setFlag();
+              getName();
+            }}
+            >
+              <View style={styles.button}>
+                <Text style={styles.buttonText}>Ок</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <TouchableOpacity onPress={() => chancheFlag()}>
             <View style={styles.button}>
-              <Text style={styles.buttonText}>Ок</Text>
+              <Text style={styles.buttonText}>Изменить имя</Text>
             </View>
           </TouchableOpacity>
-        </View>
-      )}
-      <View>
+        )}
+        {/* <View>
         <Text style={styles.userName}>
           Прогресс
         </Text>
-      </View>
-      <View>
-        <Image
-          style={styles.image}
-          source={require('../../../assets/student2.png')}
-        />
+      </View> */}
+        <View>
+          <Image
+            style={styles.image}
+            source={require('../../../assets/student2.png')}
+          />
 
-      </View>
+        </View>
 
-      <View>
-        <TouchableOpacity onPress={() => {
-          deleteName();
-          getName();
-          setText('');
-          navigation.navigate('Main');
-        }}
-        >
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>Выйти</Text>
-          </View>
-        </TouchableOpacity>
+        <View>
+          <TouchableOpacity onPress={() => {
+            deleteName();
+            getName();
+            setText('');
+            navigation.navigate('Main');
+          }}
+          >
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>Выйти</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -115,9 +123,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     alignItems: 'center',
-    justifyContent: 'space-around',
-    paddingTop: '15%',
-    paddingBottom: '5%',
+    justifyContent: 'center',
+  },
+  innerContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: (Dimensions.get('screen').width),
+    height: '70%',
   },
   userName: {
     textAlign: 'center',
@@ -129,21 +142,24 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: '#353739',
     width: 200,
-    height: 36,
+    height: 50,
     borderRadius: '30',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: '5%',
   },
   buttonText: {
     color: 'white',
     fontSize: 20,
   },
+  input: {
+    borderRadius: '30',
+    borderWidth: 1,
+    borderColor: '#353739',
+    marginBottom: '5%',
+    textAlign: 'center',
+  },
   image: {
     width: 150,
     height: 150,
-    marginTop: '5%',
-    marginBottom: '5%',
   },
-
 });
