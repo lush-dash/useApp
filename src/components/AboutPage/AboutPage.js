@@ -1,7 +1,7 @@
 import { useFonts } from 'expo-font';
 import React from 'react';
 import {
-  View, StyleSheet, ScrollView, Linking, Text, Dimensions,
+  View, StyleSheet, ScrollView, Linking, Text, Dimensions, ActivityIndicator,
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -12,7 +12,18 @@ export default function AboutPage() {
     MontserratBold: require('../../../assets/fonts/Montserrat-Bold.ttf'),
   });
 
-  if (!fontsLoaded) return null;
+  if (!fontsLoaded) {
+    return (
+      <View style={{
+        justifyContent: 'center',
+        height: '100%',
+      }}
+      >
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <ScrollView>
