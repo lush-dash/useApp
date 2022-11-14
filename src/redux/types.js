@@ -15,10 +15,17 @@ export const SET_SOC = 'SET_SOC';
 export const ADD_GOOD_ANSWER = 'ADD_GOOD_ANSWER';
 export const ADD_BAD_ANSWER = 'ADD_BAD_ANSWER';
 
-// currentQestion
+// currentQuestion
 export const SET_CURRENT_QESTION = 'SET_CURRENT_QESTION';
 
 // user
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 export const GET_CURRENT_USER = 'GET_CURRENT_USER';
 export const REMOVE_CURRENT_USER = 'REMOVE_CURRENT_USER';
+// currentOption
+export const SET_CURRENT_OPTION = 'SET_CURRENT_OPTION';
+
+// timer
+export const SET_TOTAL_TIME = 'SET_TOTAL_TIME';
+export const SET_RESULT_TIME = 'SET_RESULT_TIME';
+export const CLEAR_TIMER = 'CLEAR_TIMER';

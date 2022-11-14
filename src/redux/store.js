@@ -6,6 +6,8 @@ import currSubjectReducer from './reducers/subjectReducer';
 import answersCounterReducer from './reducers/answersCounterReducer';
 import currentQuestionReducer from './reducers/currentQuestionReducer';
 import userReducer from './reducers/userReducer';
+import currentOptionReducer from './reducers/currentOptionReducer';
+import timerReducer from './reducers/timerReducer';
 
 export default configureStore({
   reducer: {
@@ -14,7 +16,9 @@ export default configureStore({
     questions: questionsReducer,
     currSubject: currSubjectReducer,
     answersCounter: answersCounterReducer,
-    currentQuestion: currentQuestionReducer,
+    currentQuestion: currentQuestionReducer, // нужен ли?
+    currentOption: currentOptionReducer,
+    timer: timerReducer,
     user: userReducer,
   },
 });
