@@ -6,10 +6,10 @@ import {
   PieChart,
 } from 'react-native-chart-kit';
 import { useFonts } from 'expo-font';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
 
-export default function ResultsPage() {
+export default function ResultsPage({ navigation }) {
   const currSubject = useSelector((state) => state.currSubject);
   const result = useSelector((state) => state.answersCounter);
   const [fontsLoaded] = useFonts({
@@ -59,6 +59,16 @@ export default function ResultsPage() {
             // absolute
           />
         </View>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity onPress={() => {
+            navigation.navigate('Subjects');
+          }}
+          >
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>К выбору темы</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </View>
 
@@ -81,8 +91,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: '15%',
+    justifyContent: 'space-between',
+    paddingTop: '5%',
   },
   title: {
     textAlign: 'center',
@@ -102,9 +112,28 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
-    paddingTop: '30%',
+    paddingTop: '20%',
   },
   chartContainer: {
     marginTop: '20%',
+  },
+  button: {
+    backgroundColor: '#353739',
+    width: 200,
+    height: 36,
+    borderRadius: '30',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: '5%',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 20,
+  },
+  buttonContainer: {
+    flex: 1,
+    alignItems: 'center',
+    marginTop: '10%',
+    justifyContent: 'flex-end',
   },
 });
