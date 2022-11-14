@@ -120,6 +120,7 @@ function App() {
                 title: '',
                 headerBackTitle: 'Прекратить тест',
                 headerTintColor: '#353739',
+                gestureEnabled: false,
                 headerBackTitleStyle: {
                   fontFamily: 'MontserratMedium',
                 },
