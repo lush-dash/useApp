@@ -68,7 +68,7 @@ export default function ResultsPage({ navigation }) {
           }}
           >
             <View style={styles.button}>
-              <Text style={styles.buttonText}>К выбору темы</Text>
+              <Text style={styles.buttonText}>На главную</Text>
             </View>
           </TouchableOpacity>
         </View>
