@@ -4,17 +4,28 @@ import {
   StyleSheet, View,
 } from 'react-native';
 import { useFonts } from 'expo-font';
+import { useDispatch } from 'react-redux';
+import { setEnd, setStart } from '../../redux/actions/timerActions';
 
-export default function Timer({ navigation, timerValue }) {
+export default function Timer({ navigation, timerValue, stopTimer }) {
   const [time, setTime] = React.useState(timerValue);
   const timerRef = React.useRef(time);
+  const dispatch = useDispatch();
   const [fontsLoaded] = useFonts({
     MontserratMedium: require('../../../assets/fonts/Montserrat-Medium.ttf'),
     MontserratSemiBold: require('../../../assets/fonts/Montserrat-SemiBold.ttf'),
   });
 
+  dispatch(setStart(timerValue));
+  dispatch(setEnd(time));
+
   React.useEffect(() => {
     const timerId = setInterval(() => {
+      if (stopTimer) {
+        return () => {
+          clearInterval(timerId);
+        };
+      }
       timerRef.current -= 1;
       if (timerRef.current < 0) {
         clearInterval(timerId);
@@ -26,7 +37,7 @@ export default function Timer({ navigation, timerValue }) {
     return () => {
       clearInterval(timerId);
     };
-  }, []);
+  }, [stopTimer]);
 
   if (!fontsLoaded) return null;
 

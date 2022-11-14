@@ -10,12 +10,12 @@ import { useFonts } from 'expo-font';
 import { addBadAnswer, addGoodAnswer } from '../../redux/actions/answersCounterActions';
 import { setCurrentQuestion } from '../../redux/actions/currentQuestionActions';
 import Timer from '../Timer/Timer';
-import { ScrollView } from 'react-native-gesture-handler';
 
 export default function QuestionPage({ navigation }) {
   const questions = useSelector((state) => state.questions);
   const dispatch = useDispatch();
   const [index, setIndex] = useState(0);
+  const [stopTimer, setStopTimer] = useState(false);
   const [answer, setAnswer] = useState('');
   const [trueAnswer, setTrueAnswer] = useState(true);
   const [fontsLoaded] = useFonts({
@@ -33,14 +33,20 @@ export default function QuestionPage({ navigation }) {
       dispatch(addGoodAnswer());
       setIndex(index + 1);
       setAnswer('');
-      if (index === questions.length - 2) { navigation.navigate('Result'); }
+      if (index === questions.length - 2) {
+        setStopTimer(true);
+        navigation.navigate('Result');
+      }
       dispatch(setCurrentQuestion(questions[index]));
     }
   };
 
   const nextHandler = () => {
     setIndex(index + 1);
-    if (index === questions.length - 2) { navigation.navigate('Result'); }
+    if (index === questions.length - 2) {
+      setStopTimer(true);
+      navigation.navigate('Result');
+    }
     setAnswer('');
     setTrueAnswer(true);
     dispatch(setCurrentQuestion(questions[index]));
@@ -61,6 +67,7 @@ export default function QuestionPage({ navigation }) {
             <Timer
               navigation={navigation}
               timerValue={timerValue}
+              stopTimer={stopTimer}
             />
           ) : <></>}
           <Text style={styles.text}>{questions[index]?.q.split('\n').join('\n\n')}</Text>

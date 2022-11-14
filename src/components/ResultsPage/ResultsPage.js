@@ -12,6 +12,9 @@ import { useSelector } from 'react-redux';
 export default function ResultsPage() {
   const currSubject = useSelector((state) => state.currSubject);
   const result = useSelector((state) => state.answersCounter);
+  const currentOption = useSelector((state) => state.currentOption);
+  const timer = useSelector((state) => state.timer);
+
   const [fontsLoaded] = useFonts({
     MontserratBold: require('../../../assets/fonts/Montserrat-Bold.ttf'),
     MontserratMedium: require('../../../assets/fonts/Montserrat-Medium.ttf'),
@@ -42,9 +45,9 @@ export default function ResultsPage() {
       <ScrollView style={styles.scroll}>
         <View style={styles.innerContainer}>
           <Text style={styles.title}>Результат</Text>
-          <Text style={styles.text}>Время прохождения: 30мин</Text>
+          <Text style={styles.text}>{`Время прохождения: ${new Date((timer.start - timer.end) * 1000).toISOString().slice(14, 19)}`}</Text>
           <Text style={styles.text}>{`Предмет: ${currSubject?.title}`}</Text>
-          <Text style={styles.text}>Вариант №1</Text>
+          <Text style={styles.text}>{currentOption?.title}</Text>
         </View>
         <View style={styles.chartContainer}>
           <PieChart
