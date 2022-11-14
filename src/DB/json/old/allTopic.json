@@ -1,0 +1,12 @@
+[{
+  "id":1,
+  "title": "Русский язык",
+  "url": "https://useapp.ams3.digitaloceanspaces.com/topicRusLang.json"
+},
+{
+  "id":2,
+  "title": "Обществознание",
+  "url": "https://useapp.ams3.digitaloceanspaces.com/topicSocialScience.json"
+}
+]
+
