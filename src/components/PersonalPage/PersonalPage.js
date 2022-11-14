@@ -135,10 +135,10 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: '#353739',
     width: 200,
-    height: 50,
     borderRadius: '30',
     alignItems: 'center',
     justifyContent: 'center',
+    minHeight: 50,
   },
   buttonText: {
     color: 'white',

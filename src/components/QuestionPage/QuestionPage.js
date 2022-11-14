@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 import React, { useState } from 'react';
 import {
+  ActivityIndicator,
   StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
@@ -10,7 +11,6 @@ import { useFonts } from 'expo-font';
 import { addBadAnswer, addGoodAnswer } from '../../redux/actions/answersCounterActions';
 import { setCurrentQuestion } from '../../redux/actions/currentQuestionActions';
 import Timer from '../Timer/Timer';
-import { setStart } from '../../redux/actions/timerActions';
 
 export default function QuestionPage({ navigation }) {
   const questions = useSelector((state) => state.questions);
@@ -25,7 +25,7 @@ export default function QuestionPage({ navigation }) {
     MontserratSemiBold: require('../../../assets/fonts/Montserrat-SemiBold.ttf'),
   });
 
-  const timerValue = questions.length * 60;
+  const timerValue = questions.length * 180;
 
   const clickHandler = () => {
     if (answer.toLowerCase() !== questions[index]?.a.toLowerCase()) {
@@ -54,7 +54,17 @@ export default function QuestionPage({ navigation }) {
     dispatch(setCurrentQuestion(questions[index]));
   };
 
-  if (!fontsLoaded) return null;
+  if (!fontsLoaded || !questions.length) {
+    return (
+      <View style={{
+        justifyContent: 'center',
+        height: '100%',
+      }}
+      >
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -62,13 +72,12 @@ export default function QuestionPage({ navigation }) {
         <View style={styles.innerContainer}>
           <View style={{
             marginTop: '5%',
-            height: '3%',
             backgroundColor: currSubject?.color,
             borderRadius: '30',
             alignItems: 'center',
             justifyContent: 'center',
             minWidth: 350,
-            minHeight: 35,
+            height: 35,
           }}
           >
             <Text style={styles.textProgress}>
@@ -150,7 +159,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: '12%',
   },
   innerContainer: {
     alignItems: 'center',
@@ -196,7 +204,7 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   answerText: {
-    fontSize: 18,
+    fontSize: 15,
     fontFamily: 'MontserratMedium',
     color: '#353739',
   },

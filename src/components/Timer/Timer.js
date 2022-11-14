@@ -44,7 +44,7 @@ export default function Timer({ navigation, timerValue, stopTimer }) {
 
     <View style={styles.container}>
       <Text style={styles.text}>
-        {`Таймер: ${new Date(time * 1000).toISOString().slice(14, 19)}`}
+        {`Таймер: ${new Date(time * 1000).toISOString().slice(11, 19)}`}
       </Text>
     </View>
   );
@@ -55,15 +55,15 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 30,
     alignSelf: 'flex-end',
-    marginTop: '10%',
+    marginTop: '5%',
     marginRight: '5%',
     alignItems: 'center',
-    minHeight: 48,
+    height: 33,
     minWidth: '50%',
     justifyContent: 'center',
   },
   text: {
-    fontSize: '18',
+    fontSize: '15',
     color: '#353739',
     fontFamily: 'MontserratMedium',
   },

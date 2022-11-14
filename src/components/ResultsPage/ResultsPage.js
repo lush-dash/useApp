@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  View, Dimensions, StyleSheet, Text,
+  View, Dimensions, StyleSheet, Text, ActivityIndicator,
 } from 'react-native';
 import {
   PieChart,
@@ -38,14 +38,24 @@ export default function ResultsPage({ navigation }) {
     },
   ];
 
-  if (!fontsLoaded) return null;
+  if (!fontsLoaded || !currSubject || !result || !currentOption || !timer) {
+    return (
+      <View style={{
+        justifyContent: 'center',
+        height: '100%',
+      }}
+      >
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scroll}>
         <View style={styles.innerContainer}>
           <Text style={styles.title}>Результат</Text>
-          <Text style={styles.text}>{`Время прохождения: ${new Date((timer.start - timer.end) * 1000).toISOString().slice(14, 19)}`}</Text>
+          <Text style={styles.text}>{`Время прохождения: ${new Date((timer.start - timer.end) * 1000).toISOString().slice(11, 19)}`}</Text>
           <Text style={styles.text}>{`Предмет: ${currSubject?.title}`}</Text>
           <Text style={styles.text}>{currentOption?.title}</Text>
         </View>
@@ -69,7 +79,7 @@ export default function ResultsPage({ navigation }) {
           }}
           >
             <View style={styles.button}>
-              <Text style={styles.buttonText}>К выбору темы</Text>
+              <Text style={styles.buttonText}>На главную</Text>
             </View>
           </TouchableOpacity>
         </View>
