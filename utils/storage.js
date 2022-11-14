@@ -17,29 +17,68 @@ export const StorageErrorTypes = {
   NotFound: 'NotFoundError',
 };
 
-// export const setData = async (value) => {
-//   try {
-//     await AsyncStorage.setItem('someData', value);
-//   } catch (err) {
-//     console.error(err);
-//   }
-// };
+export const saveName = async (text) => {
+  try {
+    AsyncStorage.setItem('usernameData', text);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-// export const getData = async () => {
-//   try {
-//     const value = await AsyncStorage.getItem(value);
-//   } catch (err) {
-//     console.error(err);
-//   }
-// };
+// eslint-disable-next-line consistent-return
+export const getName = async () => {
+  try {
+    const name = await AsyncStorage.getItem('usernameData');
+    return name;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-// export const setUserName = (value) => storage.save({
-//   key: 'userName',
-//   data: value,
-// });
+export const removeName = async () => {
+  try {
+    await AsyncStorage.removeItem('usernameData');
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-// export const getUserName = () => storage.load({
-//   key: 'userName',
-// });
+export const setGoodAnswer = async (subid, goodAnswer) => {
+  try {
+    const idResult = String(`${subid.subjectId}${subid.id}`);
+    console.log(idResult, 'idresult');
+    await AsyncStorage.setItem(`${idResult}`, String(goodAnswer.goodAnswer));
+    console.log('im work!!');
+  } catch (error) {
+    console.error(error);
+  }
+};
 
+export const getGoodAnswer = async (index) => {
+  try {
+    const idResult = String(`${index.subjectId}${index.id}`);
+    const result = await AsyncStorage.getItem(String(idResult));
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const removeAnswer = async (index) => {
+  try {
+    await AsyncStorage.removeItem(index);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getAllKeys = async () => {
+  let keys = [];
+  try {
+    keys = await AsyncStorage.getAllKeys();
+    return keys;
+  } catch (error) {
+    console.error(error);
+  }
+};
 export default storage;

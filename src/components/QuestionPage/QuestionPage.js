@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 import React, { useState } from 'react';
 import {
+  ActivityIndicator,
   StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
@@ -13,8 +14,10 @@ import Timer from '../Timer/Timer';
 
 export default function QuestionPage({ navigation }) {
   const questions = useSelector((state) => state.questions);
+  const currSubject = useSelector((state) => state.currSubject);
   const dispatch = useDispatch();
   const [index, setIndex] = useState(0);
+  const [stopTimer, setStopTimer] = useState(false);
   const [answer, setAnswer] = useState('');
   const [trueAnswer, setTrueAnswer] = useState(true);
   const [fontsLoaded] = useFonts({
@@ -22,7 +25,7 @@ export default function QuestionPage({ navigation }) {
     MontserratSemiBold: require('../../../assets/fonts/Montserrat-SemiBold.ttf'),
   });
 
-  const timerValue = questions.length * 60;
+  const timerValue = questions.length * 180;
 
   const clickHandler = () => {
     if (answer.toLowerCase() !== questions[index]?.a.toLowerCase()) {
@@ -32,36 +35,68 @@ export default function QuestionPage({ navigation }) {
       dispatch(addGoodAnswer());
       setIndex(index + 1);
       setAnswer('');
-      if (index === questions.length - 2) { navigation.navigate('Result'); }
+      if (index === questions.length - 2) {
+        setStopTimer(true);
+        navigation.navigate('Result');
+      }
       dispatch(setCurrentQuestion(questions[index]));
     }
   };
 
   const nextHandler = () => {
     setIndex(index + 1);
-    if (index === questions.length - 2) { navigation.navigate('Result'); }
+    if (index === questions.length - 2) {
+      setStopTimer(true);
+      navigation.navigate('Result');
+    }
     setAnswer('');
     setTrueAnswer(true);
     dispatch(setCurrentQuestion(questions[index]));
   };
 
-  if (!fontsLoaded) return null;
+  if (!fontsLoaded || !questions.length) {
+    return (
+      <View style={{
+        justifyContent: 'center',
+        height: '100%',
+      }}
+      >
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
       <KeyboardAwareScrollView>
         <View style={styles.innerContainer}>
-          <Text style={styles.myH2}>
+          <View style={{
+            marginTop: '5%',
+            backgroundColor: currSubject?.color,
+            borderRadius: '30',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minWidth: 350,
+            height: 35,
+          }}
+          >
+            <Text style={styles.textProgress}>
+              {`Вопрос ${index + 1} из ${questions?.length}`}
+              {' '}
+            </Text>
+          </View>
+          {/* <Text style={styles.myH2}>
             Вопрос №
             {' '}
             {index + 1}
-          </Text>
+          </Text> */}
           {questions.length ? (
             <Timer
               navigation={navigation}
               timerValue={timerValue}
+              stopTimer={stopTimer}
             />
-          ) : <></>}
+          ) : null }
           <Text style={styles.text}>{questions[index]?.q.split('\n').join('\n\n')}</Text>
           {!trueAnswer ? (
             <>
@@ -69,7 +104,16 @@ export default function QuestionPage({ navigation }) {
                 <Text style={styles.answerText}>{`Правильный ответ: ${questions[index]?.a}`}</Text>
               </View>
               <TouchableOpacity onPress={nextHandler}>
-                <View style={styles.button}>
+                <View style={{
+                  backgroundColor: currSubject?.color,
+                  minWidth: 250,
+                  minHeight: 50,
+                  borderRadius: '30',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginBottom: '10%',
+                }}
+                >
                   <Text style={styles.buttonText}>
                     Следующий вопрос
                   </Text>
@@ -86,7 +130,16 @@ export default function QuestionPage({ navigation }) {
                 onSubmitEditing={clickHandler}
               />
               <TouchableOpacity onPress={clickHandler}>
-                <View style={styles.button}>
+                <View style={{
+                  backgroundColor: currSubject?.color,
+                  minWidth: 250,
+                  minHeight: 50,
+                  borderRadius: '30',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginBottom: '10%',
+                }}
+                >
                   <Text style={styles.buttonText}>
                     Ответить
                   </Text>
@@ -106,10 +159,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: '15%',
   },
   innerContainer: {
     alignItems: 'center',
+  },
+  textProgress: {
+    fontSize: '15',
+    fontFamily: 'MontserratMedium',
+    color: '#353739',
   },
   text: {
     margin: '5%',
@@ -126,6 +183,7 @@ const styles = StyleSheet.create({
     borderColor: '#353739',
     margin: '5%',
     fontFamily: 'MontserratMedium',
+    backgroundColor: '#fff',
   },
   myH2: {
     textAlign: 'center',
@@ -135,19 +193,10 @@ const styles = StyleSheet.create({
     fontFamily: 'MontserratBold',
     color: '#353739',
   },
-  button: {
-    backgroundColor: '#353739',
-    minWidth: 250,
-    minHeight: 40,
-    borderRadius: '30',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: '10%',
-  },
   answerBubble: {
     borderWidth: 1,
     minWidth: 250,
-    minHeight: 38,
+    minHeight: 50,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: '30',
@@ -155,12 +204,12 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   answerText: {
-    fontSize: 18,
+    fontSize: 15,
     fontFamily: 'MontserratMedium',
     color: '#353739',
   },
   buttonText: {
-    color: 'white',
+    color: '#353739',
     fontFamily: 'MontserratMedium',
     fontSize: 18,
   },

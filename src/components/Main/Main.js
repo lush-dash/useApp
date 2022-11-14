@@ -8,45 +8,31 @@ import Svg, { Path } from 'react-native-svg';
 import { useFonts } from 'expo-font';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Input } from '@ui-kitten/components';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useDispatch, useSelector } from 'react-redux';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { getUserThunk, setUserThunk } from '../../redux/actions/userActions';
 
 export default function Main({ navigation }) {
   const [fontsLoaded] = useFonts({
     MontserratMedium: require('../../../assets/fonts/Montserrat-Medium.ttf'),
   });
-  const [flag, setFlag] = useState(false);
+  const [showUserLogin, setshowUserLogin] = useState(false);
   const [text, setText] = useState('');
-  const [user, setUser] = useState(null);
-  const chancheFlag = () => {
-    setFlag(!flag);
+  const user = useSelector((store) => store.user);
+  const dispatch = useDispatch();
+  const changeUserLogin = () => {
+    setshowUserLogin(!showUserLogin);
   };
 
-  const saveName = async () => {
-    try {
-      AsyncStorage.setItem('usernameData', text);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getName = async () => {
-    try {
-      const name = await AsyncStorage.getItem('usernameData');
-      setUser(name);
-    } catch (error) {
-      console.log(error);
-    }
-  };
   useEffect(() => {
-    getName();
+    dispatch(getUserThunk());
   }, []);
-  // console.log(user);
   if (!fontsLoaded) return null;
-
   return (
     <View style={styles.container}>
       <View style={styles.box}>
         <Svg
+          style={styles.topWave}
           viewBox="0 0 1440 320"
           height={150}
           width={Dimensions.get('screen').width}
@@ -54,74 +40,81 @@ export default function Main({ navigation }) {
           <Path fill="#c1e6ee" fillOpacity="1" d="M0,128L30,117.3C60,107,120,85,180,80C240,75,300,85,360,122.7C420,160,480,224,540,234.7C600,245,660,203,720,160C780,117,840,75,900,96C960,117,1020,203,1080,245.3C1140,288,1200,288,1260,261.3C1320,235,1380,181,1410,154.7L1440,128L1440,0L1410,0C1380,0,1320,0,1260,0C1200,0,1140,0,1080,0C1020,0,960,0,900,0C840,0,780,0,720,0C660,0,600,0,540,0C480,0,420,0,360,0C300,0,240,0,180,0C120,0,60,0,30,0L0,0Z" />
         </Svg>
       </View>
-      <View style={styles.innerContainer}>
-        <Text style={styles.myText}>Добро пожаловать в USEApp</Text>
-        <Image
-          source={require('../../../assets/paper-plane-grey.png')}
-          style={styles.image}
-        />
-        {user === null ? (
-          <>
-            {flag && (
+
+      <KeyboardAwareScrollView style={styles.scroll}>
+        <View style={styles.innerContainer}>
+          <Text style={styles.myText}>Добро пожаловать в USEApp</Text>
+          <Image
+            source={require('../../../assets/paper-plane-grey.png')}
+            style={styles.image}
+          />
+          {(user === null || user === '') ? (
+            <>
+              {showUserLogin && (
+              <>
+                <Text style={styles.myText}>
+                  Введи имя:
+                </Text>
+                <Input
+                  onChangeText={(value) => setText(value)}
+                  style={styles.input}
+                  defaultValue={text}
+                />
+
+                <TouchableOpacity onPress={() => {
+                  navigation.navigate('Home');
+                  setText('');
+                  dispatch(setUserThunk(text));
+                }}
+                >
+                  <View style={styles.button}>
+                    <Text style={styles.buttonText}>Далее</Text>
+                  </View>
+                </TouchableOpacity>
+
+              </>
+              )}
+
+              {!showUserLogin && (
+              <>
+                <Text style={styles.myText}>
+                  Проведи время с пользой
+                </Text>
+                <TouchableOpacity onPress={() => {
+                  changeUserLogin();
+                }}
+                >
+                  <View style={styles.button}>
+                    <Text style={styles.buttonText}>Начать</Text>
+                  </View>
+                </TouchableOpacity>
+              </>
+              )}
+            </>
+
+          ) : (
+
             <>
               <Text style={styles.myText}>
-                Введи имя:
+                C возвращением,
+                {' '}
+                {user}
               </Text>
-              <Input
-                onChangeText={(value) => setText(value)}
-                style={styles.input}
-                defaultValue={text}
-              />
-
               <TouchableOpacity onPress={() => {
                 navigation.navigate('Home');
-                saveName();
               }}
               >
+
                 <View style={styles.button}>
-                  <Text style={styles.buttonText}>Далее</Text>
+                  <Text style={styles.buttonText}>Продолжить</Text>
                 </View>
               </TouchableOpacity>
 
             </>
-            )}
 
-            {!flag && (
-            <>
-              <Text style={styles.myText}>
-                Проведи время с пользой
-              </Text>
-              <TouchableOpacity onPress={() => chancheFlag()}>
-                <View style={styles.button}>
-                  <Text style={styles.buttonText}>Начать</Text>
-                </View>
-              </TouchableOpacity>
-            </>
-            )}
-          </>
-
-        ) : (
-
-          <>
-            <Text style={styles.myText}>
-              C возвращением,
-              {' '}
-              {user}
-            </Text>
-            <TouchableOpacity onPress={() => {
-              navigation.navigate('Home');
-            }}
-            >
-
-              <View style={styles.button}>
-                <Text style={styles.buttonText}>Продолжить</Text>
-              </View>
-            </TouchableOpacity>
-
-          </>
-
-        )}
-      </View>
+          )}
+        </View>
+      </KeyboardAwareScrollView>
       <View style={styles.boxBottom}>
         <Svg
           style={styles.bottomWave}
@@ -140,8 +133,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    display: 'flex',
-    justifyContent: 'space-between',
   },
   box: {
     backgroundColor: '#c1e6ee',
@@ -155,8 +146,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#b0d0f5',
     height: 20,
   },
+  scroll: {
+    display: 'flex',
+  },
   innerContainer: {
     alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: (Dimensions.get('screen').height - 50),
   },
   myText: {
     textAlign: 'center',
@@ -178,6 +174,7 @@ const styles = StyleSheet.create({
     borderColor: '#353739',
     marginBottom: '7%',
     textAlign: 'center',
+    backgroundColor: '#fff',
   },
   button: {
     backgroundColor: '#353739',

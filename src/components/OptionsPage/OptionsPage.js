@@ -2,6 +2,8 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Text } from '@ui-kitten/components';
 import {
+  ActivityIndicator,
+  Dimensions,
   StyleSheet, View,
 } from 'react-native';
 import { useFonts } from 'expo-font';
@@ -16,10 +18,29 @@ export default function OptionsPage({ navigation }) {
     MontserratBold: require('../../../assets/fonts/Montserrat-Bold.ttf'),
   });
 
-  if (!fontsLoaded) return null;
+  if (!fontsLoaded || !options.length) {
+    return (
+      <View style={{
+        justifyContent: 'center',
+        height: '100%',
+      }}
+      >
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
 
   return (
-    <View style={styles.container}>
+    <View style={{
+      flex: 1,
+      backgroundColor: currSubject?.color,
+      alignItems: 'center',
+      justifyContent: 'start',
+      width: '100%',
+      margin: 0,
+      padding: 0,
+    }}
+    >
       <ScrollView style={styles.scroll}>
         <View style={{
           flex: 1,
@@ -63,9 +84,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'start',
     width: '100%',
-    paddingTop: '20%',
+    paddingTop: '10%',
     borderTopLeftRadius: '30',
     borderTopRightRadius: '30',
+    elevation: 1,
+    shadowOpacity: 0.4,
+    shadowRadius: 4,
+    shadowOffset: {
+      height: -1,
+      width: 1,
+    },
+    minHeight: (Dimensions.get('screen').height - 150),
+    paddingBottom: '10%',
   },
   title: {
     alignSelf: 'flex-start',
@@ -78,7 +108,7 @@ const styles = StyleSheet.create({
   text: {
     alignSelf: 'flex-start',
     marginLeft: '10%',
-    marginBottom: '10%',
+    marginBottom: '5%',
     fontSize: '20',
     fontFamily: 'MontserratMedium',
     color: '#353739',

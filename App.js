@@ -9,6 +9,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useFonts } from 'expo-font';
 import AboutPage from './src/components/AboutPage/AboutPage';
 import SubjectPage from './src/components/SubjectsPage/SubjectPage';
 import PersonalPage from './src/components/PersonalPage/PersonalPage';
@@ -29,6 +30,17 @@ function Home() {
       tabBarInactiveTintColor: '#D3D3D3',
       tabBarStyle: {
         borderTopWidth: 0,
+        backgroundColor: 'white',
+        position: 'absolute',
+        borderTopLeftRadius: '30',
+        borderTopRightRadius: '30',
+        shadowColor: '#000000',
+        shadowOpacity: 0.4,
+        shadowRadius: 4,
+        shadowOffset: {
+          height: 1,
+          width: 1,
+        },
       },
     }}
     >
@@ -70,6 +82,10 @@ function Home() {
 }
 
 function App() {
+  const [fontsLoaded] = useFonts({
+    MontserratMedium: require('./assets/fonts/Montserrat-Medium.ttf'),
+  });
+  if (!fontsLoaded) return null;
   return (
     <NavigationContainer>
       <ApplicationProvider {...eva} theme={eva.light}>
@@ -83,11 +99,34 @@ function App() {
             <Stack.Screen
               name="Home"
               component={Home}
-              options={{ headerShown: false }}
+              options={{ headerShown: false, gestureEnabled: false }}
             />
-            <Stack.Screen name="Options" component={OptionsPage} options={{ headerShown: false }} />
-            <Stack.Screen name="Question" component={QuestionPage} options={{ headerShown: false }} />
-            <Stack.Screen name="Result" component={ResultsPage} options={{ headerShown: false }} />
+            <Stack.Screen
+              name="Options"
+              component={OptionsPage}
+              options={{
+                title: '',
+                headerBackTitle: 'К выбору предмета',
+                headerTintColor: '#353739',
+                headerBackTitleStyle: {
+                  fontFamily: 'MontserratMedium',
+                },
+              }}
+            />
+            <Stack.Screen
+              name="Question"
+              component={QuestionPage}
+              options={{
+                title: '',
+                headerBackTitle: 'Прекратить тест',
+                headerTintColor: '#353739',
+                gestureEnabled: false,
+                headerBackTitleStyle: {
+                  fontFamily: 'MontserratMedium',
+                },
+              }}
+            />
+            <Stack.Screen name="Result" component={ResultsPage} options={{ headerShown: false, gestureEnabled: false }} />
           </Stack.Navigator>
         </Provider>
       </ApplicationProvider>

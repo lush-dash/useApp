@@ -1,111 +1,112 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Input } from '@ui-kitten/components';
 import { useFonts } from 'expo-font';
 import React, { useEffect, useState } from 'react';
 import {
-  Text, View, StyleSheet, Image,
+  Text, View, StyleSheet, Image, Dimensions,
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllKeys, removeAnswer } from '../../../utils/storage';
+import { getUserThunk, removeUserThunk, setUserThunk } from '../../redux/actions/userActions';
 
 export default function PersonalPage({ navigation }) {
   const [fontsLoaded] = useFonts({
     MontserratMedium: require('../../../assets/fonts/Montserrat-Medium.ttf'),
   });
-  const [user, setUser] = useState(null);
+  const user = useSelector((store) => store.user);
+  const dispatch = useDispatch();
   const [text, setText] = useState('');
-  const [flag, setFlag] = useState(false);
-  const chancheFlag = () => {
-    setFlag(!flag);
+  const [showInputForChangeName, setShowInputForChangeName] = useState(false);
+  const showInput = () => {
+    setShowInputForChangeName(!showInputForChangeName);
   };
-  const getName = async () => {
+
+  useEffect(() => {
     try {
-      const name = await AsyncStorage.getItem('usernameData');
-      setUser(name);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const saveName = async () => {
-    try {
-      AsyncStorage.setItem('usernameData', text);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const deleteName = async () => {
-    try {
-      AsyncStorage.removeItem('usernameData');
-      setUser('');
+      dispatch(getUserThunk());
     } catch (error) {
       console.error(error);
     }
-  };
-  useEffect(() => {
-    getName();
-  }, []);
+  });
 
   if (!fontsLoaded) return null;
 
   return (
     <View style={styles.container}>
-      <View>
-        <Text style={styles.userName}>
-          Привет,
-          {' '}
-          {user}
-          .
-        </Text>
-      </View>
-      <TouchableOpacity onPress={() => chancheFlag()}>
-        <View style={styles.button}>
-          <Text style={styles.buttonText}>Изменить имя</Text>
-        </View>
-      </TouchableOpacity>
-      {flag && (
+      <View style={styles.innerContainer}>
         <View>
-          <Input
-            onChangeText={(value) => setText(value)}
-            defaultValue={user}
-          />
+          <Text style={styles.userName}>
+            Привет,
+            {' '}
+            {user || 'друг'}
+          </Text>
+        </View>
+        {/* <TouchableOpacity onPress={() => chancheFlag()}>
+          <View style={styles.button}>
+            <Text style={styles.buttonText}>Изменить имя</Text>
+          </View>
+        </TouchableOpacity> */}
+        {showInputForChangeName ? (
+          <View>
+            <Input
+              style={styles.input}
+              onChangeText={(value) => setText(value)}
+              defaultValue={user}
+            />
 
-          <TouchableOpacity onPress={() => {
-            deleteName();
-            saveName();
-            setFlag();
-            getName();
-          }}
-          >
+            <TouchableOpacity onPress={() => {
+              try {
+                dispatch(removeUserThunk());
+                dispatch(setUserThunk(text));
+                setShowInputForChangeName();
+                dispatch(getUserThunk());
+              } catch (error) {
+                console.error(error);
+              }
+            }}
+            >
+              <View style={styles.button}>
+                <Text style={styles.buttonText}>Ок</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <TouchableOpacity onPress={() => showInput()}>
             <View style={styles.button}>
-              <Text style={styles.buttonText}>Ок</Text>
+              <Text style={styles.buttonText}>Изменить имя</Text>
             </View>
           </TouchableOpacity>
-        </View>
-      )}
-      <View>
+        )}
+        {/* <View>
         <Text style={styles.userName}>
           Прогресс
         </Text>
-      </View>
-      <View>
-        <Image
-          style={styles.image}
-          source={require('../../../assets/student2.png')}
-        />
+      </View> */}
+        <View>
+          <Image
+            style={styles.image}
+            source={require('../../../assets/student2.png')}
+          />
 
-      </View>
+        </View>
 
-      <View>
-        <TouchableOpacity onPress={() => {
-          deleteName();
-          getName();
-          setText('');
-          navigation.navigate('Main');
-        }}
-        >
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>Выйти</Text>
-          </View>
-        </TouchableOpacity>
+        <View>
+          <TouchableOpacity onPress={() => {
+            try {
+              getAllKeys().then((res) => res.map((key) => removeAnswer(key)));
+              dispatch(removeUserThunk());
+              setText('');
+              navigation.navigate('Main');
+            } catch (error) {
+              console.error(error);
+            }
+          }}
+          >
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>Выйти</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -115,9 +116,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     alignItems: 'center',
-    justifyContent: 'space-around',
-    paddingTop: '15%',
-    paddingBottom: '5%',
+    justifyContent: 'center',
+  },
+  innerContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: (Dimensions.get('screen').width),
+    height: '70%',
   },
   userName: {
     textAlign: 'center',
@@ -129,21 +135,24 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: '#353739',
     width: 200,
-    height: 36,
     borderRadius: '30',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: '5%',
+    minHeight: 50,
   },
   buttonText: {
     color: 'white',
     fontSize: 20,
   },
+  input: {
+    borderRadius: '30',
+    borderWidth: 1,
+    borderColor: '#353739',
+    marginBottom: '5%',
+    textAlign: 'center',
+  },
   image: {
     width: 150,
     height: 150,
-    marginTop: '5%',
-    marginBottom: '5%',
   },
-
 });

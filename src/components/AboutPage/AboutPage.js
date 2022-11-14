@@ -1,7 +1,7 @@
 import { useFonts } from 'expo-font';
 import React from 'react';
 import {
-  View, StyleSheet, ScrollView, Linking, Text, Dimensions,
+  View, StyleSheet, ScrollView, Linking, Text, Dimensions, ActivityIndicator,
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -12,7 +12,18 @@ export default function AboutPage() {
     MontserratBold: require('../../../assets/fonts/Montserrat-Bold.ttf'),
   });
 
-  if (!fontsLoaded) return null;
+  if (!fontsLoaded) {
+    return (
+      <View style={{
+        justifyContent: 'center',
+        height: '100%',
+      }}
+      >
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -20,7 +31,7 @@ export default function AboutPage() {
           <View>
             <Text style={styles.myH2}>О приложении</Text>
             <Text style={styles.aboutPageTextMain}>
-              USEApp (Unified State Exam App) - это приложение для подготовки к Единому Государственному Экзамену.
+              USEApp (Unified State Exam App) - это приложение для подготовки к заданиям тестовой части Единого Государственного Экзамена.
             </Text>
           </View>
           <View>
@@ -40,7 +51,8 @@ export default function AboutPage() {
             <View style={styles.listItem}>
               <MaterialCommunityIcons name="numeric-3-circle-outline" color="#353739" size="30" />
               <Text style={styles.aboutPageText}>
-                Получай информацию о своих результатах и отслеживай прогресс в личном кабинете.
+                Получай информацию о своих результатах.
+                {/* и отслеживай прогресс в личном кабинете. */}
               </Text>
             </View>
           </View>
@@ -83,7 +95,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'start',
-    paddingTop: '15%',
+    paddingTop: '12%',
   },
   innerContainer: {
     display: 'flex',
@@ -92,7 +104,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   myH2: {
-    margin: '5%',
+    marginTop: '5%',
+    marginLeft: '5%',
+    marginRight: '5%',
     fontSize: '36',
     fontFamily: 'MontserratBold',
     color: '#353739',
