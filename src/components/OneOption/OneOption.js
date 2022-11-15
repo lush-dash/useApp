@@ -12,7 +12,7 @@ import { setCurrentOption } from '../../redux/actions/currentOptionActions';
 import { clearTimer } from '../../redux/actions/timerActions';
 import { getOneSubjAnswer } from '../../../utils/storage';
 
-export default function OneOption({ option, navigation }) {
+export default function OneOption({ option, navigation, isSwitchOn }) {
   const currSubject = useSelector((state) => state.currSubject);
   const dispatch = useDispatch();
   const [fontsLoaded] = useFonts({
@@ -39,6 +39,8 @@ export default function OneOption({ option, navigation }) {
   // console.log(itsDone, 'itsDone');
 
   if (!fontsLoaded) return null;
+
+  if (isSwitchOn && itsDone) return null;
 
   return (
     <TouchableOpacity

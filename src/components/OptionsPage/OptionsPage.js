@@ -73,6 +73,7 @@ export default function OptionsPage({ navigation }) {
                 navigation={navigation}
                 option={el}
                 key={el.title}
+                isSwitchOn={isSwitchOn}
               />
             ))}
           </View>
