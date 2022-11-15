@@ -34,8 +34,12 @@ export default function QuestionPage({ navigation }) {
       setTrueAnswer(!trueAnswer);
     } else {
       dispatch(addGoodAnswer());
-      setIndex(index + 1);
-      setAnswer('');
+      setShowRight(true);
+      setTimeout(() => {
+        setIndex(index + 1);
+        setAnswer('');
+        setShowRight(false);
+      }, 800);
       if (index === questions.length - 1) {
         setStopTimer(true);
         navigation.navigate('Result');

@@ -238,6 +238,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     minHeight: 50,
+    marginTop: '15%',
   },
   buttonText: {
     color: 'white',
