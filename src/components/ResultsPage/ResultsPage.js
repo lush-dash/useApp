@@ -7,7 +7,9 @@ import {
 } from 'react-native-chart-kit';
 import { useFonts } from 'expo-font';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setGoodAnswer, setOneSubjAnswer } from '../../../utils/storage';
+import { deleteAnswer } from '../../redux/actions/answersCounterActions';
 
 export default function ResultsPage({ navigation }) {
   const currSubject = useSelector((state) => state.currSubject);
@@ -20,7 +22,7 @@ export default function ResultsPage({ navigation }) {
     MontserratMedium: require('../../../assets/fonts/Montserrat-Medium.ttf'),
   });
   const screenWidth = Dimensions.get('window').width;
-
+  const dispatch = useDispatch();
   const data = [
     {
       name: 'Верно',
@@ -72,7 +74,10 @@ export default function ResultsPage({ navigation }) {
               center={[0, -20]}
             />
           </View>
-          <TouchableOpacity onPress={() => {
+          <TouchableOpacity onPress={async () => {
+            await setOneSubjAnswer(currentOption, result);
+            await setGoodAnswer(result);
+            dispatch(deleteAnswer());
             navigation.navigate('Subjects');
           }}
           >

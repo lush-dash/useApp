@@ -8,7 +8,7 @@ import { useFonts } from 'expo-font';
 import { setQuestionsThunk } from '../../redux/actions/questionsActions';
 import { setCurrentOption } from '../../redux/actions/currentOptionActions';
 import { clearTimer } from '../../redux/actions/timerActions';
-import { getGoodAnswer } from '../../../utils/storage';
+import { getOneSubjAnswer } from '../../../utils/storage';
 
 export default function OneOption({ option, navigation }) {
   const currSubject = useSelector((state) => state.currSubject);
@@ -18,14 +18,22 @@ export default function OneOption({ option, navigation }) {
     MontserratSemiBold: require('../../../assets/fonts/Montserrat-SemiBold.ttf'),
   });
   const [itsDone, setItsDone] = useState(null);
+  const [itsNotDone, setItsNotDone] = useState(null);
+
+  // console.log(option, 'option!!!');
   useEffect(() => {
-    // try {
-    getGoodAnswer(option)
+    getOneSubjAnswer(option)
       .then((res) => {
-        if (res) { setItsDone(res); }
+        if (res) {
+          const result = res.split(',');
+          setItsDone(result[0]);
+          setItsNotDone(Number(result[1]) + Number(result[0]));
+        }
       })
       .catch((e) => console.log(e));
   }, []);
+
+  // console.log(itsDone, 'itsDone');
 
   if (!fontsLoaded) return null;
 
@@ -58,7 +66,7 @@ export default function OneOption({ option, navigation }) {
         <Text style={styles.text}>
           {itsDone}
           /
-            {20}
+          {itsNotDone}
         </Text>
         )}
 
