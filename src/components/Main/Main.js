@@ -171,10 +171,10 @@ const styles = StyleSheet.create({
     fontFamily: 'MontserratMedium',
     borderRadius: '30',
     borderWidth: 1,
-    borderColor: '#353739',
     marginBottom: '7%',
     textAlign: 'center',
     backgroundColor: '#fff',
+    borderColor: '#D3D3D3',
   },
   button: {
     backgroundColor: '#353739',
