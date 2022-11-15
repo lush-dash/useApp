@@ -138,6 +138,7 @@ export default function QuestionPage({ navigation }) {
               )}
               <Input
                 style={styles.input}
+                textStyle={styles.inputText}
                 placeholder="Введите ответ"
                 onChangeText={setAnswer}
                 defaultValue={answer}
@@ -202,8 +203,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#D3D3D3',
     margin: '5%',
-    fontFamily: 'MontserratMedium',
     backgroundColor: '#fff',
+  },
+  inputText: {
+    fontFamily: 'MontserratMedium',
   },
   myH2: {
     textAlign: 'center',

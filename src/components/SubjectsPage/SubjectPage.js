@@ -47,8 +47,6 @@ export default function SubjectPage({ navigation }) {
           elevation="1"
           inputStyle={styles.inputText}
           onChangeText={(value) => setText(value)}
-          // onChangeText={onChangeSearch}
-          // value={searchQuery}
         />
         <View style={styles.innerContainer}>
           {topics && topics.map((el) => {
@@ -107,6 +105,7 @@ const styles = StyleSheet.create({
   input: {
     marginLeft: '10%',
     width: '70%',
+    height: 40,
     borderRadius: '30',
     borderWidth: 1,
     marginBottom: '2%',

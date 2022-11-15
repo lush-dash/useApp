@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Text } from '@ui-kitten/components';
+import { Switch } from 'react-native-paper';
 import {
   ActivityIndicator,
   Dimensions,
@@ -11,6 +12,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import OneOption from '../OneOption/OneOption';
 
 export default function OptionsPage({ navigation }) {
+  const [isSwitchOn, setIsSwitchOn] = useState(false);
   const currSubject = useSelector((state) => state.currSubject);
   const options = useSelector((state) => state.options);
   const [fontsLoaded] = useFonts({
@@ -29,6 +31,9 @@ export default function OptionsPage({ navigation }) {
       </View>
     );
   }
+
+  // добавить логику в map
+  const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
 
   return (
     <View style={{
@@ -54,6 +59,15 @@ export default function OptionsPage({ navigation }) {
           <View style={styles.innerContainer}>
             <Text style={styles.title}>{currSubject?.title}</Text>
             <Text style={styles.text}>Выбери вариант</Text>
+            <View style={styles.switchContainer}>
+              <Switch
+                color={currSubject?.darkColor}
+                style={styles.switch}
+                value={isSwitchOn}
+                onValueChange={onToggleSwitch}
+              />
+              <Text style={styles.switchText}>Только новые варианты</Text>
+            </View>
             {options && options.map((el) => (
               <OneOption
                 navigation={navigation}
@@ -113,7 +127,26 @@ const styles = StyleSheet.create({
     fontFamily: 'MontserratMedium',
     color: '#353739',
   },
+  switchContainer: {
+    alignSelf: 'flex-start',
+    marginLeft: '10%',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: '5%',
+  },
+  switchText: {
+    fontFamily: 'MontserratMedium',
+    marginLeft: '3%',
+  },
+  // switch: {
+  //   alignSelf: 'flex-start',
+  //   marginLeft: '10%',
+  // },
   scroll: {
     width: '100%',
+  },
+  toggle: {
+    borderColor: 'red',
   },
 });

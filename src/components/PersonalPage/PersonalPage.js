@@ -81,6 +81,7 @@ export default function PersonalPage({ navigation }) {
         {showInputForChangeName ? (
           <View>
             <Input
+              textStyle={styles.inputText}
               style={styles.input}
               onChangeText={(value) => setText(value)}
               defaultValue={user}
@@ -179,9 +180,14 @@ const styles = StyleSheet.create({
   input: {
     borderRadius: '30',
     borderWidth: 1,
-    borderColor: '#353739',
+    borderColor: '#D3D3D3',
     marginBottom: '5%',
     textAlign: 'center',
+    backgroundColor: 'white',
+
+  },
+  inputText: {
+    fontFamily: 'MontserratMedium',
   },
   image: {
     width: 150,
