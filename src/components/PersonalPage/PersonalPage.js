@@ -87,7 +87,7 @@ export default function PersonalPage({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <ScrollView>
+      <ScrollView style={styles.scroll}>
 
         {/* Modal */}
         <Modal
@@ -108,7 +108,7 @@ export default function PersonalPage({ navigation }) {
         {/* Modal */}
 
         <View style={styles.innerContainer}>
-          <View>
+          <View style={styles.greet}>
             <TouchableOpacity onPress={() => gameHandler()}>
               <Text style={styles.userName}>
                 Привет,
@@ -149,11 +149,11 @@ export default function PersonalPage({ navigation }) {
               </View>
             </TouchableOpacity>
           )}
-          {/* <View>
-        <Text style={styles.userName}>
-          Прогресс
-        </Text>
-      </View> */}
+          <View>
+            <Text style={styles.userName2}>
+              Общая статистика
+            </Text>
+          </View>
           {itsNotDone && (
           <View style={styles.chartContainer}>
             <PieChart
@@ -224,12 +224,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     width: (Dimensions.get('screen').width),
-    height: '70%',
+    height: (Dimensions.get('screen').height - 100),
   },
   userName: {
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: '25',
+    fontFamily: 'MontserratMedium',
+    color: '#353739',
+    // marginTop: '2%',
+  },
+  userName2: {
+    textAlign: 'center',
+    // fontWeight: 'bold',
+    fontSize: '20',
     fontFamily: 'MontserratMedium',
     color: '#353739',
   },
@@ -240,7 +248,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     minHeight: 50,
-    marginTop: '15%',
+    marginTop: '2%',
   },
   buttonText: {
     color: 'white',
@@ -287,6 +295,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   chartContainer: {
-    marginTop: '20%',
+    marginTop: '5%',
+  },
+  scroll: {
+    width: '100%',
+  },
+  greet: {
+    marginTop: '15%',
+    marginBottom: '5%',
   },
 });
