@@ -8,13 +8,13 @@ import {
 import { useFonts } from 'expo-font';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
-import { setGoodAnswer } from '../../../utils/storage';
 
 export default function ResultsPage({ navigation }) {
   const currSubject = useSelector((state) => state.currSubject);
   const result = useSelector((state) => state.answersCounter);
   const currentOption = useSelector((state) => state.currentOption);
   const timer = useSelector((state) => state.timer);
+
   const [fontsLoaded] = useFonts({
     MontserratBold: require('../../../assets/fonts/Montserrat-Bold.ttf'),
     MontserratMedium: require('../../../assets/fonts/Montserrat-Medium.ttf'),
@@ -54,27 +54,25 @@ export default function ResultsPage({ navigation }) {
     <View style={styles.container}>
       <ScrollView style={styles.scroll}>
         <View style={styles.innerContainer}>
-          <Text style={styles.title}>Результат</Text>
-          <Text style={styles.text}>{`Время прохождения: ${new Date((timer.start - timer.end) * 1000).toISOString().slice(11, 19)}`}</Text>
-          <Text style={styles.text}>{`Предмет: ${currSubject?.title}`}</Text>
-          <Text style={styles.text}>{currentOption?.title}</Text>
-        </View>
-        <View style={styles.chartContainer}>
-          <PieChart
-            data={data}
-            width={screenWidth}
-            height={200}
-            chartConfig={chartConfig}
-            accessor="population"
-            backgroundColor="transparent"
-            paddingLeft="0"
-            center={[0, -20]}
-            // absolute
-          />
-        </View>
-        <View style={styles.buttonContainer}>
+          <View>
+            <Text style={styles.title}>Результат</Text>
+            <Text style={styles.text}>{`Время прохождения: ${new Date((timer.start - timer.end) * 1000).toISOString().slice(11, 19)}`}</Text>
+            <Text style={styles.text}>{`Предмет: ${currSubject?.title}`}</Text>
+            <Text style={styles.text}>{currentOption?.title}</Text>
+          </View>
+          <View style={styles.chartContainer}>
+            <PieChart
+              data={data}
+              width={screenWidth}
+              height={200}
+              chartConfig={chartConfig}
+              accessor="population"
+              backgroundColor="transparent"
+              paddingLeft="0"
+              center={[0, -20]}
+            />
+          </View>
           <TouchableOpacity onPress={() => {
-            setGoodAnswer(currentOption, result);
             navigation.navigate('Subjects');
           }}
           >
@@ -90,10 +88,6 @@ export default function ResultsPage({ navigation }) {
 }
 
 const chartConfig = {
-  // backgroundGradientFrom: 'red',
-  // backgroundGradientFromOpacity: 0,
-  // backgroundGradientTo: 'blue',
-  // backgroundGradientToOpacity: 0.5,
   color: (opacity = 2) => `rgba(26, 255, 146, ${opacity})`,
   strokeWidth: 3, // optional, default 3
   barPercentage: 0.5,
@@ -105,7 +99,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     paddingTop: '5%',
   },
   title: {
@@ -122,14 +116,11 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     flex: 1,
+    marginTop: '20%',
+    height: (Dimensions.get('screen').height - 200),
     backgroundColor: 'white',
     alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    paddingTop: '20%',
-  },
-  chartContainer: {
-    marginTop: '20%',
+    justifyContent: 'space-around',
   },
   button: {
     backgroundColor: '#353739',
@@ -143,11 +134,5 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontSize: 20,
-  },
-  buttonContainer: {
-    flex: 1,
-    alignItems: 'center',
-    marginTop: '10%',
-    justifyContent: 'flex-end',
   },
 });
