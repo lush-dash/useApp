@@ -1,13 +1,12 @@
-import { useFocusEffect, useIsFocused } from '@react-navigation/native';
+import { useIsFocused } from '@react-navigation/native';
 import { Input } from '@ui-kitten/components';
 import { useFonts } from 'expo-font';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Text, View, StyleSheet, Image, Dimensions, Modal,
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
-import { useIsFocused } from '@react-navigation/native';
 import { PieChart } from 'react-native-chart-kit';
 import { getAllKeys, getGoodAnswer, removeAnswer } from '../../../utils/storage';
 import { deleteAnswer } from '../../redux/actions/answersCounterActions';

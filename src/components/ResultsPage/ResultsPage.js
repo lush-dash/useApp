@@ -56,25 +56,24 @@ export default function ResultsPage({ navigation }) {
     <View style={styles.container}>
       <ScrollView style={styles.scroll}>
         <View style={styles.innerContainer}>
-          <Text style={styles.title}>Результат</Text>
-          <Text style={styles.text}>{`Время прохождения: ${new Date((timer.start - timer.end) * 1000).toISOString().slice(11, 19)}`}</Text>
-          <Text style={styles.text}>{`Предмет: ${currSubject?.title}`}</Text>
-          <Text style={styles.text}>{currentOption?.title}</Text>
-        </View>
-        <View style={styles.chartContainer}>
-          <PieChart
-            data={data}
-            width={screenWidth}
-            height={200}
-            chartConfig={chartConfig}
-            accessor="population"
-            backgroundColor="transparent"
-            paddingLeft="0"
-            center={[0, -20]}
-            // absolute
-          />
-        </View>
-        <View style={styles.buttonContainer}>
+          <View>
+            <Text style={styles.title}>Результат</Text>
+            <Text style={styles.text}>{`Время прохождения: ${new Date((timer.start - timer.end) * 1000).toISOString().slice(11, 19)}`}</Text>
+            <Text style={styles.text}>{`Предмет: ${currSubject?.title}`}</Text>
+            <Text style={styles.text}>{currentOption?.title}</Text>
+          </View>
+          <View style={styles.chartContainer}>
+            <PieChart
+              data={data}
+              width={screenWidth}
+              height={200}
+              chartConfig={chartConfig}
+              accessor="population"
+              backgroundColor="transparent"
+              paddingLeft="0"
+              center={[0, -20]}
+            />
+          </View>
           <TouchableOpacity onPress={async () => {
             await setOneSubjAnswer(currentOption, result);
             await setGoodAnswer(result);
