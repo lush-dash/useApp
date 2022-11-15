@@ -1,6 +1,6 @@
 import Matter from 'matter-js';
 import React from 'react';
-import { View } from 'react-native';
+import { Image, View } from 'react-native';
 
 function Obstacle(props) {
   const widthBody = props.body.bounds.max.x - props.body.bounds.min.x;
@@ -13,14 +13,19 @@ function Obstacle(props) {
 
   return (
     <View style={{
-      borderWidth: 1,
-      borderColor: color,
+      borderTopWidth: 10,
+      borderTopColor: 'rgb(39, 237, 255)',
+      borderBottomWidth: 10,
+      borderBottomColor: 'rgb(39, 237, 255)',
+      borderWidth: 2,
+      borderColor: 'rgb(39, 237, 255)',
       borderStyle: 'solid',
       position: 'absolute',
       left: xBody,
       top: yBody,
       width: widthBody,
       height: heightBody,
+      backgroundColor: color,
     }}
     />
   );
