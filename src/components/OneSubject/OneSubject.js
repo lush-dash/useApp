@@ -14,15 +14,17 @@ export default function OneSubject({ subject, navigation }) {
   const [fontsLoaded] = useFonts({
     MontserratMedium: require('../../../assets/fonts/Montserrat-Medium.ttf'),
   });
-
   const dispatch = useDispatch();
-
   const backgroundForRus = require('../../../assets/rus.png');
   const backgroundForSoc = require('../../../assets/soc.png');
+  const backgroundForHis = require('../../../assets/his.png');
+  const backgroundForElbrus = require('../../../assets/eng.png');
 
   let backgroundImage;
   if (subject.title === 'Русский язык') backgroundImage = backgroundForRus;
   if (subject.title === 'Обществознание') backgroundImage = backgroundForSoc;
+  if (subject.title === 'История') backgroundImage = backgroundForHis;
+  if (subject.title === 'Эльбрус') backgroundImage = backgroundForElbrus;
 
   if (!fontsLoaded) return null;
 

@@ -1,12 +1,11 @@
 const axios = require('axios');
 const jsdom = require('jsdom');
 
-// перенесено в redux
-axios('https://useapp.ams3.digitaloceanspaces.com/allTopic.json')
-  .then((res) => {
-    const topic = res.data;
-    topic?.map((el) => console.log(el.title));
-  });
+// axios('https://useapp.ams3.digitaloceanspaces.com/allTopic.json')
+//   .then((res) => {
+//     const topic = res.data;
+//     topic?.map((el) => console.log(el.title));
+//   });
 
 const { JSDOM } = jsdom;
 const options = {
@@ -14,20 +13,26 @@ const options = {
     'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36',
   },
 };
-
-axios('https://rus-ege.sdamgia.ru/test?id=31926141', options)
+axios('https://rus-ege.sdamgia.ru/problem?id=38850', options)
   .then((res) => {
     const dom = new JSDOM(res.data);
-    // console.log(dom);
-    // const div = dom.window.document.getElementsByClassName('p-body');
-    // console.log(div);
-    const div = dom.window.document.querySelectorAll('p-body');
-    // const p = div[0].getElementsByTagName('p');
-    // for (let i = 0; i < p.length; i += 1) {
-    //   console.log(p[i].textContent);
+    const div = dom.window.document.getElementsByClassName('pbody');
+
+    let result = '';
     for (let i = 0; i < div.length; i += 1) {
-      console.log(div[i]);
+      result += div[i].textContent;
     }
+    console.log(result);
+
+    // div.map((el) => console.log(el.textContent));
+    // console.log(div[0].textContent);
+    // const div = dom.window.document.querySelectorAll('p-body');
+    // // const p = div[0].getElementsByTagName('p');
+    // // for (let i = 0; i < p.length; i += 1) {
+    // //   console.log(p[i].textContent);
+    // for (let i = 0; i < div.length; i += 1) {
+    //   console.log(div[i]);
+    // }
 
     // }
   });

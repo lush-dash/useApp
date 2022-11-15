@@ -5,6 +5,7 @@ export default function currentQuestionReducer(state = {}, action) {
   switch (type) {
     case SET_CURRENT_OPTION:
       return payload;
+
     default:
       return state;
   }

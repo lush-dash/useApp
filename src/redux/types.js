@@ -10,6 +10,8 @@ export const SET_QUESTIONS = 'SET_QUESTIONS';
 // currentSubject
 export const SET_RUS = 'SET_RUS';
 export const SET_SOC = 'SET_SOC';
+export const SET_HISTORY = 'SET_HISTORY';
+export const SET_ELBRUS = 'SET_ELBRUS';
 
 // answers
 export const ADD_GOOD_ANSWER = 'ADD_GOOD_ANSWER';
@@ -18,10 +20,15 @@ export const ADD_BAD_ANSWER = 'ADD_BAD_ANSWER';
 // currentQuestion
 export const SET_CURRENT_QESTION = 'SET_CURRENT_QESTION';
 
+// что это?
+export const GET_CURRENT_OPTION = 'GET_CURRENT_OPTION';
+export const REMOVE_CURRENT_OPTION = 'REMOVE_CURRENT_OPTION';
+
 // user
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 export const GET_CURRENT_USER = 'GET_CURRENT_USER';
 export const REMOVE_CURRENT_USER = 'REMOVE_CURRENT_USER';
+
 // currentOption
 export const SET_CURRENT_OPTION = 'SET_CURRENT_OPTION';
 
