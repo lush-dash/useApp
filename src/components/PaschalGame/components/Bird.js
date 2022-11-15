@@ -13,9 +13,9 @@ function Bird(props) {
 
   return (
     <View style={{
-      borderWidth: 1,
-      borderColor: color,
-      borderStyle: 'solid',
+      // borderWidth: 1,
+      // borderColor: color,
+      // borderStyle: 'solid',
       position: 'absolute',
       left: xBody,
       top: yBody,
@@ -23,7 +23,13 @@ function Bird(props) {
       height: heightBody,
     }}
     >
-      <Image source={require('../assets/favicon.png')} />
+      <Image
+        style={{
+          width: '100%',
+          height: '80%',
+        }}
+        source={require('../assets/flappyBird.png')}
+      />
     </View>
   );
 }
