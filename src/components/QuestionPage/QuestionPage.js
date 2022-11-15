@@ -35,7 +35,7 @@ export default function QuestionPage({ navigation }) {
       dispatch(addGoodAnswer());
       setIndex(index + 1);
       setAnswer('');
-      if (index === questions.length - 2) {
+      if (index === questions.length - 1) {
         setStopTimer(true);
         navigation.navigate('Result');
       }
@@ -45,7 +45,7 @@ export default function QuestionPage({ navigation }) {
 
   const nextHandler = () => {
     setIndex(index + 1);
-    if (index === questions.length - 2) {
+    if (index === questions.length - 1) {
       setStopTimer(true);
       navigation.navigate('Result');
     }

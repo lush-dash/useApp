@@ -7,8 +7,9 @@ import {
 } from 'react-native-chart-kit';
 import { useFonts } from 'expo-font';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import { useSelector } from 'react-redux';
-import { setGoodAnswer } from '../../../utils/storage';
+import { useDispatch, useSelector } from 'react-redux';
+import { setGoodAnswer, setOneSubjAnswer } from '../../../utils/storage';
+import { deleteAnswer } from '../../redux/actions/answersCounterActions';
 
 export default function ResultsPage({ navigation }) {
   const currSubject = useSelector((state) => state.currSubject);
@@ -19,8 +20,10 @@ export default function ResultsPage({ navigation }) {
     MontserratBold: require('../../../assets/fonts/Montserrat-Bold.ttf'),
     MontserratMedium: require('../../../assets/fonts/Montserrat-Medium.ttf'),
   });
+  console.log(currentOption, 'currentOptioncurrentOptioncurrentOption');
+  console.log(result, 'resultresultresultresultresult');
   const screenWidth = Dimensions.get('window').width;
-
+  const dispatch = useDispatch();
   const data = [
     {
       name: 'Верно',
@@ -73,8 +76,11 @@ export default function ResultsPage({ navigation }) {
           />
         </View>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={() => {
-            setGoodAnswer(currentOption, result);
+          <TouchableOpacity onPress={async () => {
+            await setOneSubjAnswer(currentOption, result);
+            await setGoodAnswer(result);
+            console.log(currentOption);
+            dispatch(deleteAnswer());
             navigation.navigate('Subjects');
           }}
           >

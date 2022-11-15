@@ -2,11 +2,12 @@ import { Input } from '@ui-kitten/components';
 import { useFonts } from 'expo-font';
 import React, { useEffect, useState } from 'react';
 import {
-  Text, View, StyleSheet, Image, Dimensions, Alert, Modal,
+  Text, View, StyleSheet, Image, Dimensions, Modal,
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllKeys, removeAnswer } from '../../../utils/storage';
+import { getAllKeys, getGoodAnswer, removeAnswer } from '../../../utils/storage';
+import { deleteAnswer } from '../../redux/actions/answersCounterActions';
 import { getUserThunk, removeUserThunk, setUserThunk } from '../../redux/actions/userActions';
 
 export default function PersonalPage({ navigation }) {
@@ -23,10 +24,21 @@ export default function PersonalPage({ navigation }) {
   const showInput = () => {
     setShowInputForChangeName(!showInputForChangeName);
   };
+  const [itsNotDone, setItsNotDone] = useState(null);
+  const [itsDone, setItsDone] = useState(null);
 
   useEffect(() => {
     try {
       dispatch(getUserThunk());
+      getGoodAnswer()
+        .then((res) => {
+          if (res) {
+            const result = res.split(',');
+            setItsDone(result[0]);
+            setItsNotDone(result[1]);
+          }
+        })
+        .catch((e) => console.log(e));
     } catch (error) {
       console.error(error);
     }
@@ -109,6 +121,12 @@ export default function PersonalPage({ navigation }) {
           <TouchableOpacity onPress={() => showInput()}>
             <View style={styles.button}>
               <Text style={styles.buttonText}>Изменить имя</Text>
+              <Text style={styles.buttonText}>
+                {itsDone}
+                /
+                {Number(itsNotDone) + Number(itsDone)}
+              </Text>
+
             </View>
           </TouchableOpacity>
         )}
@@ -131,6 +149,7 @@ export default function PersonalPage({ navigation }) {
               getAllKeys().then((res) => res.map((key) => removeAnswer(key)));
               dispatch(removeUserThunk());
               setText('');
+              dispatch(deleteAnswer());
               navigation.navigate('Main');
             } catch (error) {
               console.error(error);

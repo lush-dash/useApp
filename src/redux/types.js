@@ -14,6 +14,7 @@ export const SET_SOC = 'SET_SOC';
 // answers
 export const ADD_GOOD_ANSWER = 'ADD_GOOD_ANSWER';
 export const ADD_BAD_ANSWER = 'ADD_BAD_ANSWER';
+export const REMOVE_ANSWER = 'REMOVE_ANSWER';
 
 // currentQuestion
 export const SET_CURRENT_QESTION = 'SET_CURRENT_QESTION';
