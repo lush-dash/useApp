@@ -6,6 +6,8 @@ import {
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
+import { useIsFocused } from '@react-navigation/native';
+import { PieChart } from 'react-native-chart-kit';
 import { getAllKeys, getGoodAnswer, removeAnswer } from '../../../utils/storage';
 import { deleteAnswer } from '../../redux/actions/answersCounterActions';
 import { getUserThunk, removeUserThunk, setUserThunk } from '../../redux/actions/userActions';
@@ -14,6 +16,7 @@ export default function PersonalPage({ navigation }) {
   const [fontsLoaded] = useFonts({
     MontserratMedium: require('../../../assets/fonts/Montserrat-Medium.ttf'),
   });
+  const isFocused = useIsFocused();
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const [text, setText] = useState('');
@@ -28,21 +31,24 @@ export default function PersonalPage({ navigation }) {
   const [itsDone, setItsDone] = useState(null);
 
   useEffect(() => {
+    console.log('useeffect');
     try {
-      dispatch(getUserThunk());
-      getGoodAnswer()
-        .then((res) => {
-          if (res) {
-            const result = res.split(',');
-            setItsDone(result[0]);
-            setItsNotDone(result[1]);
-          }
-        })
-        .catch((e) => console.log(e));
+      if (isFocused) {
+        dispatch(getUserThunk());
+        getGoodAnswer()
+          .then((res) => {
+            if (res) {
+              const result = res.split(',');
+              setItsDone(result[0]);
+              setItsNotDone(result[1]);
+            }
+          })
+          .catch((e) => console.log(e));
+      }
     } catch (error) {
       console.error(error);
     }
-  });
+  }, [isFocused]);
 
   const gameHandler = () => {
     if (startGame === 1) {
@@ -53,6 +59,27 @@ export default function PersonalPage({ navigation }) {
     setStartGame(startGame - 1);
     setTimeout(() => { setModalVisible(false); }, 100);
   };
+  const screenWidth = Dimensions.get('window').width;
+
+  // if (itsDone !== null && itsNotDone !== null) {
+  const data = [
+    {
+      name: 'Верно',
+      population: Number(itsDone),
+      color: 'rgba(167,236,174, .6)',
+      legendFontColor: '#353739',
+      legendFontSize: 18,
+    },
+    {
+      name: 'Неверно',
+      population: Number(itsNotDone),
+      color: 'rgba(254,192,169, .6)',
+      legendFontColor: '#353739',
+      legendFontSize: 18,
+    },
+  ];
+  // return data;
+  // }
 
   if (!fontsLoaded) return null;
 
@@ -121,12 +148,6 @@ export default function PersonalPage({ navigation }) {
           <TouchableOpacity onPress={() => showInput()}>
             <View style={styles.button}>
               <Text style={styles.buttonText}>Изменить имя</Text>
-              <Text style={styles.buttonText}>
-                {itsDone}
-                /
-                {Number(itsNotDone) + Number(itsDone)}
-              </Text>
-
             </View>
           </TouchableOpacity>
         )}
@@ -135,6 +156,21 @@ export default function PersonalPage({ navigation }) {
           Прогресс
         </Text>
       </View> */}
+        {itsNotDone && (
+        <View style={styles.chartContainer}>
+          <PieChart
+            data={data}
+            width={screenWidth}
+            height={200}
+            chartConfig={chartConfig}
+            accessor="population"
+            backgroundColor="transparent"
+            paddingLeft="0"
+            center={[0, -20]}
+          />
+        </View>
+        )}
+
         <View>
           <Image
             style={styles.image}
@@ -165,6 +201,18 @@ export default function PersonalPage({ navigation }) {
     </View>
   );
 }
+
+const chartConfig = {
+  // backgroundGradientFrom: 'red',
+  // backgroundGradientFromOpacity: 0,
+  // backgroundGradientTo: 'blue',
+  // backgroundGradientToOpacity: 0.5,
+  color: (opacity = 2) => `rgba(26, 255, 146, ${opacity})`,
+  strokeWidth: 3, // optional, default 3
+  barPercentage: 0.5,
+  useShadowColorFromDataset: false, // optional
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -232,5 +280,8 @@ const styles = StyleSheet.create({
     flex: 0.45,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  chartContainer: {
+    marginTop: '20%',
   },
 });

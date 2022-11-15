@@ -20,8 +20,6 @@ export default function ResultsPage({ navigation }) {
     MontserratBold: require('../../../assets/fonts/Montserrat-Bold.ttf'),
     MontserratMedium: require('../../../assets/fonts/Montserrat-Medium.ttf'),
   });
-  console.log(currentOption, 'currentOptioncurrentOptioncurrentOption');
-  console.log(result, 'resultresultresultresultresult');
   const screenWidth = Dimensions.get('window').width;
   const dispatch = useDispatch();
   const data = [
@@ -79,7 +77,6 @@ export default function ResultsPage({ navigation }) {
           <TouchableOpacity onPress={async () => {
             await setOneSubjAnswer(currentOption, result);
             await setGoodAnswer(result);
-            console.log(currentOption);
             dispatch(deleteAnswer());
             navigation.navigate('Subjects');
           }}
