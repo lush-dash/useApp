@@ -6,6 +6,7 @@ export const SET_OPTIONS = 'SET_OPTIONS';
 
 // questions
 export const SET_QUESTIONS = 'SET_QUESTIONS';
+export const CLEAR_QUESTIONS = 'CLEAR_QUESTIONS';
 
 // currentSubject
 export const SET_RUS = 'SET_RUS';

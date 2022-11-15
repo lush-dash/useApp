@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-useless-fragment */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   StyleSheet, Text, TouchableOpacity, View,
@@ -25,8 +25,11 @@ export default function QuestionPage({ navigation }) {
     MontserratMedium: require('../../../assets/fonts/Montserrat-Medium.ttf'),
     MontserratSemiBold: require('../../../assets/fonts/Montserrat-SemiBold.ttf'),
   });
+  const [timerStart, setTimerStart] = useState(null);
 
-  const timerValue = questions.length * 180;
+  useEffect(() => {
+    setTimerStart(questions.length * 180);
+  }, [questions]);
 
   const clickHandler = () => {
     if (answer.toLowerCase().trim() !== questions[index]?.a.toLowerCase() || answer.toLowerCase() === '') {
@@ -90,16 +93,12 @@ export default function QuestionPage({ navigation }) {
               {' '}
             </Text>
           </View>
-          {/* <Text style={styles.myH2}>
-            Вопрос №
-            {' '}
-            {index + 1}
-          </Text> */}
-          {questions.length ? (
+          {timerStart ? (
             <Timer
               navigation={navigation}
-              timerValue={timerValue}
+              // timerValue={timerValue}
               stopTimer={stopTimer}
+              timerStart={timerStart}
             />
           ) : null }
           <Text style={styles.text}>{questions[index]?.q.split('\n').join('\n\n')}</Text>
