@@ -46,10 +46,10 @@ export const removeName = async () => {
 export const setGoodAnswer = async (goodAnswer) => {
   try {
     // const idResult = String(`${subid.subjectId}${subid.id}`);
-    console.log(goodAnswer);
-    console.log(goodAnswer, 'idresult');
+    // console.log(goodAnswer);
+    // console.log(goodAnswer, 'idresult');
     const prev = await AsyncStorage.getItem('allAnswerKey');
-    console.log(prev);
+    // console.log(prev);
     if ((prev !== null) && prev) {
       await AsyncStorage.removeItem('allAnswerKey');
       const splitprev = prev?.split(',');
@@ -77,7 +77,7 @@ export const getGoodAnswer = async () => {
 export const removeAnswer = async (index) => {
   try {
     await AsyncStorage.removeItem((index));
-    console.log('removeAnswerremoveAnswer');
+    // console.log('removeAnswerremoveAnswer');
   } catch (error) {
     console.error(error);
   }

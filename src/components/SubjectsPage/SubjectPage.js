@@ -47,6 +47,7 @@ export default function SubjectPage({ navigation }) {
           elevation="1"
           inputStyle={styles.inputText}
           onChangeText={(value) => setText(value)}
+          placeholderTextColor="#a3a3a3"
         />
         <View style={styles.innerContainer}>
           {topics && topics.map((el) => {

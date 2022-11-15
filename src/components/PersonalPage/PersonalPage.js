@@ -33,7 +33,7 @@ export default function PersonalPage({ navigation }) {
   const [itsDone, setItsDone] = useState(null);
 
   useEffect(() => {
-    console.log('useeffect');
+    // console.log('useeffect');
     try {
       setStartGame(5);
       if (isFocused) {

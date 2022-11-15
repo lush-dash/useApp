@@ -139,10 +139,6 @@ const styles = StyleSheet.create({
     fontFamily: 'MontserratMedium',
     marginLeft: '3%',
   },
-  // switch: {
-  //   alignSelf: 'flex-start',
-  //   marginLeft: '10%',
-  // },
   scroll: {
     width: '100%',
   },
