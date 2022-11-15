@@ -5,6 +5,8 @@ import {
   StyleSheet, TouchableOpacity, View,
 } from 'react-native';
 import { useFonts } from 'expo-font';
+import { useIsFocused } from '@react-navigation/native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import { setQuestionsThunk } from '../../redux/actions/questionsActions';
 import { setCurrentOption } from '../../redux/actions/currentOptionActions';
 import { clearTimer } from '../../redux/actions/timerActions';
@@ -19,6 +21,7 @@ export default function OneOption({ option, navigation }) {
   });
   const [itsDone, setItsDone] = useState(null);
   const [itsNotDone, setItsNotDone] = useState(null);
+  const isFocused = useIsFocused();
 
   // console.log(option, 'option!!!');
   useEffect(() => {
@@ -31,7 +34,7 @@ export default function OneOption({ option, navigation }) {
         }
       })
       .catch((e) => console.log(e));
-  }, []);
+  }, [isFocused]);
 
   // console.log(itsDone, 'itsDone');
 
@@ -56,18 +59,22 @@ export default function OneOption({ option, navigation }) {
           borderWidth: 3,
           borderColor: currSubject?.color,
           display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
+          justifyContent: 'center',
+          alignItems: 'flex-start',
         }}
       >
-        <Text style={styles.text}>{option.title}</Text>
-        {itsDone && (
-        <Text style={styles.text}>
-          {itsDone}
-          /
-          {itsNotDone}
-        </Text>
+        {itsDone ? (
+          <View style={styles.innerContainer}>
+            <View>
+              <Text style={styles.text}>{option.title}</Text>
+              <Text style={styles.smallText}>
+                {` Правильных ответов: ${itsDone} из ${(Number(itsNotDone) + Number(itsDone))}`}
+              </Text>
+            </View>
+            <Ionicons style={styles.icon} name="checkmark-circle" color={currSubject?.darkColor} size={30} />
+          </View>
+        ) : (
+          <Text style={styles.text}>{option.title}</Text>
         )}
 
       </View>
@@ -78,8 +85,13 @@ export default function OneOption({ option, navigation }) {
 const styles = StyleSheet.create({
   text: {
     fontSize: '25',
-    marginLeft: '10%',
-    fontWeight: 'bold',
+    fontFamily: 'MontserratSemiBold',
+    color: '#353739',
+    marginLeft: '5%',
+    justifySelf: 'center',
+  },
+  results: {
+    fontSize: '25',
     fontFamily: 'MontserratSemiBold',
     color: '#353739',
   },
@@ -92,5 +104,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  innerContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  smallText: {
+    fontFamily: 'MontserratMedium',
+    marginLeft: '4%',
+  },
+  icon: {
+    marginRight: '3%',
   },
 });
