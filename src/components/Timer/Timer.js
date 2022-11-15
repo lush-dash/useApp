@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
     height: 33,
     minWidth: '50%',
     justifyContent: 'center',
+    borderColor: '#D3D3D3',
   },
   text: {
     fontSize: '15',

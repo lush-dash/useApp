@@ -20,6 +20,7 @@ export default function QuestionPage({ navigation }) {
   const [stopTimer, setStopTimer] = useState(false);
   const [answer, setAnswer] = useState('');
   const [trueAnswer, setTrueAnswer] = useState(true);
+  const [showRight, setShowRight] = useState(false);
   const [fontsLoaded] = useFonts({
     MontserratMedium: require('../../../assets/fonts/Montserrat-Medium.ttf'),
     MontserratSemiBold: require('../../../assets/fonts/Montserrat-SemiBold.ttf'),
@@ -28,7 +29,7 @@ export default function QuestionPage({ navigation }) {
   const timerValue = questions.length * 180;
 
   const clickHandler = () => {
-    if (answer.toLowerCase() !== questions[index]?.a.toLowerCase()) {
+    if (answer.toLowerCase() !== questions[index]?.a.toLowerCase() || answer.toLowerCase() === '') {
       dispatch(addBadAnswer());
       setTrueAnswer(!trueAnswer);
     } else {
@@ -122,8 +123,17 @@ export default function QuestionPage({ navigation }) {
             </>
           ) : (
             <>
+              {showRight && (
+              <View>
+                <Text style={styles.textProgressAlert}>
+                  Верно
+                  ✅
+                </Text>
+              </View>
+              )}
               <Input
                 style={styles.input}
+                textStyle={styles.inputText}
                 placeholder="Введите ответ"
                 onChangeText={setAnswer}
                 defaultValue={answer}
@@ -168,6 +178,12 @@ const styles = StyleSheet.create({
     fontFamily: 'MontserratMedium',
     color: '#353739',
   },
+  textProgressAlert: {
+    fontSize: '24',
+    fontFamily: 'MontserratMedium',
+    color: '#0abb06',
+    fontWeight: 'bold',
+  },
   text: {
     margin: '5%',
     fontWeight: 'bold',
@@ -180,10 +196,12 @@ const styles = StyleSheet.create({
     minWidth: '70%',
     borderRadius: '30',
     borderWidth: 1,
-    borderColor: '#353739',
+    borderColor: '#D3D3D3',
     margin: '5%',
-    fontFamily: 'MontserratMedium',
     backgroundColor: '#fff',
+  },
+  inputText: {
+    fontFamily: 'MontserratMedium',
   },
   myH2: {
     textAlign: 'center',
@@ -202,11 +220,12 @@ const styles = StyleSheet.create({
     borderRadius: '30',
     marginBottom: '5%',
     padding: 5,
+    borderColor: '#f97777',
   },
   answerText: {
     fontSize: 15,
     fontFamily: 'MontserratMedium',
-    color: '#353739',
+    color: '#f97777',
   },
   buttonText: {
     color: '#353739',

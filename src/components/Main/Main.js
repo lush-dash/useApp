@@ -59,6 +59,7 @@ export default function Main({ navigation }) {
                   onChangeText={(value) => setText(value)}
                   style={styles.input}
                   defaultValue={text}
+                  textStyle={styles.inputText}
                 />
 
                 <TouchableOpacity onPress={() => {
@@ -168,13 +169,12 @@ const styles = StyleSheet.create({
   },
   input: {
     width: '70%',
-    fontFamily: 'MontserratMedium',
     borderRadius: '30',
     borderWidth: 1,
-    borderColor: '#353739',
     marginBottom: '7%',
     textAlign: 'center',
     backgroundColor: '#fff',
+    borderColor: '#D3D3D3',
   },
   button: {
     backgroundColor: '#353739',
@@ -188,5 +188,8 @@ const styles = StyleSheet.create({
     color: 'white',
     fontFamily: 'MontserratMedium',
     fontSize: '25%',
+  },
+  inputText: {
+    fontFamily: 'MontserratMedium',
   },
 });

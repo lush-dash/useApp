@@ -1,6 +1,7 @@
+import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 import { Input } from '@ui-kitten/components';
 import { useFonts } from 'expo-font';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   Text, View, StyleSheet, Image, Dimensions, Modal,
 } from 'react-native';
@@ -21,9 +22,11 @@ export default function PersonalPage({ navigation }) {
   const dispatch = useDispatch();
   const [text, setText] = useState('');
   const [showInputForChangeName, setShowInputForChangeName] = useState(false);
+
   // Pashal
-  const [startGame, setStartGame] = useState(5);
+  const [startGame, setStartGame] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
+
   const showInput = () => {
     setShowInputForChangeName(!showInputForChangeName);
   };
@@ -33,6 +36,7 @@ export default function PersonalPage({ navigation }) {
   useEffect(() => {
     console.log('useeffect');
     try {
+      setStartGame(5);
       if (isFocused) {
         dispatch(getUserThunk());
         getGoodAnswer()
@@ -52,12 +56,11 @@ export default function PersonalPage({ navigation }) {
 
   const gameHandler = () => {
     if (startGame === 1) {
-      setStartGame(5);
       navigation.navigate('PaschalGame');
     }
     setModalVisible(!modalVisible);
     setStartGame(startGame - 1);
-    setTimeout(() => { setModalVisible(false); }, 100);
+    setTimeout(() => { setModalVisible(false); }, 500);
   };
   const screenWidth = Dimensions.get('window').width;
 
@@ -92,11 +95,10 @@ export default function PersonalPage({ navigation }) {
         transparent
         visible={modalVisible}
       >
-
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Text style={styles.modalText}>
-              Start pashal game via
+              Пасхалка начнется через
               {' '}
               {startGame}
             </Text>
@@ -115,14 +117,10 @@ export default function PersonalPage({ navigation }) {
             </Text>
           </TouchableOpacity>
         </View>
-        {/* <TouchableOpacity onPress={() => chancheFlag()}>
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>Изменить имя</Text>
-          </View>
-        </TouchableOpacity> */}
         {showInputForChangeName ? (
           <View>
             <Input
+              textStyle={styles.inputText}
               style={styles.input}
               onChangeText={(value) => setText(value)}
               defaultValue={user}
@@ -249,9 +247,14 @@ const styles = StyleSheet.create({
   input: {
     borderRadius: '30',
     borderWidth: 1,
-    borderColor: '#353739',
+    borderColor: '#D3D3D3',
     marginBottom: '5%',
     textAlign: 'center',
+    backgroundColor: 'white',
+
+  },
+  inputText: {
+    fontFamily: 'MontserratMedium',
   },
   image: {
     width: 150,

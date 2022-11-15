@@ -1,16 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Text } from '@ui-kitten/components';
 import {
   ActivityIndicator,
-  StyleSheet, View,
+  StyleSheet, View, Text,
 } from 'react-native';
 import { useFonts } from 'expo-font';
 import { ScrollView } from 'react-native-gesture-handler';
+import { Searchbar } from 'react-native-paper';
 import { setTopicsThunk } from '../../redux/actions/topicsActions';
 import OneSubject from '../OneSubject/OneSubject';
 
 export default function SubjectPage({ navigation }) {
+  const [text, setText] = useState('');
   const topics = useSelector((state) => state.topics);
   const dispatch = useDispatch();
   const [fontsLoaded] = useFonts({
@@ -40,15 +41,25 @@ export default function SubjectPage({ navigation }) {
         style={styles.scroll}
       >
         <Text style={styles.title}>Предметы</Text>
-        <Text style={styles.text}>Выбери предмет</Text>
+        <Searchbar
+          style={styles.input}
+          placeholder="Поиск"
+          elevation="1"
+          inputStyle={styles.inputText}
+          onChangeText={(value) => setText(value)}
+        />
         <View style={styles.innerContainer}>
-          {topics && topics.map((el) => (
-            <OneSubject
-              navigation={navigation}
-              subject={el}
-              key={el.title}
-            />
-          ))}
+          {topics && topics.map((el) => {
+            if (el.title.toLocaleLowerCase().includes(text.toLocaleLowerCase())) {
+              return (
+                <OneSubject
+                  navigation={navigation}
+                  subject={el}
+                  key={el.title}
+                />
+              );
+            }
+          })}
         </View>
       </ScrollView>
     </View>
@@ -89,5 +100,21 @@ const styles = StyleSheet.create({
   innerContainer: {
     display: 'flex',
     width: '100%',
+    paddingBottom: '20%',
+  },
+  input: {
+    marginLeft: '10%',
+    width: '70%',
+    height: 40,
+    borderRadius: '30',
+    borderWidth: 1,
+    marginBottom: '2%',
+    textAlign: 'center',
+    backgroundColor: '#fff',
+    borderColor: '#D3D3D3',
+  },
+  inputText: {
+    fontFamily: 'MontserratMedium',
+    fontSize: 15,
   },
 });

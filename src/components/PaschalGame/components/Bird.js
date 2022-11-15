@@ -1,6 +1,6 @@
 import Matter from 'matter-js';
 import React from 'react';
-import { View } from 'react-native';
+import { Image, View } from 'react-native';
 
 function Bird(props) {
   const widthBody = props.body.bounds.max.x - props.body.bounds.min.x;
@@ -13,16 +13,24 @@ function Bird(props) {
 
   return (
     <View style={{
-      borderWidth: 1,
-      borderColor: color,
-      borderStyle: 'solid',
+      // borderWidth: 1,
+      // borderColor: color,
+      // borderStyle: 'solid',
       position: 'absolute',
       left: xBody,
       top: yBody,
       width: widthBody,
       height: heightBody,
     }}
-    />
+    >
+      <Image
+        style={{
+          width: '100%',
+          height: '80%',
+        }}
+        source={require('../assets/flappyBird.png')}
+      />
+    </View>
   );
 }
 
