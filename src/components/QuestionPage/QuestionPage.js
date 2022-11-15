@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
     minWidth: '70%',
     borderRadius: '30',
     borderWidth: 1,
-    borderColor: '#353739',
+    borderColor: '#D3D3D3',
     margin: '5%',
     fontFamily: 'MontserratMedium',
     backgroundColor: '#fff',
@@ -222,6 +222,7 @@ const styles = StyleSheet.create({
     borderRadius: '30',
     marginBottom: '5%',
     padding: 5,
+    borderColor: '#f97777',
   },
   answerText: {
     fontSize: 15,
