@@ -1,8 +1,9 @@
+import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 import { Input } from '@ui-kitten/components';
 import { useFonts } from 'expo-font';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
-  Text, View, StyleSheet, Image, Dimensions, Alert, Modal,
+  Text, View, StyleSheet, Image, Dimensions, Modal,
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,24 +18,26 @@ export default function PersonalPage({ navigation }) {
   const dispatch = useDispatch();
   const [text, setText] = useState('');
   const [showInputForChangeName, setShowInputForChangeName] = useState(false);
+
   // Pashal
-  const [startGame, setStartGame] = useState(5);
+  const [startGame, setStartGame] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
+
   const showInput = () => {
     setShowInputForChangeName(!showInputForChangeName);
   };
 
-  useEffect(() => {
+  useFocusEffect(useCallback(() => {
     try {
+      setStartGame(5);
       dispatch(getUserThunk());
     } catch (error) {
       console.error(error);
     }
-  });
+  }, []));
 
   const gameHandler = () => {
     if (startGame === 1) {
-      setStartGame(5);
       navigation.navigate('PaschalGame');
     }
     setModalVisible(!modalVisible);
@@ -76,11 +79,6 @@ export default function PersonalPage({ navigation }) {
             </Text>
           </TouchableOpacity>
         </View>
-        {/* <TouchableOpacity onPress={() => chancheFlag()}>
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>Изменить имя</Text>
-          </View>
-        </TouchableOpacity> */}
         {showInputForChangeName ? (
           <View>
             <Input
