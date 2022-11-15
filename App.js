@@ -57,17 +57,6 @@ function Home() {
         }}
       />
       <Tab.Screen
-        name="About"
-        component={AboutPage}
-        options={{
-          headerShown: false,
-          tabBarShowLabel: false,
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="paper-plane" color={color} size={size} />
-          ),
-        }}
-      />
-      <Tab.Screen
         name="Person"
         component={PersonalPage}
         options={{
@@ -75,6 +64,17 @@ function Home() {
           tabBarShowLabel: false,
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="account" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="About"
+        component={AboutPage}
+        options={{
+          headerShown: false,
+          tabBarShowLabel: false,
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="paper-plane" color={color} size={size} />
           ),
         }}
       />

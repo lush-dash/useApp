@@ -29,7 +29,7 @@ export default function QuestionPage({ navigation }) {
   const timerValue = questions.length * 180;
 
   const clickHandler = () => {
-    if (answer.toLowerCase() !== questions[index]?.a.toLowerCase() || answer.toLowerCase() === '') {
+    if (answer.toLowerCase().trim() !== questions[index]?.a.toLowerCase() || answer.toLowerCase() === '') {
       dispatch(addBadAnswer());
       setTrueAnswer(!trueAnswer);
     } else {
@@ -39,7 +39,7 @@ export default function QuestionPage({ navigation }) {
         setIndex(index + 1);
         setAnswer('');
         setShowRight(false);
-      }, 800);
+      }, 1000);
       if (index === questions.length - 1) {
         setStopTimer(true);
         navigation.navigate('Result');
@@ -128,13 +128,13 @@ export default function QuestionPage({ navigation }) {
           ) : (
             <>
               {showRight && (
-              <View>
+              <View style={styles.answerBubble2}>
                 <Text style={styles.textProgressAlert}>
-                  Верно
-                  ✅
+                  {`✅ Верно: ${questions[index]?.a}`}
                 </Text>
               </View>
               )}
+              {!showRight && (
               <Input
                 style={styles.input}
                 textStyle={styles.inputText}
@@ -143,6 +143,7 @@ export default function QuestionPage({ navigation }) {
                 defaultValue={answer}
                 onSubmitEditing={clickHandler}
               />
+              )}
               <TouchableOpacity onPress={clickHandler}>
                 <View style={{
                   backgroundColor: currSubject?.color,
@@ -155,7 +156,8 @@ export default function QuestionPage({ navigation }) {
                 }}
                 >
                   <Text style={styles.buttonText}>
-                    Ответить
+                    {showRight ? (<Text>👍👍👍</Text>) : (<Text>Ответить</Text>)}
+                    {/* Ответить */}
                   </Text>
                 </View>
               </TouchableOpacity>
@@ -183,7 +185,7 @@ const styles = StyleSheet.create({
     color: '#353739',
   },
   textProgressAlert: {
-    fontSize: '24',
+    fontSize: '15',
     fontFamily: 'MontserratMedium',
     color: '#0abb06',
     fontWeight: 'bold',
@@ -225,6 +227,17 @@ const styles = StyleSheet.create({
     marginBottom: '5%',
     padding: 5,
     borderColor: '#f97777',
+  },
+  answerBubble2: {
+    borderWidth: 1,
+    minWidth: 250,
+    minHeight: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: '30',
+    marginBottom: '5%',
+    padding: 5,
+    borderColor: '#0abb06',
   },
   answerText: {
     fontSize: 15,

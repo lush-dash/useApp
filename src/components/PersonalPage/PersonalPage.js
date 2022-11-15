@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import {
   Text, View, StyleSheet, Image, Dimensions, Modal,
 } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 import { PieChart } from 'react-native-chart-kit';
 import { getAllKeys, getGoodAnswer, removeAnswer } from '../../../utils/storage';
@@ -87,114 +87,116 @@ export default function PersonalPage({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <ScrollView>
 
-      {/* Modal */}
-      <Modal
-        animationType="fade"
-        transparent
-        visible={modalVisible}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>
-              Пасхалка начнется через
-              {' '}
-              {startGame}
-            </Text>
+        {/* Modal */}
+        <Modal
+          animationType="fade"
+          transparent
+          visible={modalVisible}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>
+                Пасхалка начнется через
+                {' '}
+                {startGame}
+              </Text>
+            </View>
           </View>
-        </View>
-      </Modal>
-      {/* Modal */}
+        </Modal>
+        {/* Modal */}
 
-      <View style={styles.innerContainer}>
-        <View>
-          <TouchableOpacity onPress={() => gameHandler()}>
-            <Text style={styles.userName}>
-              Привет,
-              {' '}
-              {user || 'друг'}
-            </Text>
-          </TouchableOpacity>
-        </View>
-        {showInputForChangeName ? (
+        <View style={styles.innerContainer}>
           <View>
-            <Input
-              textStyle={styles.inputText}
-              style={styles.input}
-              onChangeText={(value) => setText(value)}
-              defaultValue={user}
+            <TouchableOpacity onPress={() => gameHandler()}>
+              <Text style={styles.userName}>
+                Привет,
+                {' '}
+                {user || 'друг'}
+              </Text>
+            </TouchableOpacity>
+          </View>
+          {showInputForChangeName ? (
+            <View>
+              <Input
+                textStyle={styles.inputText}
+                style={styles.input}
+                onChangeText={(value) => setText(value)}
+                defaultValue={user}
+              />
+
+              <TouchableOpacity onPress={() => {
+                try {
+                  dispatch(removeUserThunk());
+                  dispatch(setUserThunk(text));
+                  setShowInputForChangeName();
+                  dispatch(getUserThunk());
+                } catch (error) {
+                  console.error(error);
+                }
+              }}
+              >
+                <View style={styles.button}>
+                  <Text style={styles.buttonText}>Ок</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          ) : (
+            <TouchableOpacity onPress={() => showInput()}>
+              <View style={styles.button}>
+                <Text style={styles.buttonText}>Изменить имя</Text>
+              </View>
+            </TouchableOpacity>
+          )}
+          {/* <View>
+        <Text style={styles.userName}>
+          Прогресс
+        </Text>
+      </View> */}
+          {itsNotDone && (
+          <View style={styles.chartContainer}>
+            <PieChart
+              data={data}
+              width={screenWidth}
+              height={200}
+              chartConfig={chartConfig}
+              accessor="population"
+              backgroundColor="transparent"
+              paddingLeft="0"
+              center={[0, -20]}
+            />
+          </View>
+          )}
+
+          <View>
+            <Image
+              style={styles.image}
+              source={require('../../../assets/student2.png')}
             />
 
+          </View>
+
+          <View>
             <TouchableOpacity onPress={() => {
               try {
+                getAllKeys().then((res) => res.map((key) => removeAnswer(key)));
                 dispatch(removeUserThunk());
-                dispatch(setUserThunk(text));
-                setShowInputForChangeName();
-                dispatch(getUserThunk());
+                setText('');
+                dispatch(deleteAnswer());
+                navigation.navigate('Main');
               } catch (error) {
                 console.error(error);
               }
             }}
             >
               <View style={styles.button}>
-                <Text style={styles.buttonText}>Ок</Text>
+                <Text style={styles.buttonText}>Выйти</Text>
               </View>
             </TouchableOpacity>
           </View>
-        ) : (
-          <TouchableOpacity onPress={() => showInput()}>
-            <View style={styles.button}>
-              <Text style={styles.buttonText}>Изменить имя</Text>
-            </View>
-          </TouchableOpacity>
-        )}
-        {/* <View>
-        <Text style={styles.userName}>
-          Прогресс
-        </Text>
-      </View> */}
-        {itsNotDone && (
-        <View style={styles.chartContainer}>
-          <PieChart
-            data={data}
-            width={screenWidth}
-            height={200}
-            chartConfig={chartConfig}
-            accessor="population"
-            backgroundColor="transparent"
-            paddingLeft="0"
-            center={[0, -20]}
-          />
         </View>
-        )}
-
-        <View>
-          <Image
-            style={styles.image}
-            source={require('../../../assets/student2.png')}
-          />
-
-        </View>
-
-        <View>
-          <TouchableOpacity onPress={() => {
-            try {
-              getAllKeys().then((res) => res.map((key) => removeAnswer(key)));
-              dispatch(removeUserThunk());
-              setText('');
-              dispatch(deleteAnswer());
-              navigation.navigate('Main');
-            } catch (error) {
-              console.error(error);
-            }
-          }}
-          >
-            <View style={styles.button}>
-              <Text style={styles.buttonText}>Выйти</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-      </View>
+      </ScrollView>
     </View>
   );
 }
