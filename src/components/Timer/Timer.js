@@ -4,20 +4,23 @@ import {
   StyleSheet, View,
 } from 'react-native';
 import { useFonts } from 'expo-font';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useIsFocused } from '@react-navigation/native';
 import { setEnd, setStart } from '../../redux/actions/timerActions';
 
-export default function Timer({ navigation, timerValue, stopTimer }) {
-  const [time, setTime] = React.useState(timerValue);
-  const timerRef = React.useRef(time);
+export default function Timer({ navigation, stopTimer, timerStart }) {
+  const questions = useSelector((state) => state.questions);
   const dispatch = useDispatch();
   const [fontsLoaded] = useFonts({
     MontserratMedium: require('../../../assets/fonts/Montserrat-Medium.ttf'),
     MontserratSemiBold: require('../../../assets/fonts/Montserrat-SemiBold.ttf'),
   });
+  const isFocused = useIsFocused();
+  const [time, setTime] = React.useState(timerStart);
+  const timerRef = React.useRef(time);
 
   React.useEffect(() => {
-    dispatch(setStart(timerValue));
+    dispatch(setStart(timerStart));
     dispatch(setEnd(time));
     const timerId = setInterval(() => {
       timerRef.current -= 1;
@@ -36,9 +39,10 @@ export default function Timer({ navigation, timerValue, stopTimer }) {
     return () => {
       clearInterval(timerId);
     };
-  }, [stopTimer]);
+  }, [stopTimer, isFocused]);
 
   if (!fontsLoaded) return null;
+  if (!questions.length) return null;
 
   return (
 

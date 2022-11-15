@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Text } from '@ui-kitten/components';
 import { Switch } from 'react-native-paper';
 import {
@@ -9,16 +9,24 @@ import {
 } from 'react-native';
 import { useFonts } from 'expo-font';
 import { ScrollView } from 'react-native-gesture-handler';
+import { useIsFocused } from '@react-navigation/native';
 import OneOption from '../OneOption/OneOption';
+import { clearQuestions } from '../../redux/actions/questionsActions';
 
 export default function OptionsPage({ navigation }) {
   const [isSwitchOn, setIsSwitchOn] = useState(false);
   const currSubject = useSelector((state) => state.currSubject);
   const options = useSelector((state) => state.options);
+  const dispatch = useDispatch();
   const [fontsLoaded] = useFonts({
     MontserratMedium: require('../../../assets/fonts/Montserrat-Medium.ttf'),
     MontserratBold: require('../../../assets/fonts/Montserrat-Bold.ttf'),
   });
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    dispatch(clearQuestions());
+  }, [isFocused]);
 
   if (!fontsLoaded || !options.length) {
     return (

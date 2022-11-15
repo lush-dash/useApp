@@ -1,4 +1,4 @@
-import { SET_QUESTIONS } from '../types';
+import { CLEAR_QUESTIONS, SET_QUESTIONS } from '../types';
 
 export default function questionsReducer(state = [], action) {
   const { type, payload } = action;
@@ -6,6 +6,8 @@ export default function questionsReducer(state = [], action) {
   switch (type) {
     case SET_QUESTIONS:
       return payload;
+    case CLEAR_QUESTIONS:
+      return [];
     default:
       return state;
   }
