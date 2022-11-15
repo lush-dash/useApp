@@ -89,5 +89,6 @@ const styles = StyleSheet.create({
   innerContainer: {
     display: 'flex',
     width: '100%',
+    paddingBottom: '20%',
   },
 });
