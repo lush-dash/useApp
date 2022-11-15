@@ -1,6 +1,6 @@
 import Matter from 'matter-js';
 import React from 'react';
-import { View } from 'react-native';
+import { Image, View } from 'react-native';
 
 function Bird(props) {
   const widthBody = props.body.bounds.max.x - props.body.bounds.min.x;
@@ -22,7 +22,9 @@ function Bird(props) {
       width: widthBody,
       height: heightBody,
     }}
-    />
+    >
+      <Image source={require('../assets/favicon.png')} />
+    </View>
   );
 }
 

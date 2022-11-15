@@ -39,7 +39,7 @@ export default function PersonalPage({ navigation }) {
     }
     setModalVisible(!modalVisible);
     setStartGame(startGame - 1);
-    setTimeout(() => { setModalVisible(false); }, 100);
+    setTimeout(() => { setModalVisible(false); }, 500);
   };
 
   if (!fontsLoaded) return null;
@@ -53,11 +53,10 @@ export default function PersonalPage({ navigation }) {
         transparent
         visible={modalVisible}
       >
-
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Text style={styles.modalText}>
-              Start pashal game via
+              Пасхалка начнется через
               {' '}
               {startGame}
             </Text>
