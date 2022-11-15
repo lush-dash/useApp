@@ -20,6 +20,7 @@ export default function QuestionPage({ navigation }) {
   const [stopTimer, setStopTimer] = useState(false);
   const [answer, setAnswer] = useState('');
   const [trueAnswer, setTrueAnswer] = useState(true);
+  const [showRight, setShowRight] = useState(false);
   const [fontsLoaded] = useFonts({
     MontserratMedium: require('../../../assets/fonts/Montserrat-Medium.ttf'),
     MontserratSemiBold: require('../../../assets/fonts/Montserrat-SemiBold.ttf'),
@@ -28,13 +29,18 @@ export default function QuestionPage({ navigation }) {
   const timerValue = questions.length * 180;
 
   const clickHandler = () => {
-    if (answer.toLowerCase() !== questions[index]?.a.toLowerCase()) {
+    if (answer.toLowerCase() !== questions[index]?.a.toLowerCase() || answer.toLowerCase() === '') {
       dispatch(addBadAnswer());
       setTrueAnswer(!trueAnswer);
     } else {
       dispatch(addGoodAnswer());
-      setIndex(index + 1);
-      setAnswer('');
+      setShowRight(true);
+      setTimeout(() => {
+        setIndex(index + 1);
+        setAnswer('');
+        setShowRight(false);
+      }, 800);
+
       if (index === questions.length - 2) {
         setStopTimer(true);
         navigation.navigate('Result');
@@ -122,6 +128,14 @@ export default function QuestionPage({ navigation }) {
             </>
           ) : (
             <>
+              {showRight && (
+              <View>
+                <Text style={styles.textProgressAlert}>
+                  Верно
+                  ✅
+                </Text>
+              </View>
+              )}
               <Input
                 style={styles.input}
                 placeholder="Введите ответ"
@@ -168,6 +182,12 @@ const styles = StyleSheet.create({
     fontFamily: 'MontserratMedium',
     color: '#353739',
   },
+  textProgressAlert: {
+    fontSize: '24',
+    fontFamily: 'MontserratMedium',
+    color: '#0abb06',
+    fontWeight: 'bold',
+  },
   text: {
     margin: '5%',
     fontWeight: 'bold',
@@ -206,7 +226,7 @@ const styles = StyleSheet.create({
   answerText: {
     fontSize: 15,
     fontFamily: 'MontserratMedium',
-    color: '#353739',
+    color: '#f97777',
   },
   buttonText: {
     color: '#353739',
