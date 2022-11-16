@@ -3,6 +3,7 @@ export const SET_TOPICS = 'SET_TOPICS';
 
 // options
 export const SET_OPTIONS = 'SET_OPTIONS';
+export const CLEAR_OPTIONS = 'CLEAR_OPTIONS';
 
 // questions
 export const SET_QUESTIONS = 'SET_QUESTIONS';
