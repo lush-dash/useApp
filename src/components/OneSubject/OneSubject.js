@@ -26,7 +26,7 @@ export default function OneSubject({ subject, navigation }) {
   if (subject.title === 'История') backgroundImage = backgroundForHis;
   if (subject.title === 'Эльбрус') backgroundImage = backgroundForElbrus;
 
-  if (!fontsLoaded) return null;
+  if (!fontsLoaded || !backgroundForRus || !backgroundForSoc || !backgroundForHis || !backgroundForElbrus) return null;
 
   return (
     <TouchableOpacity
