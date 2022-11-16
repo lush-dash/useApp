@@ -40,7 +40,6 @@ export default function OptionsPage({ navigation }) {
     );
   }
 
-  // добавить логику в map
   const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
 
   return (

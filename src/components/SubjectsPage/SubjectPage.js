@@ -23,6 +23,7 @@ export default function SubjectPage({ navigation }) {
   const isFocused = useIsFocused();
 
   useEffect(() => {
+    setText('');
     dispatch(setTopicsThunk());
     dispatch(clearOptions());
   }, [isFocused]);
@@ -49,6 +50,7 @@ export default function SubjectPage({ navigation }) {
           style={styles.input}
           placeholder="Поиск"
           elevation="1"
+          value={text}
           inputStyle={styles.inputText}
           onChangeText={(value) => setText(value)}
           placeholderTextColor="#a3a3a3"
