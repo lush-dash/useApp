@@ -10,7 +10,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { setQuestionsThunk } from '../../redux/actions/questionsActions';
 import { setCurrentOption } from '../../redux/actions/currentOptionActions';
 import { clearTimer } from '../../redux/actions/timerActions';
-import { getOneSubjAnswer } from '../../../utils/storage';
+import { getOneSubjAnswer, removeThisAnswer } from '../../../utils/storage';
 
 export default function OneOption({ option, navigation, isSwitchOn }) {
   const currSubject = useSelector((state) => state.currSubject);
@@ -23,32 +23,28 @@ export default function OneOption({ option, navigation, isSwitchOn }) {
   const [itsNotDone, setItsNotDone] = useState(null);
   const isFocused = useIsFocused();
 
-  // console.log(option, 'option!!!');
   useEffect(() => {
     getOneSubjAnswer(option)
       .then((res) => {
         if (res) {
           const result = res.split(',');
           setItsDone(result[0]);
-          setItsNotDone(Number(result[1]) + Number(result[0]));
+          setItsNotDone(Number(result[1]));
         }
       })
       .catch((e) => console.log(e));
   }, [isFocused]);
 
-  // console.log(itsDone, 'itsDone');
-
   if (!fontsLoaded) return null;
 
   if (isSwitchOn && itsDone) return null;
-  console.log(itsDone, 'itsDone');
-  console.log(itsNotDone, 'itsNotDone');
   return (
     <TouchableOpacity
-      onPress={() => {
+      onPress={async () => {
         dispatch(setQuestionsThunk(option.url));
         dispatch(setCurrentOption(option));
-        dispatch(clearTimer());
+        dispatch(clearTimer(option));
+        removeThisAnswer(option);
         navigation.navigate('Question');
       }}
       style={styles.container}
@@ -71,7 +67,7 @@ export default function OneOption({ option, navigation, isSwitchOn }) {
             <View>
               <Text style={styles.text}>{option.title}</Text>
               <Text style={styles.smallText}>
-                {` Правильных ответов: ${itsDone / 2} из ${(Number(itsNotDone)) - Number(itsDone / 2)}`}
+                {` Правильных ответов: ${itsDone} из ${(Number(itsNotDone)) + Number(itsDone)}`}
               </Text>
             </View>
             <Ionicons style={styles.icon} name="checkmark-circle" color={currSubject?.darkColor} size={30} />
