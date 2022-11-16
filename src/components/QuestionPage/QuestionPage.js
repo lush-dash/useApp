@@ -21,6 +21,7 @@ export default function QuestionPage({ navigation }) {
   const [answer, setAnswer] = useState('');
   const [trueAnswer, setTrueAnswer] = useState(true);
   const [showRight, setShowRight] = useState(false);
+  const [hideTouchebleOpacity, setHideTouchebleOpacity] = useState(false);
   const [fontsLoaded] = useFonts({
     MontserratMedium: require('../../../assets/fonts/Montserrat-Medium.ttf'),
     MontserratSemiBold: require('../../../assets/fonts/Montserrat-SemiBold.ttf'),
@@ -36,12 +37,14 @@ export default function QuestionPage({ navigation }) {
       dispatch(addBadAnswer());
       setTrueAnswer(!trueAnswer);
     } else {
-      dispatch(addGoodAnswer());
       setShowRight(true);
+      setHideTouchebleOpacity(true);
       setTimeout(() => {
+        dispatch(addGoodAnswer());
         setIndex(index + 1);
         setAnswer('');
         setShowRight(false);
+        setHideTouchebleOpacity(false);
       }, 1000);
       if (index === questions.length - 1) {
         setStopTimer(true);
@@ -143,23 +146,41 @@ export default function QuestionPage({ navigation }) {
                 onSubmitEditing={clickHandler}
               />
               )}
-              <TouchableOpacity onPress={clickHandler}>
-                <View style={{
-                  backgroundColor: currSubject?.color,
-                  minWidth: 250,
-                  minHeight: 50,
-                  borderRadius: '30',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginBottom: '10%',
-                }}
-                >
-                  <Text style={styles.buttonText}>
-                    {showRight ? (<Text>👍👍👍</Text>) : (<Text>Ответить</Text>)}
-                    {/* Ответить */}
-                  </Text>
-                </View>
-              </TouchableOpacity>
+              {hideTouchebleOpacity ? (
+                <TouchableOpacity>
+                  <View style={{
+                    backgroundColor: currSubject?.color,
+                    minWidth: 250,
+                    minHeight: 50,
+                    borderRadius: '30',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginBottom: '10%',
+                  }}
+                  >
+                    <Text style={styles.buttonText}>
+                      {showRight ? (<Text>👍👍👍</Text>) : (<Text>Ответить</Text>)}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity onPress={clickHandler}>
+                  <View style={{
+                    backgroundColor: currSubject?.color,
+                    minWidth: 250,
+                    minHeight: 50,
+                    borderRadius: '30',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginBottom: '10%',
+                  }}
+                  >
+                    <Text style={styles.buttonText}>
+                      {showRight ? (<Text>👍👍👍</Text>) : (<Text>Ответить</Text>)}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              )}
             </>
           )}
         </View>
