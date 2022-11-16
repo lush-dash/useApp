@@ -41,7 +41,8 @@ export default function OneOption({ option, navigation, isSwitchOn }) {
   if (!fontsLoaded) return null;
 
   if (isSwitchOn && itsDone) return null;
-
+  console.log(itsDone, 'itsDone');
+  console.log(itsNotDone, 'itsNotDone');
   return (
     <TouchableOpacity
       onPress={() => {
@@ -70,7 +71,7 @@ export default function OneOption({ option, navigation, isSwitchOn }) {
             <View>
               <Text style={styles.text}>{option.title}</Text>
               <Text style={styles.smallText}>
-                {` Правильных ответов: ${itsDone} из ${(Number(itsNotDone) + Number(itsDone))}`}
+                {` Правильных ответов: ${itsDone / 2} из ${(Number(itsNotDone)) - Number(itsDone / 2)}`}
               </Text>
             </View>
             <Ionicons style={styles.icon} name="checkmark-circle" color={currSubject?.darkColor} size={30} />
