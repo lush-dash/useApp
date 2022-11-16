@@ -113,4 +113,35 @@ export const setOneSubjAnswer = async (subid, goodAnswer) => {
   }
 };
 
+export const getAllStats = async () => {
+  try {
+    const keys = await AsyncStorage.getAllKeys();
+    const allStats = await AsyncStorage.multiGet([...keys]);
+    const result = allStats.filter((el) => Number(el[0]));
+    const arr = result.map((el) => {
+      const newArr = [...el];
+      newArr[1] = newArr[1].split(',');
+      return newArr;
+    });
+    const statObj = {};
+    for (let i = 0; i < arr.length; i += 1) {
+      const key = arr[i][0][0];
+      if (key in statObj) {
+        statObj[key][0] += Number(arr[i][1][0]);
+        statObj[key][1] += Number(arr[i][1][1]);
+        statObj[key][2] += 1;
+      } else {
+        statObj[key] = [];
+        statObj[key].push(Number(arr[i][1][0]), Number(arr[i][1][1]), 1);
+      }
+    }
+
+    // console.log(Object.entries(statObj));
+    return Object.entries(statObj);
+    // return statObj;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export default storage;
