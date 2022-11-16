@@ -290,7 +290,7 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   centeredView: {
-    flex: 0.45,
+    flex: 0.96,
     justifyContent: 'center',
     alignItems: 'center',
   },
