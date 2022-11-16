@@ -11,6 +11,7 @@ import { setQuestionsThunk } from '../../redux/actions/questionsActions';
 import { setCurrentOption } from '../../redux/actions/currentOptionActions';
 import { clearTimer } from '../../redux/actions/timerActions';
 import { getOneSubjAnswer, removeThisAnswer } from '../../../utils/storage';
+import { deleteAnswer } from '../../redux/actions/answersCounterActions';
 
 export default function OneOption({ option, navigation, isSwitchOn }) {
   const currSubject = useSelector((state) => state.currSubject);
@@ -44,6 +45,7 @@ export default function OneOption({ option, navigation, isSwitchOn }) {
         dispatch(setQuestionsThunk(option.url));
         dispatch(setCurrentOption(option));
         dispatch(clearTimer(option));
+        dispatch(deleteAnswer());
         removeThisAnswer(option);
         navigation.navigate('Question');
       }}

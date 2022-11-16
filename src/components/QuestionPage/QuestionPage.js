@@ -37,10 +37,10 @@ export default function QuestionPage({ navigation }) {
       dispatch(addBadAnswer());
       setTrueAnswer(!trueAnswer);
     } else {
-      dispatch(addGoodAnswer());
       setShowRight(true);
       setHideTouchebleOpacity(true);
       setTimeout(() => {
+        dispatch(addGoodAnswer());
         setIndex(index + 1);
         setAnswer('');
         setShowRight(false);
@@ -147,7 +147,7 @@ export default function QuestionPage({ navigation }) {
               />
               )}
               {hideTouchebleOpacity ? (
-                <TouchableOpacity disable onPress={clickHandler}>
+                <TouchableOpacity>
                   <View style={{
                     backgroundColor: currSubject?.color,
                     minWidth: 250,
