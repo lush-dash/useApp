@@ -7,8 +7,10 @@ import {
 import { useFonts } from 'expo-font';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Searchbar } from 'react-native-paper';
+import { useIsFocused } from '@react-navigation/native';
 import { setTopicsThunk } from '../../redux/actions/topicsActions';
 import OneSubject from '../OneSubject/OneSubject';
+import { clearOptions } from '../../redux/actions/optionsActions';
 
 export default function SubjectPage({ navigation }) {
   const [text, setText] = useState('');
@@ -18,10 +20,12 @@ export default function SubjectPage({ navigation }) {
     MontserratMedium: require('../../../assets/fonts/Montserrat-Medium.ttf'),
     MontserratBold: require('../../../assets/fonts/Montserrat-Bold.ttf'),
   });
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     dispatch(setTopicsThunk());
-  }, []);
+    dispatch(clearOptions());
+  }, [isFocused]);
 
   if (!fontsLoaded || !topics.length) {
     return (
