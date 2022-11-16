@@ -75,6 +75,7 @@ export default function ResultsPage({ navigation }) {
             />
           </View>
           <TouchableOpacity onPress={async () => {
+            console.log(result);
             await setOneSubjAnswer(currentOption, result);
             await setGoodAnswer(result);
             dispatch(deleteAnswer());
