@@ -16,7 +16,6 @@ export default function ResultsPage({ navigation }) {
   const result = useSelector((state) => state.answersCounter);
   const currentOption = useSelector((state) => state.currentOption);
   const timer = useSelector((state) => state.timer);
-
   const [fontsLoaded] = useFonts({
     MontserratBold: require('../../../assets/fonts/Montserrat-Bold.ttf'),
     MontserratMedium: require('../../../assets/fonts/Montserrat-Medium.ttf'),
@@ -75,7 +74,6 @@ export default function ResultsPage({ navigation }) {
             />
           </View>
           <TouchableOpacity onPress={async () => {
-            console.log(result);
             await setOneSubjAnswer(currentOption, result);
             await setGoodAnswer(result);
             dispatch(deleteAnswer());
