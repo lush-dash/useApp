@@ -13,7 +13,7 @@ axios('https://rus-ege.sdamgia.ru/test?id=31926141', options)
     const dom = new JSDOM(res.data);
     // console.log(dom);
     const div = dom.window.document.getElementsByClassName('pbody');
-    console.log(div);
+    // console.log(div);
     const p = div[0].getElementsByTagName('p');
     for (let i = 0; i < p.length; i += 1) {
       console.log(p[i].textContent);

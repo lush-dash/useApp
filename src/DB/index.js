@@ -22,7 +22,7 @@ axios('https://rus-ege.sdamgia.ru/problem?id=38850', options)
     for (let i = 0; i < div.length; i += 1) {
       result += div[i].textContent;
     }
-    console.log(result);
+    // console.log(result);
 
     // div.map((el) => console.log(el.textContent));
     // console.log(div[0].textContent);

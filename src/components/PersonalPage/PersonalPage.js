@@ -124,7 +124,7 @@ export default function PersonalPage({ navigation }) {
               <Text style={styles.userName}>
                 Привет,
                 {' '}
-                {user || 'userName'}
+                {user || 'друг'}
               </Text>
             </TouchableOpacity>
           </View>
@@ -169,50 +169,50 @@ export default function PersonalPage({ navigation }) {
             </TouchableOpacity>
           )}
 
-          <ScrollView
-            horizontal
-          >
+          {itsNotDone ? (
             <View style={styles.statsContainer}>
-              {itsNotDone && (
-              <View style={styles.chartContainer}>
-                <Text style={styles.userName2}>
-                  {'Общая стастика\n'}
-                </Text>
-                <PieChart
-                  data={data}
-                  width={screenWidth}
-                  height={200}
-                  chartConfig={chartConfig}
-                  accessor="population"
-                  backgroundColor="transparent"
-                  paddingLeft="0"
-                  center={[0, -20]}
-                />
-              </View>
-              )}
-              {statsBySubj?.length
-            && statsBySubj.map((el) => <StatsBySubject oneStat={el} key={el[0]} />)}
+              <ScrollView horizontal>
+                <View style={styles.chartContainer}>
+                  <Text style={styles.userName2}>
+                    {'Общая статистика\n'}
+                  </Text>
+                  <PieChart
+                    data={data}
+                    width={screenWidth}
+                    height={200}
+                    chartConfig={chartConfig}
+                    accessor="population"
+                    backgroundColor="transparent"
+                    paddingLeft="0"
+                    center={[0, -20]}
+                  />
+                </View>
+                {statsBySubj?.length
+                && statsBySubj.map((el) => <StatsBySubject oneStat={el} key={el[0]} />)}
+              </ScrollView>
             </View>
-          </ScrollView>
+          ) : (
+            <View><Text style={styles.userName2}>Здесь будет твоя статистика</Text></View>
+          )}
 
-          <View>
-            <TouchableOpacity onPress={() => {
-              try {
-                getAllKeys().then((res) => res.map((key) => removeAnswer(key)));
-                dispatch(removeUserThunk());
-                setText('');
-                dispatch(deleteAnswer());
-                navigation.navigate('Main');
-              } catch (error) {
-                console.error(error);
-              }
-            }}
-            >
-              <View style={styles.button}>
-                <Text style={styles.buttonText}>Выйти</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
+          {/* кнопка выхода */}
+          <TouchableOpacity onPress={() => {
+            try {
+              getAllKeys().then((res) => res.map((key) => removeAnswer(key)));
+              dispatch(removeUserThunk());
+              setText('');
+              dispatch(deleteAnswer());
+              navigation.navigate('Main');
+            } catch (error) {
+              console.error(error);
+            }
+          }}
+          >
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>Выйти</Text>
+            </View>
+          </TouchableOpacity>
+
         </View>
       </ScrollView>
     </View>
@@ -230,16 +230,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
+    display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingTop: '12%',
   },
   innerContainer: {
     display: 'flex',
     alignItems: 'center',
-    // justifyContent: 'space-between',
+    justifyContent: 'space-around',
     width: (Dimensions.get('screen').width),
-    height: (Dimensions.get('screen').height),
-    borderWidth: 1,
+    height: (Dimensions.get('screen').height - 125),
   },
   userName: {
     textAlign: 'center',
@@ -268,9 +269,8 @@ const styles = StyleSheet.create({
   },
   input: {
     borderRadius: '30',
-    borderWidth: 1,
     borderColor: '#D3D3D3',
-    // marginBottom: '5%',
+    marginBottom: '3%',
     textAlign: 'center',
     backgroundColor: 'white',
 
@@ -281,7 +281,7 @@ const styles = StyleSheet.create({
   image: {
     width: 150,
     height: 150,
-    // marginBottom: '5%',
+    marginBottom: '5%',
   },
   modalView: {
     backgroundColor: 'white',
@@ -305,21 +305,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  chartContainer: {
-    // marginTop: '5%',
-  },
   statsContainer: {
     display: 'flex',
     flexDirection: 'row',
-    height: '60%',
-    borderWidth: 1,
+    minHeight: '30%',
     overflow: 'hidden',
+    marginTop: '5%',
   },
   scroll: {
     width: '100%',
-  },
-  greet: {
-    // marginTop: '15%',
-    // marginBottom: '5%',
   },
 });

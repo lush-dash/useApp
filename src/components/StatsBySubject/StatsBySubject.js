@@ -61,7 +61,7 @@ const chartConfig = {
 
 const styles = StyleSheet.create({
   chartContainer: {
-    marginTop: '5%',
+    // marginTop: '5%',
   },
   text: {
     textAlign: 'center',

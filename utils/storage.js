@@ -80,7 +80,7 @@ export const removeThisAnswer = async (index) => {
   try {
     const idResult = (`${index.subjectId}${index.id}`);
     await AsyncStorage.removeItem((idResult));
-    console.log(idResult, 'removeAnswerremoveAnswer');
+    // console.log(idResult, 'removeAnswerremoveAnswer');
   } catch (error) {
     console.error(error);
   }
