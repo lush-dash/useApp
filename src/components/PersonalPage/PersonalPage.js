@@ -8,9 +8,12 @@ import {
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 import { PieChart } from 'react-native-chart-kit';
-import { getAllKeys, getGoodAnswer, removeAnswer } from '../../../utils/storage';
+import {
+  getAllKeys, getAllStats, getGoodAnswer, removeAnswer,
+} from '../../../utils/storage';
 import { deleteAnswer } from '../../redux/actions/answersCounterActions';
 import { getUserThunk, removeUserThunk, setUserThunk } from '../../redux/actions/userActions';
+import StatsBySubject from '../StatsBySubject/StatsBySubject';
 
 export default function PersonalPage({ navigation }) {
   const [fontsLoaded] = useFonts({
@@ -32,11 +35,15 @@ export default function PersonalPage({ navigation }) {
   const [itsNotDone, setItsNotDone] = useState(null);
   const [itsDone, setItsDone] = useState(null);
 
+  // Stats by subject
+  const [statsBySubj, setStatsBySubj] = useState({});
+
   useEffect(() => {
     try {
       setStartGame(5);
       if (isFocused) {
         dispatch(getUserThunk());
+
         getGoodAnswer()
           .then((res) => {
             if (res) {
@@ -52,6 +59,14 @@ export default function PersonalPage({ navigation }) {
     }
   }, [isFocused]);
 
+  useEffect(() => {
+    getAllStats().then((res) => {
+      if (res.length) {
+        setStatsBySubj(res);
+      }
+    });
+  }, [isFocused]);
+
   const gameHandler = () => {
     if (startGame === 1) {
       navigation.navigate('PaschalGame');
@@ -62,7 +77,6 @@ export default function PersonalPage({ navigation }) {
   };
   const screenWidth = Dimensions.get('window').width;
 
-  // if (itsDone !== null && itsNotDone !== null) {
   const data = [
     {
       name: 'Верно',
@@ -79,8 +93,6 @@ export default function PersonalPage({ navigation }) {
       legendFontSize: 18,
     },
   ];
-  // return data;
-  // }
 
   if (!fontsLoaded) return null;
 
@@ -116,6 +128,14 @@ export default function PersonalPage({ navigation }) {
               </Text>
             </TouchableOpacity>
           </View>
+
+          <View>
+            <Image
+              style={styles.image}
+              source={require('../../../assets/student2.png')}
+            />
+          </View>
+
           {showInputForChangeName ? (
             <View>
               <Input
@@ -148,52 +168,51 @@ export default function PersonalPage({ navigation }) {
               </View>
             </TouchableOpacity>
           )}
-          <View>
-            <Text style={styles.userName2}>
-              Общая статистика
-            </Text>
-          </View>
-          {itsNotDone && (
-          <View style={styles.chartContainer}>
-            <PieChart
-              data={data}
-              width={screenWidth}
-              height={200}
-              chartConfig={chartConfig}
-              accessor="population"
-              backgroundColor="transparent"
-              paddingLeft="0"
-              center={[0, -20]}
-            />
-          </View>
+
+          {itsNotDone ? (
+            <View style={styles.statsContainer}>
+              <ScrollView horizontal>
+                <View style={styles.chartContainer}>
+                  <Text style={styles.userName2}>
+                    {'Общая статистика\n'}
+                  </Text>
+                  <PieChart
+                    data={data}
+                    width={screenWidth}
+                    height={200}
+                    chartConfig={chartConfig}
+                    accessor="population"
+                    backgroundColor="transparent"
+                    paddingLeft="0"
+                    center={[0, -20]}
+                  />
+                </View>
+                {statsBySubj?.length
+                && statsBySubj.map((el) => <StatsBySubject oneStat={el} key={el[0]} />)}
+              </ScrollView>
+            </View>
+          ) : (
+            <View><Text style={styles.userName2}>Здесь будет твоя статистика</Text></View>
           )}
 
-          <View>
-            <Image
-              style={styles.image}
-              source={require('../../../assets/student2.png')}
-            />
+          {/* кнопка выхода */}
+          <TouchableOpacity onPress={() => {
+            try {
+              getAllKeys().then((res) => res.map((key) => removeAnswer(key)));
+              dispatch(removeUserThunk());
+              setText('');
+              dispatch(deleteAnswer());
+              navigation.navigate('Main');
+            } catch (error) {
+              console.error(error);
+            }
+          }}
+          >
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>Выйти</Text>
+            </View>
+          </TouchableOpacity>
 
-          </View>
-
-          <View>
-            <TouchableOpacity onPress={() => {
-              try {
-                getAllKeys().then((res) => res.map((key) => removeAnswer(key)));
-                dispatch(removeUserThunk());
-                setText('');
-                dispatch(deleteAnswer());
-                navigation.navigate('Main');
-              } catch (error) {
-                console.error(error);
-              }
-            }}
-            >
-              <View style={styles.button}>
-                <Text style={styles.buttonText}>Выйти</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
         </View>
       </ScrollView>
     </View>
@@ -201,29 +220,27 @@ export default function PersonalPage({ navigation }) {
 }
 
 const chartConfig = {
-  // backgroundGradientFrom: 'red',
-  // backgroundGradientFromOpacity: 0,
-  // backgroundGradientTo: 'blue',
-  // backgroundGradientToOpacity: 0.5,
   color: (opacity = 2) => `rgba(26, 255, 146, ${opacity})`,
-  strokeWidth: 3, // optional, default 3
+  strokeWidth: 3,
   barPercentage: 0.5,
-  useShadowColorFromDataset: false, // optional
+  useShadowColorFromDataset: false,
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
+    display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingTop: '12%',
   },
   innerContainer: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     width: (Dimensions.get('screen').width),
-    height: (Dimensions.get('screen').height - 100),
+    height: (Dimensions.get('screen').height - 125),
   },
   userName: {
     textAlign: 'center',
@@ -231,11 +248,9 @@ const styles = StyleSheet.create({
     fontSize: '25',
     fontFamily: 'MontserratMedium',
     color: '#353739',
-    // marginTop: '2%',
   },
   userName2: {
     textAlign: 'center',
-    // fontWeight: 'bold',
     fontSize: '20',
     fontFamily: 'MontserratMedium',
     color: '#353739',
@@ -247,7 +262,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     minHeight: 50,
-    marginTop: '2%',
   },
   buttonText: {
     color: 'white',
@@ -255,9 +269,8 @@ const styles = StyleSheet.create({
   },
   input: {
     borderRadius: '30',
-    borderWidth: 1,
     borderColor: '#D3D3D3',
-    marginBottom: '5%',
+    marginBottom: '3%',
     textAlign: 'center',
     backgroundColor: 'white',
 
@@ -268,14 +281,13 @@ const styles = StyleSheet.create({
   image: {
     width: 150,
     height: 150,
+    marginBottom: '5%',
   },
   modalView: {
-    // height: 30,
     backgroundColor: 'white',
     borderRadius: 20,
     alignItems: 'center',
     padding: 15,
-    // shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
@@ -293,14 +305,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  chartContainer: {
+  statsContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    minHeight: '30%',
+    overflow: 'hidden',
     marginTop: '5%',
   },
   scroll: {
     width: '100%',
-  },
-  greet: {
-    marginTop: '15%',
-    marginBottom: '5%',
   },
 });
