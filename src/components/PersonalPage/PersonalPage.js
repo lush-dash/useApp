@@ -171,7 +171,7 @@ export default function PersonalPage({ navigation }) {
 
           {itsNotDone ? (
             <View style={styles.statsContainer}>
-              <ScrollView horizontal>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                 <View style={styles.chartContainer}>
                   <Text style={styles.userName2}>
                     {'Общая статистика\n'}
