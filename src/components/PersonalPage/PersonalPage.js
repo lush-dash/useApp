@@ -41,6 +41,7 @@ export default function PersonalPage({ navigation }) {
   useEffect(() => {
     try {
       setStartGame(5);
+      setModalVisible(false);
       if (isFocused) {
         dispatch(getUserThunk());
 
@@ -72,8 +73,9 @@ export default function PersonalPage({ navigation }) {
       navigation.navigate('PaschalGame');
     }
     setModalVisible(!modalVisible);
-    setStartGame(startGame - 1);
+
     setTimeout(() => { setModalVisible(false); }, 500);
+    setStartGame(startGame - 1);
   };
   const screenWidth = Dimensions.get('window').width;
 
