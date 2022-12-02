@@ -5,7 +5,7 @@ useApp - это  мобильное приложение для подготов
 ## Функционал
 
 #### Страница приветствия
-![IMG_4683] width="100px"(https://user-images.githubusercontent.com/85294440/205290819-d11d4e4b-0bfa-4cf6-ab24-c70a5597bc9c.PNG)
+<img align="left" alt="JavaScript" width="100px" src="https://user-images.githubusercontent.com/85294440/205290819-d11d4e4b-0bfa-4cf6-ab24-c70a5597bc9c.PNG"/>
 ![IMG_4684](https://user-images.githubusercontent.com/85294440/205290878-086fa189-fb6b-4236-8f45-3c3ecc5b3b4c.PNG)
 ![IMG_4685](https://user-images.githubusercontent.com/85294440/205290915-bc15e420-ac70-435a-b8b9-963f5504ea96.PNG)
 
