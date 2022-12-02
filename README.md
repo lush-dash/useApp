@@ -1,11 +1,11 @@
 # useApp
 
-useApp - это  мобильное приложение для подготовки к вопросм тестовой части ЕГЭ. Это удобный свособ получить доступ к актуальным заданиям из любого места.
+useApp - это  мобильное приложение для подготовки к вопросм тестовой части ЕГЭ. Это удобный способ получить доступ к актуальным заданиям из любого места.
 
 ## Функционал
 
 #### Страница приветствия
-![IMG_4683](https://user-images.githubusercontent.com/85294440/205290819-d11d4e4b-0bfa-4cf6-ab24-c70a5597bc9c.PNG)
+![IMG_4683 width="100px"](https://user-images.githubusercontent.com/85294440/205290819-d11d4e4b-0bfa-4cf6-ab24-c70a5597bc9c.PNG)
 ![IMG_4684](https://user-images.githubusercontent.com/85294440/205290878-086fa189-fb6b-4236-8f45-3c3ecc5b3b4c.PNG)
 ![IMG_4685](https://user-images.githubusercontent.com/85294440/205290915-bc15e420-ac70-435a-b8b9-963f5504ea96.PNG)
 
