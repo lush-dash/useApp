@@ -9,17 +9,27 @@ useApp - это  мобильное приложение для подготов
 Зарегистрированнный пользователь попадает на страницу приветствия.
 <br>
 <div>
-<img alt="JavaScript" width="200px" src="https://user-images.githubusercontent.com/85294440/205290819-d11d4e4b-0bfa-4cf6-ab24-c70a5597bc9c.PNG"/>
-<img alt="JavaScript" width="200px" src="https://user-images.githubusercontent.com/85294440/205290878-086fa189-fb6b-4236-8f45-3c3ecc5b3b4c.PNG"/>
-<img alt="JavaScript" width="200px" src="https://user-images.githubusercontent.com/85294440/205290915-bc15e420-ac70-435a-b8b9-963f5504ea96.PNG"/>
+<img alt="screenshot" width="200px" src="https://user-images.githubusercontent.com/85294440/205290819-d11d4e4b-0bfa-4cf6-ab24-c70a5597bc9c.PNG"/>
+<img alt="screenshot" width="200px" src="https://user-images.githubusercontent.com/85294440/205290878-086fa189-fb6b-4236-8f45-3c3ecc5b3b4c.PNG"/>
+<img alt="screenshot" width="200px" src="https://user-images.githubusercontent.com/85294440/205290915-bc15e420-ac70-435a-b8b9-963f5504ea96.PNG"/>
 </div>
 
 #### Страница выбора предметов
 Пользователь имеет возможность выбрать предмет для подготовки. Для удобства на странице есть поиск по названию предмета.
+<br>
+<div>
+<img alt="screenshot" width="200px" src="https://user-images.githubusercontent.com/85294440/205292827-cf3e868e-5a29-4251-90d3-2280c0060115.PNG"/>
+<img alt="screenshot" width="200px" src="https://user-images.githubusercontent.com/85294440/205292858-bb497f6f-d095-402d-ac90-4ede381f6936.PNG"/>
+</div>
 
 #### Страница выбора варианта
 Пользователь имеет возможность выбрать вариант для подготовки. На странице есть фильтр для новых варинатов. 
 Пройденные пользователем варианты помечены, отображена статистика прохождения варианта.
+<br>
+<div>
+<img alt="screenshot" width="200px" src="https://user-images.githubusercontent.com/85294440/205293154-e18dba74-fa42-4654-9f58-e3437e8e58d9.PNG"/>
+<img alt="screenshot" width="200px" src="https://user-images.githubusercontent.com/85294440/205293162-ff5fd847-af41-4858-b62c-c229feb62667.PNG"/>
+</div>
 
 #### Страница вопроса
 При нажатии на выбранный вариант пользователь попадает на страницу вопроса. Начинается отсчет таймера, который будет идти до окончания прохождения теста. 
