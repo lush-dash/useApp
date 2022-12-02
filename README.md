@@ -45,6 +45,10 @@ useApp - это  мобильное приложение для подготов
 
 #### Страница результатов
 По окончании теста пользователь получает информацию о статистике и возможность вернуться в главное меню.
+<br>
+<div>!
+<img alt="screenshot" width="200px" src="https://user-images.githubusercontent.com/85294440/205293944-b1c83224-d5ef-4e37-b1fe-59516cbe98c0.PNG"/>
+</div>
 
 #### Страница пользователя
 В личном кабинете пользователь может:
@@ -52,9 +56,20 @@ useApp - это  мобильное приложение для подготов
 - Увидеть статистику по каждому предмету
 - Изменить имя
 - Начать встроенную игру
+<br>
+<div>
+<img alt="screenshot" width="200px" src="https://user-images.githubusercontent.com/85294440/205294102-da2aa01c-6c0d-4218-8b92-0e5d8af03dcc.PNG"/>
+<img alt="screenshot" width="200px" src="https://user-images.githubusercontent.com/85294440/205294118-598bfb5b-6478-4d03-bfa3-d435138ed242.PNG"/>
+</div>
 
 #### Страница приложения
 На странице приложения размещена информация о приложении
+
+<br>
+<div>
+<img alt="screenshot" width="200px" src="https://user-images.githubusercontent.com/85294440/205294132-05c1cf4f-b06b-462f-9c73-9cb463271c69.PNG"/>
+</div>
+
 
 ## Локальная разработка
 
