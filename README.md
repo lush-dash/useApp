@@ -72,12 +72,14 @@ useApp - это  мобильное приложение для подготов
 
 
 ## Локальная разработка
-Необходимо уставовить приложение [Expo Go](https://expo.dev/client) на мобильное устройство.
+Установить приложение [Expo Go](https://expo.dev/client) на мобильное устройство.
 
 ```console
 npm i
 npm start
 ```
+Запустить через приложение на собильном устройстве через qr-код.
+Альтернативно возможен запуск через эмулятор на компьютере.
 
 ## Стек
 <img align="left" alt="JavaScript" width="32px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/javascript/javascript.png" />
