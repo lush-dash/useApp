@@ -5,9 +5,9 @@ useApp - это  мобильное приложение для подготов
 ## Функционал
 
 #### Страница приветствия
-<img align="left" alt="JavaScript" width="200px" src="https://user-images.githubusercontent.com/85294440/205290819-d11d4e4b-0bfa-4cf6-ab24-c70a5597bc9c.PNG"/>
-<img align="left" alt="JavaScript" width="200px" src="https://user-images.githubusercontent.com/85294440/205290878-086fa189-fb6b-4236-8f45-3c3ecc5b3b4c.PNG"/>
-<img align="left" alt="JavaScript" width="200px" src="https://user-images.githubusercontent.com/85294440/205290915-bc15e420-ac70-435a-b8b9-963f5504ea96.PNG"/>
+<img align="center" alt="JavaScript" width="200px" src="https://user-images.githubusercontent.com/85294440/205290819-d11d4e4b-0bfa-4cf6-ab24-c70a5597bc9c.PNG"/>
+<img align="center" alt="JavaScript" width="200px" src="https://user-images.githubusercontent.com/85294440/205290878-086fa189-fb6b-4236-8f45-3c3ecc5b3b4c.PNG"/>
+<img align="center" alt="JavaScript" width="200px" src="https://user-images.githubusercontent.com/85294440/205290915-bc15e420-ac70-435a-b8b9-963f5504ea96.PNG"/>
 <br>
 <br>
 <p>Новый пользователь попадает на страницу приветствия с возможностью оставить имя.</p>
